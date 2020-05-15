@@ -1,0 +1,79 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.joinLeaveConfig %}
+<div class="category-name">
+{{ DASHBOARD_WELCOMER }}
+</div>
+<div style="text-align: center;">
+<div  style="height: 300px; position: relative; display: inline-block;">
+<img src="{{ websiteUrl }}assets/img/loritta_welcomer.png" style="border-radius: 7px; height: 300px;">
+<div class="message-shake" style="bottom: 80px; left: 150px; position: absolute; background-color: white; padding: 2px; box-shadow: 0px 0px 3px #0000001a;">Welcome, <span class="discord-mention">@Wumpus</span>! <img class="inline-emoji" src="https://cdn.discordapp.com/emojis/417813932380520448.png?v=1"></div>
+</div>
+<style>
+@-webkit-keyframes welcome-pollux {
+	0% { transform: rotate(-3deg); }
+	50% { transform: rotate(3deg); }
+  100% { transform: rotate(-3deg); }
+}
+
+.message-shake {
+	-webkit-animation-name: welcome-pollux;
+	-webkit-animation-duration: 1.6s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: ease;
+}
+</style>
+<h2>{{ DASHBOARD_WELCOMER }}</h2>
+<p>Anuncie quem está entrando e saindo do seu servidor da maneira que você queria! Envie mensagens para novatos via mensagem direta com informações sobre o seu servidor para não encher o chat com informações repetidas e muito mais!</p>
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+<hr>
+<!-- Loritta Dashboard 1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="2080512288"
+     data-ad-format="auto"></ins>
+</div>
+<hr>
+{{ generateCheckbox(1, "isEnabled", DASHBOARD_ACTIVATE_MODULE, "", config.isEnabled, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+{{ generateCheckbox(6, "tellOnJoin", DASHBOARD_ENABLE_JOIN, "", config.tellOnJoin, true) }}
+<hr>
+{{ generateCheckbox(2, "tellOnRemove", DASHBOARD_ENABLE_LEAVE, "", config.tellOnLeave, true) }}
+<hr>
+{{ generateCheckbox(3, "tellOnBan", DASHBOARD_ENABLE_BAN, "", config.tellOnBan, true) }}
+<hr>
+{{ generateCheckbox(4, "tellOnPrivateJoin", DASHBOARD_ENABLE_PRIVATE, DASHBOARD_ENABLE_PRIVATE_SUB, config.tellOnPrivate, true) }}
+<hr>
+    <div class="flavourText">{{ DASHBOARD_JOIN_CHANNEL }}</div>
+	<select data-send-on-save="true" data-internal-name="channelJoinId" id="canalJoinId">
+	</select>
+	<hr>
+    <div class="flavourText">{{ DASHBOARD_LEAVE_CHANNEL }}</div>
+	<select data-send-on-save="true" data-internal-name="channelRemoveId" id="canalLeaveId">
+	</select>
+	<hr>
+<div class="flavourText">{{ DASHBOARD_JOIN_MESSAGE }}</div>
+<textarea data-send-on-save="true" data-internal-name="joinMessage" id="joinMessage" name="joinMessage">{{ serverConfig.joinLeaveConfig.joinMessage }}</textarea>
+<hr>
+<div class="flavourText">Deletar mensagem de entrada após... (Deixe em 0 para nunca deletar)</div>
+<input type="number" name="deleteJoinMessagesAfter" id="deleteJoinMessagesAfter" data-internal-name="deleteJoinMessagesAfter" data-send-on-save="true" value="0" min="0" max="60">
+<hr>
+<div class="flavourText">{{ DASHBOARD_LEAVE_MESSAGE }}</div>
+<textarea data-send-on-save="true" data-internal-name="removeMessage" id="leaveMessage" name="leaveMessage">{{ serverConfig.joinLeaveConfig.removeMessage }}</textarea>
+<hr>
+<div class="flavourText">Deletar mensagem de saída após... (Deixe em 0 para nunca deletar)</div>
+<input type="number" name="deleteLeaveMessagesAfter" id="deleteRemoveMessagesAfter" data-internal-name="deleteLeaveMessagesAfter" data-send-on-save="true" value="0" min="0" max="60">
+<hr>
+<div class="flavourText">{{ DASHBOARD_PRIVATE_MESSAGE }}</div>
+<textarea data-send-on-save="true" data-internal-name="joinPrivateMessage" id="joinPrivateMessage" name="privateMessage">{{ serverConfig.joinLeaveConfig.joinPrivateMessage }}</textarea>
+<hr>
+<div class="flavourText">{{ DASHBOARD_LEAVE_BAN_MESSAGE }}</div>
+<textarea data-send-on-save="true" data-internal-name="bannedMessage" id="banMessage" name="banMessage">{{ serverConfig.joinLeaveConfig.bannedMessage }}</textarea>
+</div>
+<hr>
+<button id="save-button" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

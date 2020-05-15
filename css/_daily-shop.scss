@@ -1,0 +1,221 @@
+#daily-shop {
+    .shop-reset-timer {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        color:#1996ed;
+
+        .horizontal-line {
+            flex-grow: 1;
+            background-color: #1996ed;
+            height: 2px;
+            margin-right: 10px;
+        }
+
+        .stopwatch {
+            margin-right: 10px;
+            font-size: 2em;
+        }
+
+        .shop-timer {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+            .shop-timer-date {
+                font-size: 2.25em;
+                text-transform: uppercase;
+            }
+
+            .shop-timer-subtitle {
+                text-transform: lowercase;
+                font-size: 1.25em;
+            }
+        }
+    }
+}
+
+.loritta-items-wrapper {
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    .shop-item-entry {
+        margin: 0.25em;
+        box-shadow: 1px 1px 5px #00000059;
+        border-radius: 7px;
+        padding: 0.25em;
+        cursor: pointer;
+
+        &.rarity-common {
+            background: linear-gradient(135deg, #e7e7e7, #939393);
+        }
+        &.rarity-uncommon {
+            background: linear-gradient(135deg, #2cff00, #0c8d08);
+        }
+        &.rarity-rare {
+            background: linear-gradient(135deg, #009fff, #003e80);
+        }
+        &.rarity-epic {
+            background: linear-gradient(135deg, #b03cff, #5c045c);
+        }
+        &.rarity-legendary {
+            background: linear-gradient(135deg, #fadf4b, #d3b200);
+        }
+
+        .item-entry-information {
+            position: absolute;
+            color: white;
+            text-align: center;
+            bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
+            background-color: #000000a1;
+            padding: 0.5em;
+            pointer-events: none;
+
+            .item-entry-title {
+                &.rarity-common {
+                    background: linear-gradient(#fff, #dfdfdf);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                &.rarity-uncommon {
+                    background: linear-gradient(#fff, #b7ff86);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                &.rarity-rare {
+                    background: linear-gradient(#fff, #aeddff);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                &.rarity-epic {
+                    background: linear-gradient(#fff, #e6aeff);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                &.rarity-legendary {
+                    background: linear-gradient(#fff, #fff2ae);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                font-size: 2em;
+                line-height: 1.3em;
+                font-weight: 1000;
+            }
+
+            .item-entry-type {
+                opacity: 0.5;
+                font-size: 1em;
+                line-height: 1em;
+                font-weight: 500;
+            }
+        }
+
+        .item-new-tag {
+            top: -10px;
+            left: -10px;
+            position: absolute;
+            font-size: 2em;
+            text-transform: uppercase;
+            background-color: #ff4b4b;
+            padding: 6px;
+            border-radius: 7px;
+            font-weight: 1000;
+            color: white;
+            box-shadow: 0px 0px 10px #00000054;
+            border: 3px solid white;
+        }
+
+        .item-user-information {
+            background-color: black;
+            line-height: 1.1em;
+            font-size: 1.1em;
+            z-index: 5;
+            position: relative;
+            text-align: center;
+            color: white;
+            padding: 0.25em;
+            font-weight: 700;
+        }
+    }
+}
+
+.canvas-background-preview {
+    transition-duration: 0.7s;
+    transform: scale(1);
+}
+      
+.canvas-background-preview:hover {
+    transform: scale(1.1);
+    transition-duration: 0.7s;
+}
+    
+.canvas-preview {
+    transition-duration: 0.3s;
+    height: auto;
+    transform: rotateY(-10deg);
+    margin-bottom: 50px;
+    box-shadow: 0px 0px 10px #0009;
+    max-width: 100%;
+}
+    
+.canvas-preview:hover {
+    opacity: 0;
+    transition-duration: 0.3s;
+}
+
+.canvas-preview-only-bg {
+    position: absolute;
+    height: auto;
+    transform: rotateY(-10deg);
+    margin-bottom: 50px;
+    box-shadow: 0px 0px 10px #0009;
+    max-width: 100%;
+}
+
+.canvas-preview-wrapper {
+    perspective: 500px;
+    position: relative;
+}
+
+.item-shop-preview {
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;
+    }
+
+    display: flex;
+}
+
+.loritta-items-list {
+    @media screen and (max-width: 1024px) {
+        flex-direction: column-reverse;
+    }
+    
+    display: flex;
+}
+
+.loritta-items-sidebar {
+    @media screen and (max-width: 1024px) {
+        width: 100%;
+        margin: auto;
+    }
+
+    input {
+        width: 100%;
+    }
+    
+    width: 40vw;
+    margin-left: auto;
+    max-width: 350px;
+}

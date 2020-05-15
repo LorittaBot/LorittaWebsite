@@ -1,0 +1,40 @@
+{% extends 'extras.html' %}
+{% block subtitle %}
+Usuários banidos
+{% endblock %}
+{% block rightSidebarContents %}
+<div class="category-name">
+Usuários banidos
+</div>
+<p>Quando uma pessoa não segue os <a href="{{ loriUrl }}privacy">termos de uso</a> da Loritta, ela poderá ser banida de usar a Loritta <b>permanentemente</b>.</p>
+<p>Existem vários motivos de alguém ser banido de usar ela, banimentos deste tipo são raros, mas não teremos piedade de dar tais banidos para pessoas que merecem, os motivos comuns de alguém levar banimento na Loritta são:</p>
+<ul>
+<li>Entrar no servidor de suporte apenas para ficar xingando e ameaçando a Loritta.</li>
+<li>Prejudicar a imagem da Loritta em outros servidores.</li>
+<li>Quebrar os termos de uso do Discord.</li>
+<li>Ofender a equipe da Loritta.</li>
+<li>Raiding.</li>
+</ul>
+<p>Lembre-se, <b>deixar você usar a Loritta não é um direito, e sim um privilégio</b>.</p>
+<hr>
+<h2>Restrições após ser banido</h2>
+<p>Após você ser banido...</p>
+<ul>
+<li>Você será proibido de usar qualquer comando da Loritta, ao tentar usar, ela irá te avisar que você está banido e depois irá te ignorar.</li>
+<li>Se você é dono de um servidor que possui a Loritta, ela irá sair do seu servidor.</li>
+</ul>
+{# <hr>
+<p>Caso você tenha se arrependido, converse com <code>MrPowerGamerBR#4185</code> para tentar ser desbanido, dependendo do motivo do banimento, você poderá ser desbanido, mas caso for algo mais grave, você não será desbanido.</p>
+<p>Usuários com o nome "???" são usuários que não possuem servidores compartilhados com ela.</p>
+<table style="width: 100%;" class="fancy-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Motivo</th>
+        </tr>
+		
+		{{ tableContents | raw }}
+    </thead>
+</table> #}
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

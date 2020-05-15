@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block container %}
+<style>
+#tictactoeBox {
+background-color: rgb(53, 56, 60);
+box-shadow: 0px 0px 15px #0003;
+border-radius: 7px;
+width: 750px;
+height: 500px;
+overflow: hidden;
+}
+
+#screenWrapper {
+display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#tictactoeSidebar {
+background-color: rgb(73, 75, 79);
+float: left;
+width: 30%;
+height: 100%;
+color: rgb(182, 183, 185);
+box-sizing: border-box;
+padding: 3px;
+width: 250px;
+}
+
+#tictactoeMain {
+float: right;
+width: 500px;
+height: 100%;
+}
+
+.sidebarPlayerAvatar {
+border-radius: 100%;
+width: 48px;
+}
+
+.sidebarPlayerName {
+bottom: 23px;
+position: absolute;
+font-weight: 600;
+text-overflow: ellipsis;
+overflow: hidden;
+width: 190px;
+padding-left: 5px;
+}
+
+.tictactoeCell {
+text-align: center;
+width: 166px;
+height: 166px;
+}
+
+.sidebarPlayerId {
+padding-left: 5px;
+position: absolute;
+font-size: 0.75em;
+top: 26px;
+}
+
+.tictactoeCell img {
+width: 128px;
+}
+
+#followMouse {
+position: fixed;
+width: 64px;
+pointer-events: none;
+}
+
+#brightFlash {
+position: fixed;
+height: 100vh;
+width: 100vw;
+pointer-events: none;
+background-color: white;
+z-index: 1000;
+}
+
+#loriHand {
+position: fixed;
+z-index: 3;
+width: 500px;
+}
+</style>
+<img id="loriHand" style="left: 100vw; top: 100vh;" src="https://loritta.website/assets/img/lori_hand.png?v2">
+<img id="followMouse">
+<div id="brightFlash" style="opacity: 0;"></div>
+<div id="screenWrapper" style="min-height: 100vh; background-color: rgb(40, 43, 48);">
+<div id="tictactoeBox">
+<div id="tictactoeSidebar">
+<div id="player1Information" style="position: relative; visibility: hidden;">
+<img class="sidebarPlayerAvatar" id="player1Avatar" src="https://cdn.discordapp.com/avatars/123170274651668480/dfd9fcdc6e3a447fa08e69ad46a9ed55.png?size=2048">
+<span class="sidebarPlayerName" id="player1Name">MrPowerGamerBR#4185</span>
+<span class="sidebarPlayerId" id="player1Id">123170274651668480</span>
+</div>
+<div id="player2Information" style="position: relative; visibility: hidden;">
+<img class="sidebarPlayerAvatar" id="player2Avatar" src="https://cdn.discordapp.com/avatars/123170274651668480/dfd9fcdc6e3a447fa08e69ad46a9ed55.png?size=2048">
+<span class="sidebarPlayerName" id="player2Name">MrPowerGamerBR#4185</span>
+<span class="sidebarPlayerId" id="player2Id">123170274651668480</span>
+</div>
+<hr>
+<div style="text-align: center;">
+<button class="button-discord button-discord-info pure-button" id="connect-button" type="button"><i class="fas fa-plug"></i> Conectar a Sala</button> 
+<p id="howdy" style="word-break: break-all;">...</p>
+</div>
+</div>
+<div id="tictactoeMain">
+<table>
+  <tr>
+    <td class="tictactoeCell" id="cell-0">---</td>
+    <td class="tictactoeCell" style="border-left: 2px solid rgb(114, 137, 218);" id="cell-1">---</td>
+    <td class="tictactoeCell" style="border-left: 2px solid rgb(114, 137, 218);" id="cell-2">---</td>
+  </tr>
+  <tr>
+    <td class="tictactoeCell" style="border-top: 2px solid rgb(114, 137, 218);" id="cell-3">---</td>
+    <td class="tictactoeCell" style="border-left: 2px solid rgb(114, 137, 218); border-top: 2px solid rgb(114, 137, 218);" id="cell-4">---</td>
+    <td class="tictactoeCell" style="border-left: 2px solid rgb(114, 137, 218); border-top: 2px solid rgb(114, 137, 218);" id="cell-5">---</td>
+  </tr>
+  <tr>
+    <td class="tictactoeCell" style="border-top: 2px solid rgb(114, 137, 218);" id="cell-6">---</td>
+    <td class="tictactoeCell" style="border-top: 2px solid rgb(114, 137, 218); border-left: 2px solid rgb(114, 137, 218);" id="cell-7">---</td>
+    <td class="tictactoeCell" style="border-left: 2px solid rgb(114, 137, 218); border-top: 2px solid rgb(114, 137, 218);" id="cell-8">---</td>
+  </tr>
+</table>
+</div>
+<script type="text/javascript" src="{{ websiteUrl }}assets/js/LoriTicTacToe.js?epoch={{ epochMillis }}.js"></script>
+<script>
+LoriTicTacToe.TicTacToe.start()
+</script>
+</div>
+{% endblock %}

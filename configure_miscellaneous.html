@@ -1,0 +1,27 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.miscellaneousConfig %}
+<div class="category-name">
+Miscelânea
+</div>
+<div style="text-align: center;">
+<img src="{{ websiteUrl }}assets/img/loritta_money_discord.png" style="border-radius: 7px; height: 300px;">
+<h2>Miscelânea</h2>
+<p>Funções aleatórias, toscas, diferentes e coisas que não se encaixam em uma categoria específica!</p>
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+<hr>
+<!-- Loritta Dashboard 1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="2080512288"
+     data-ad-format="auto"></ins>
+</div>
+<hr>
+{{ generateCheckbox(1, "enableBomDiaECia", "Bom Dia & Cia", "Ativa o Bom Dia & Cia no seu Servidor, quando o canal de texto do seu servidor estiver ativo, eu terei a chance de anunciar um 4002-8922 no seu servidor! Mas corra, já que eu anuncio em todos os servidores e apenas o primeiro a responder irá ganhar!", config.enableBomDiaECia, true) }}
+<hr>
+{{ generateCheckbox(2, "enableQuirky", "Modo Tosco", "Me deixe ser mais ativa no seu servidor! Ao ativar, eu irei fazer coisas diferentes... como falar \"First!\" quando você cria um novo canal de texto, e outras coisas toscas.", config.enableQuirky, true) }}
+<hr>
+<button id="save-button" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

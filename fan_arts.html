@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block metaproperty %}
+<meta property="og:site_name" content="Loritta">
+<meta property="og:description" content="Sabia que existem pessoas que gostam de me desenhar só porque eu ajudei no servidor delas? Então eu resolvi colocar nesta página todas as fan arts que fizeram de mim! Obrigada a todos que fizeram estas fan arts, eu fico muito agradecida!">
+<meta property="og:title" content="Fan Arts">
+<meta property="og:image" content="{{ websiteUrl }}/assets/img/lobby_mural1.png">
+<meta property="og:ttl" content="600">
+<meta property="og:image:width" content="320">
+<meta property="twitter:site" content="loritta">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="Fan Arts">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#00c1df"> 
+{% endblock %}
+{% block subtitle %}
+Fan Arts
+{% endblock %}
+{% block afterNavbar %}
+<style>
+#left-sidebar {
+transition: 0.3s;
+}
+
+#right-sidebar {
+transition: 0.3s;
+}
+
+.fancy-table td {
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.fancy-table tr {
+	height: 40px;
+}
+
+.fancy-table tbody {
+	border-top: 1px solid #e7e9ea;
+}
+
+.fancy-table th {
+	font-weight: 600;
+	color: #7289da;
+}
+
+#left-sidebar .item {
+    display: flex;
+    align-items: center;
+}
+
+#right-sidebar .artist-profile {
+}
+
+#right-sidebar .artist-header {
+    display: flex;
+    align-items: center;
+    font-size: 50px;
+}
+
+#right-sidebar .artist-name {
+}
+</style>
+<div style="height: 50.05px"></div>
+<div id="server-configuration">
+<div id="left-sidebar">
+<div class="discord-scroller" id="left-sidebar-contents"> 
+	<div id="left-sidebar-entries">
+	<div class="server-name">
+	Fan Arts
+	</div>
+</div>
+</div>
+</div>
+<div id="right-sidebar">
+<div id="right-sidebar-contents">
+{% block rightSidebarContents %}
+<div class="category-name">
+Extras
+</div>
+<div id="fan-arts-wrapper">
+</div>
+<div style="text-align: center;">
+<img src="https://loritta.website/assets/img/loritta_star.png" height="350">
+</div>
+<p>Wow, extras! Aqui você irá encontrar várias coisas "extras" relacionadas a Loritta, como FAQs (perguntas frequentemente respondidas), tutoriais, curiosidade, coisas especiais e muito mais!</p>
+<p>Não sabe por onde começar? Se você ainda não conhece como funciona a plataforma de chat Discord, recomendamos que você <a href="{{ loriUrl }}extras/about-discord">leia sobre ele</a> primeiro. Após ler e entender o que é Discord, você poderá ler nosso <a href="{{ loriUrl }}extras/about-loritta-bot">FAQ sobre a Loritta (Bot)</a>, para você tirar algumas dúvidas que você pode ter sobre ela. Ficou interessado e quer saber mais sobre a Loritta? Então leia o nosso <a href="{{ loriUrl }}extras/about-loritta-character">FAQ sobre a Loritta (Personagem)</a>!
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}
+</div>
+</div>
+<br style="clear: both" />
+</div>
+</div>
+</div>
+<div id="artists-json" class="totallyHidden">{{ artists_json|raw }}</div>
+<script>
+window['loritta-parent-spicy-morenitta'].net.perfectdreams.spicymorenitta.views.FanArtsView.start()
+</script>
+{% endblock %}
+{% block afterScripts %}
+<script>
+// Example:
+onViewport(".animate-on-scroll-left", "animated fadeInLeft", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-right", "animated fadeInRight", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-up", "animated fadeInUp", 0, function(el) {
+  el.attr("src", el.attr("data-src"))
+  el.removeClass("is-invisible");
+});
+
+onViewport(".fan-art-box", "animated fadeInUp", 250, function(el) {
+  el.removeClass("is-invisible");
+});
+</script>
+{% endblock %}

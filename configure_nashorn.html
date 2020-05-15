@@ -1,0 +1,359 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+<style>
+    .command-editor {
+        position: relative !important;
+        border: 1px solid lightgray;
+        margin: auto;
+        height: 300px;
+        width: 100%;
+    }
+</style>
+<script src="{{ websiteUrl }}assets/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<div class="category-name">
+{{ DASHBOARD_JavaScriptCommands }}
+</div>
+{# <div class="category-name">
+Comandos em JavaScript
+</div> #}
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-3-4">
+<div id="communityTitle" class="toggleSubText">
+Precisando de um sistema para dar cargos quando alguém usar um comando? Você teve uma ideia legal para um comando para o seu servidor? Então crie um comando você mesmo!
+</br>
+</br>
+Você pode criar seus próprios comandos em JavaScript usando a minha API, para saber mais sobre ela e ver exemplos de comandos que você pode criar usando ela, clique <a href="https://loritta.website/loriapi" target="_blank">aqui</a>!
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-1-4">
+<button onclick="addEntryWithModal()" style="float: right;" class="button-discord button-discord-info pure-button">{{ DASHBOARD_AddCommand }}</button>
+</div>
+</div>
+<hr>
+<div id="custom-config-entries">
+</div>
+<hr>
+<button onclick="transformEntriesToJson()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<div class="totallyHidden">		
+<div id="custom-config-entry-template" class="config-entry">
+<div class="discord-generic-entry">
+<img class="entry-icon" src="{{ websiteUrl }}assets/img/file_code.png" style="width: 6%; height: auto; float: left;">
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-18-24">
+<div style="margin-left: 10px; margin-right: 10px;">
+<div class="entry-title">...</div>
+<div class="entry-channel toggleSubText">...</div>
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-6-24 vertically-centered-content">
+<button class="entry-delete button-discord button-discord-edit pure-button" style="margin-right: 8px; min-width: 0px;"><i class="fas fa-trash" aria-hidden="true"></i></button>
+<button class="entry-edit button-discord button-discord-edit pure-button">{{ DASHBOARD_EditButton }}</button>
+</div>
+</div>
+</div>
+</div>
+<div class="tingle-demo add-new-entry-modal">
+<div class="test">
+<div class="category-name">{{ DASHBOARD_AddCommand }}</div>
+	<div class="flavourText">{{ DASHBOARD_Command }}</div>
+	<input style="width: 100%;" class="entry-command-label" data-internal-id="inviteUrl" placeholder="loritta" type="text">
+	<div class="entry-info">
+	<div class="flavourText">{{ DASHBOARD_Code }}</div>
+	<pre class="command-editor">
+if (getArgument(0) == "fofa") { // Se o argumento 0 (ou seja, o primeiro argumento) for "fofa"...
+	reply("ownt~ <:eu_te_moido:366047906689581085>");
+	return;
+}
+reply("Olá, eu me chamo Loritta!");
+	</pre>
+	</div>
+</div>
+</div>
+<div class="tingle-demo delete-entry-modal">
+<div class="test">
+<div class="category-name">{{ DASHBOARD_DeleteCommand }}</div>
+	{{ DASHBOARD_DeleteAreYouSure }}
+</div>
+</div>
+<script id="entry-hidden-data" type="text/template">
+{{ commands|raw }}
+</script>
+</div>
+<script>
+var typingTimer;
+var currentEditor;
+
+function transformEntriesToJson() {
+	var configAttr = {"type":"{{ saveType }}"}
+	
+	/* $("body").find("[data-internal-name]").each(function( index ) {
+		var value = $(this).val();
+		if ($(this).attr("type") == "checkbox") {
+			value = $(this).is(':checked')
+		}
+		configAttr[$(this).data("internal-name")] = value
+	}); */
+
+	var entries = [];
+	$(".config-entry").each(function( index ) {
+		var entry = {};
+		
+		if ($(this).attr("id") !== "custom-config-entry-template") {
+			entry["jsLabel"] = $(this).attr("data-command-label");
+			entry["javaScript"] = $(this).attr("data-command-code");
+			entries.push(entry);
+		}
+	});
+	
+	configAttr["entries"] = entries;
+	
+	console.log(configAttr);
+	
+	var json = JSON.stringify(configAttr);
+	
+	sendJsonToServer(json);
+}
+
+function getContentAsJson(url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	
+	xhr.send();
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			console.log(xhr.responseText);
+			var json = JSON.parse(xhr.responseText)
+			callback(json);
+		}
+	}
+}
+
+function addEntryWithModal() {
+	var guid = uuidv4();
+	
+    var modal = new tingle.modal({
+        closeMethods: [],
+        footer: true
+		});
+		
+    modal.addFooterBtn('Salvar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		var element = $("#editing-" + guid);
+		var newCode = currentEditor.getSession().getValue()
+		var commandLabel = element.find(".entry-command-label").val();
+		addNewConfigEntryData(commandLabel, newCode, guid)
+		modal.close();
+    });
+
+	modal.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		modal.close();
+	});
+	
+	var cloned = $(".add-new-entry-modal").clone()
+	cloned.children().attr("id", "editing-" + guid);
+	cloned.children().attr("data-guid", guid);
+	
+    modal.setContent(cloned.html());
+	modal.open();
+	
+	$("#editing-" + guid).find(".command-editor").attr("id", "command-" + guid)
+    var editor = ace.edit("command-" + guid);
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/javascript");
+	// editor.setValue($("#editing-" + guid).attr("data-command-code"))
+    var input = $("#editing-" + guid).find(".command-editor");
+	currentEditor = editor;
+	
+	addInputEvent($("#editing-" + guid));
+}
+
+function editEntry(guid) {
+	if ($("#" + guid).attr("data-is-ready") == "false") {
+		return;
+	}
+    var modal = new tingle.modal({
+        closeMethods: [],
+        footer: true
+	});
+		
+    modal.addFooterBtn('Salvar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		var element = $("#editing-" + guid);
+		var newCode = editor.getSession().getValue()
+		var commandLabel = element.find(".entry-command-label").val();
+		setChannelData($("#" + guid), commandLabel, newCode, guid)
+		modal.close();
+    });
+
+	modal.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		modal.close();
+	});
+	
+	var entry = $("#" + guid)
+	var cloned = $(".add-new-entry-modal").clone()
+	cloned.children().attr("id", "editing-" + guid);
+	cloned.children().attr("data-guid", guid);
+	var code = entry.attr("data-command-code");
+    modal.setContent(cloned.html());
+	modal.open();
+
+	var modalElement = $("#editing-" + guid)
+	modalElement.find(".entry-command-label").val(entry.attr("data-command-label"))
+	$("#editing-" + guid).find(".command-editor").attr("id", "command-" + guid)
+    var editor = ace.edit("command-" + guid);
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/javascript");
+	editor.setValue(entry.attr("data-command-code"))
+    var input = $("#editing-" + guid).find(".command-editor");
+	currentEditor = editor;
+	
+	addInputEvent($("#editing-" + guid));
+}
+
+function deleteEntry(guid) {	
+    var modal = new tingle.modal({
+        closeMethods: [],
+        footer: true
+	});
+		
+    modal.addFooterBtn('Deletar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		var element = $("#" + guid);
+		element.remove();
+		modal.close();
+    });
+
+	modal.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		modal.close();
+	});
+	var cloned = $(".delete-entry-modal").clone()
+    modal.setContent(cloned.html());
+	modal.open();
+}
+
+function addInputEvent(element) {
+	element.find(".entry-url").on('input', function() {
+		element.find(".entry-info").addClass("blurSection");
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(function() { doneTyping(element) }, 1500);
+	});
+}
+
+function doneTyping(element) {
+	element.attr("data-is-ready", false)
+	element.find(".entry-error").addClass("totallyHidden");
+	var json = getContentAsJson("{{ websiteUrl }}api/v1/get_feed_title?feedLink=" + encodeURI(element.find(".entry-url").val()), function(json) {
+		if (json["raw"] != null || json["error"] != null) {
+			element.find(".entry-info").removeClass("noBlur")
+			element.find(".entry-info").addClass("blurSection")
+			element.find(".entry-error").removeClass("totallyHidden");
+			element.attr("data-is-ready", false)
+			return;
+		}
+		element.find(".entry-info").removeClass("blurSection")
+		element.find(".entry-info").addClass("noBlur")
+		element.find(".entry-title").text(json["title"])
+		// element.find(".entry-icon").attr("src", json["avatarUrl"])
+		element.attr("data-entry-title", json["title"])
+		// element.attr("data-entry-icon", json["avatarUrl"])
+		// element.attr("data-entry-channel-id", json["channelId"])
+		element.attr("data-entry-url", element.find(".entry-url").val())
+		element.attr("data-is-ready", true)
+	});
+}
+
+function addNewConfigEntry(commandName, json, guid) {
+	console.log(commandName + " ~ " + guid);
+	var cloned = $("#custom-config-entry-template").clone();
+	// cloned.find(".entry-channel").text(channelName);
+	cloned.attr("id", guid);
+	// cloned.attr("data-entry-description", description);
+	// cloned.attr("data-entry-url", commandName);
+	// cloned.attr("data-entry-repost-id", textChannelId);
+	cloned.attr("data-command-code", json["javaScript"])
+	cloned.attr("data-command-label", json["jsLabel"])
+	cloned.attr("data-is-ready", true)
+	cloned.find(".entry-edit").attr("onclick", "editEntry('" + guid + "');")
+	cloned.find(".entry-delete").attr("onclick", "deleteEntry('" + guid + "');")
+	cloned.find(".entry-title").html(commandName)
+	$("#custom-config-entries").append(cloned);
+}
+
+function addNewConfigEntryData(commandLabel, commandCode, guid) {
+	var cloned = $("#custom-config-entry-template").clone();
+	cloned.attr("id", guid);
+	setChannelData(cloned, commandLabel, commandCode, guid);
+	
+	$("#custom-config-entries").append(cloned);
+}
+
+function setChannelData(cloned, commandLabel, commandCode, guid) {
+	console.log(commandLabel);
+	cloned.attr("id", guid);
+	cloned.attr("data-command-code", commandCode)
+	cloned.attr("data-command-label", commandLabel)
+	cloned.find(".entry-title").html(commandLabel)
+	cloned.find(".entry-edit").attr("onclick", "editEntry('" + guid + "');")
+	cloned.find(".entry-delete").attr("onclick", "deleteEntry('" + guid + "');")
+	cloned.attr("data-is-ready", true)
+}
+
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  )
+}
+
+var jsonFeed = JSON.parse($('#entry-hidden-data').html())
+console.log(jsonFeed);
+jQuery.each(jsonFeed, function() {
+var guid = uuidv4();
+console.log(this);
+addNewConfigEntry(this["jsLabel"], this, guid);
+});
+
+
+$("#cmn-toggle-1").click(function(e) {
+	applyBlur()
+});
+
+$("#cmn-toggle-3").click(function(e) {
+	applyBlur2()
+});
+
+function applyBlur() {
+  var e = $("#hiddenIfDisabled");
+  if ($('#cmn-toggle-1').is(':checked')) {
+	e.removeClass();
+	e.addClass("noBlur");
+  } else {
+    e.removeClass();
+	e.addClass("blurSection");
+  }
+}
+
+function applyBlur2() {
+  var e = $("#hiddenIfDisabled2");
+  if ($('#cmn-toggle-3').is(':checked')) {
+	e.removeClass();
+	e.addClass("noBlur");
+  } else {
+    e.removeClass();
+	e.addClass("blurSection");
+  }
+}
+
+applyBlur();
+applyBlur2();
+
+function htmldecode(s){
+    window.HTML_ESC_MAP = {
+    "nbsp":" ","iexcl":"Â¡","cent":"Â¢","pound":"Â£","curren":"Â¤","yen":"Â¥","brvbar":"Â¦","sect":"Â§","uml":"Â¨","copy":"Â©","ordf":"Âª","laquo":"Â«","not":"Â¬","reg":"Â®","macr":"Â¯","deg":"Â°","plusmn":"Â±","sup2":"Â²","sup3":"Â³","acute":"Â´","micro":"Âµ","para":"Â¶","middot":"Â·","cedil":"Â¸","sup1":"Â¹","ordm":"Âº","raquo":"Â»","frac14":"Â¼","frac12":"Â½","frac34":"Â¾","iquest":"Â¿","Agrave":"Ã€","Aacute":"Ã","Acirc":"Ã‚","Atilde":"Ãƒ","Auml":"Ã„","Aring":"Ã…","AElig":"Ã†","Ccedil":"Ã‡","Egrave":"Ãˆ","Eacute":"Ã‰","Ecirc":"ÃŠ","Euml":"Ã‹","Igrave":"ÃŒ","Iacute":"Ã","Icirc":"ÃŽ","Iuml":"Ã","ETH":"Ã","Ntilde":"Ã‘","Ograve":"Ã’","Oacute":"Ã“","Ocirc":"Ã”","Otilde":"Ã•","Ouml":"Ã–","times":"Ã—","Oslash":"Ã˜","Ugrave":"Ã™","Uacute":"Ãš","Ucirc":"Ã›","Uuml":"Ãœ","Yacute":"Ã","THORN":"Ãž","szlig":"ÃŸ","agrave":"Ã ","aacute":"Ã¡","acirc":"Ã¢","atilde":"Ã£","auml":"Ã¤","aring":"Ã¥","aelig":"Ã¦","ccedil":"Ã§","egrave":"Ã¨","eacute":"Ã©","ecirc":"Ãª","euml":"Ã«","igrave":"Ã¬","iacute":"Ã­","icirc":"Ã®","iuml":"Ã¯","eth":"Ã°","ntilde":"Ã±","ograve":"Ã²","oacute":"Ã³","ocirc":"Ã´","otilde":"Ãµ","ouml":"Ã¶","divide":"Ã·","oslash":"Ã¸","ugrave":"Ã¹","uacute":"Ãº","ucirc":"Ã»","uuml":"Ã¼","yacute":"Ã½","thorn":"Ã¾","yuml":"Ã¿","fnof":"Æ’","Alpha":"Î‘","Beta":"Î’","Gamma":"Î“","Delta":"Î”","Epsilon":"Î•","Zeta":"Î–","Eta":"Î—","Theta":"Î˜","Iota":"Î™","Kappa":"Îš","Lambda":"Î›","Mu":"Îœ","Nu":"Î","Xi":"Îž","Omicron":"ÎŸ","Pi":"Î ","Rho":"Î¡","Sigma":"Î£","Tau":"Î¤","Upsilon":"Î¥","Phi":"Î¦","Chi":"Î§","Psi":"Î¨","Omega":"Î©","alpha":"Î±","beta":"Î²","gamma":"Î³","delta":"Î´","epsilon":"Îµ","zeta":"Î¶","eta":"Î·","theta":"Î¸","iota":"Î¹","kappa":"Îº","lambda":"Î»","mu":"Î¼","nu":"Î½","xi":"Î¾","omicron":"Î¿","pi":"Ï€","rho":"Ï","sigmaf":"Ï‚","sigma":"Ïƒ","tau":"Ï„","upsilon":"Ï…","phi":"Ï†","chi":"Ï‡","psi":"Ïˆ","omega":"Ï‰","thetasym":"Ï‘","upsih":"Ï’","piv":"Ï–","bull":"â€¢","hellip":"â€¦","prime":"â€²","Prime":"â€³","oline":"â€¾","frasl":"â„","weierp":"â„˜","image":"â„‘","real":"â„œ","trade":"â„¢","alefsym":"â„µ","larr":"â†","uarr":"â†‘","rarr":"â†’","darr":"â†“","harr":"â†”","crarr":"â†µ","lArr":"â‡","uArr":"â‡‘","rArr":"â‡’","dArr":"â‡“","hArr":"â‡”","forall":"âˆ€","part":"âˆ‚","exist":"âˆƒ","empty":"âˆ…","nabla":"âˆ‡","isin":"âˆˆ","notin":"âˆ‰","ni":"âˆ‹","prod":"âˆ","sum":"âˆ‘","minus":"âˆ’","lowast":"âˆ—","radic":"âˆš","prop":"âˆ","infin":"âˆž","ang":"âˆ ","and":"âˆ§","or":"âˆ¨","cap":"âˆ©","cup":"âˆª","int":"âˆ«","there4":"âˆ´","sim":"âˆ¼","cong":"â‰…","asymp":"â‰ˆ","ne":"â‰ ","equiv":"â‰¡","le":"â‰¤","ge":"â‰¥","sub":"âŠ‚","sup":"âŠƒ","nsub":"âŠ„","sube":"âŠ†","supe":"âŠ‡","oplus":"âŠ•","otimes":"âŠ—","perp":"âŠ¥","sdot":"â‹…","lceil":"âŒˆ","rceil":"âŒ‰","lfloor":"âŒŠ","rfloor":"âŒ‹","lang":"âŒ©","rang":"âŒª","loz":"â—Š","spades":"â™ ","clubs":"â™£","hearts":"â™¥","diams":"â™¦","\"":"quot","amp":"&","lt":"<","gt":">","OElig":"Å’","oelig":"Å“","Scaron":"Å ","scaron":"Å¡","Yuml":"Å¸","circ":"Ë†","tilde":"Ëœ","ndash":"â€“","mdash":"â€”","lsquo":"â€˜","rsquo":"â€™","sbquo":"â€š","ldquo":"â€œ","rdquo":"â€","bdquo":"â€ž","dagger":"â€ ","Dagger":"â€¡","permil":"â€°","lsaquo":"â€¹","rsaquo":"â€º","euro":"â‚¬"};
+    if(!window.HTML_ESC_MAP_EXP)
+        window.HTML_ESC_MAP_EXP = new RegExp("&("+Object.keys(HTML_ESC_MAP).join("|")+");","g");
+    return s?s.replace(window.HTML_ESC_MAP_EXP,function(x){
+        return HTML_ESC_MAP[x.substring(1,x.length-1)]||x;
+    }):s;
+}
+</script>
+{% endblock %}

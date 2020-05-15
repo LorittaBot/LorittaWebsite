@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+Painel de Controle
+{% endblock %}
+{% block afterNavbar %}
+<script>
+	document.querySelector("#container").style.overflow = "hidden"; // hack porque o chrome gosta de dar overflow
+</script>
+<div id="content">
+<script>
+var guildId = "{{ guild.id }}"
+</script>
+{% macro generateCheckbox(index, internalName, mainText, subText, isEnabled, needsToBeSaved) %}
+<div class="toggleable-wrapper">
+    <div class="information">
+		{{ mainText }}
+
+		{% if subText|length > 0 %}<div class="sub-text">{{ subText | raw }}</div>{% endif %}
+	</div>
+	<label class="switch" for="cmn-toggle-{{ index }}">
+		<input type="checkbox" data-internal-name="{{ internalName }}" value="true" {% if needsToBeSaved == true %}data-send-on-save="true"{% endif %} {% if isEnabled == true %}checked{% endif %} id="cmn-toggle-{{ index }}" type="checkbox" />
+		<div class="slider round"></div>
+	</label>
+</div>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endmacro %}
+
+<div style="height: 46px" id="dummy-navbar"></div>
+<div id="server-configuration">
+<div id="left-sidebar">
+<div class="discord-scroller" id="left-sidebar-contents"> 
+        <div style="text-align: center;">
+	<img src="{{ guild.iconUrl }}" width="128" style="border-radius: 999999px;">
+        </div>
+	<div class="server-name">
+	{{ guild.getName }}
+	</div>
+	<div id="left-sidebar-entries">
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure" data-enable-link-preload="true"><div class="item {% if saveType == "default" %}selected-item{% endif %}">
+	<i class="fa fa-cogs" aria-hidden="true"></i> {{ modules_sectionNames_general }}
+	</div></a>
+	{# <a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/serverlist"><div class="item {% if saveType == "partner" %}selected-item{% endif %}">
+	<i class="fas fa-share-square"></i> Lori's Server List
+	</div></a> #}
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/moderation" data-enable-link-preload="true"><div class="item {% if saveType == "moderation" %}selected-item{% endif %}">
+	<i class="fas fa-exclamation-circle" aria-hidden="true"></i> {{ modules_sectionNames_moderation }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/commands" data-enable-link-preload="true"><div class="item {% if saveType == "vanilla_commands" %}selected-item{% endif %}">
+	<i class="fa fa-terminal" aria-hidden="true"></i> {{ modules_sectionNames_commands }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/permissions" data-enable-link-preload="true"><div class="item {% if saveType == "permissions" %}selected-item{% endif %}">
+	<i class="fa fa-address-card" aria-hidden="true"></i> {{ modules_sectionNames_permissions }}
+	</div></a>
+	{% if environment.name == "CANARY" %}
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/textchannels"><div class="item {% if saveType == "text_channels" %}selected-item{% endif %}">
+	<i class="fa fa-hashtag" aria-hidden="true"></i> {{ modules_sectionNames_textChannels }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/voicechannels"><div class="item {% if saveType == "voice_channels" %}selected-item{% endif %}">
+	<i class="fa fa-microphone" aria-hidden="true"></i> {{ modules_sectionNames_voiceChannels }}
+	</div></a>
+	{% endif %}
+	<hr>
+	<div class="server-name">
+	{{ DASHBOARD_Notifications }}
+	</div>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/welcomer" data-enable-link-preload="true"><div class="item {% if saveType == "welcomer" %}selected-item{% endif %}">
+	<i class="fa fa-sign-in-alt" aria-hidden="true"></i> {{ modules_sectionNames_welcomer }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/event-log" data-enable-link-preload="true"><div class="item {% if saveType == "event_log" %}selected-item{% endif %}">
+	<i class="fa fa-eye" aria-hidden="true"></i> {{ modules_sectionNames_eventLog }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/youtube" data-enable-link-preload="true"><div class="item {% if saveType == "youtube" %}selected-item{% endif %}">
+	<i class="fab fa-youtube" aria-hidden="true"></i> YouTube
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/twitch" data-enable-link-preload="true"><div class="item {% if saveType == "livestream" %}selected-item{% endif %}">
+	<i class="fab fa-twitch" aria-hidden="true"></i> Twitch
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/twitter" data-enable-link-preload="true"><div class="item {% if saveType == "twitter" %}selected-item{% endif %}">
+		<i class="fab fa-twitter"></i> Twitter
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/fortnite" data-enable-link-preload="true"><div class="item {% if saveType == "fortnite" %}selected-item{% endif %}">
+		<i class="fas fa-gamepad"></i> Fortnite
+	</div></a>
+	{# <a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/feeds"><div class="item {% if saveType == "feeds" %}selected-item{% endif %}">
+	<i class="fa fa-rss-square" aria-hidden="true"></i> RSS/Atom Feeds
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/amino"><div class="item {% if saveType == "amino" %}selected-item{% endif %}">
+	<i class="fa fa-sync-alt" aria-hidden="true"></i> Amino & Loritta #}
+	</div></a>
+	<hr>
+	<div class="server-name">
+	{{ CommandCategory_MISC_Name }}
+	</div>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/level" data-enable-link-preload="true"><div class="item {% if saveType == "level" %}selected-item{% endif %}">
+	<i class="fas fa-award"></i> {{ modules_sectionNames_levelUp }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/autorole" data-enable-link-preload="true"><div class="item {% if saveType == "autorole" %}selected-item{% endif %}">
+	<i class="fa fa-briefcase"></i> {{ modules_sectionNames_autorole }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/invite-blocker" data-enable-link-preload="true"><div class="item {% if saveType == "invite_blocker" %}selected-item{% endif %}">
+	<i class="fa fa-ban"></i> {{ modules_sectionNames_inviteBlocker }}
+	</div></a>
+	{# <a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/music"><div class="item {% if saveType == "music" %}selected-item{% endif %}">
+	<i class="fa fa-music" aria-hidden="true"></i> DJ Loritta
+	</div></a> #}
+	{% if environment.name == "CANARY" %}
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/economy"><div class="item {% if saveType == "economy" %}selected-item{% endif %}">
+	<i class="fas fa-hand-holding-usd" aria-hidden="true"></i> {{ modules_sectionNames_economy }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/timers"><div class="item {% if saveType == "timers" %}selected-item{% endif %}">
+	<i class="fas fa-broadcast-tower"></i> {{ modules_sectionNames_timers }}
+	</div></a>
+	{% endif %}
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/member-counter" data-enable-link-preload="true"><div class="item {% if saveType == "member_counter" %}selected-item{% endif %}">
+			<i class="fas fa-sort-amount-up"></i> {{ modules_sectionNames_memberCounter }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/starboard" data-enable-link-preload="true"><div class="item {% if saveType == "starboard" %}selected-item{% endif %}">
+	<i class="fa fa-star" aria-hidden="true"></i> {{ modules_sectionNames_starboard }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/miscellaneous" data-enable-link-preload="true"><div class="item {% if saveType == "miscellaneous" %}selected-item{% endif %}">
+		<i class="fas fa-random"></i> +{{ CommandCategory_MISC_Name }}
+		</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/audit-log" data-enable-link-preload="true"><div class="item {% if saveType == "audit_log" %}selected-item{% endif %}">
+		<i class="fas fa-list"></i> {{ modules_auditLog_title }}
+		</div></a>
+	<hr>
+	<div class="server-name">
+	Premium
+	</div>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/premium" data-enable-link-preload="true"><div class="item {% if saveType == "premium" %}selected-item{% endif %}">
+	<i class="fas fa-gift"></i> {{ modules_sectionNames_premiumKeys }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/badge" data-enable-link-preload="true"><div class="item {% if saveType == "badge" %}selected-item{% endif %}">
+	<i class="fas fa-certificate"></i> {{ modules_sectionNames_customBadge }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/daily-multiplier" data-enable-link-preload="true"><div class="item {% if saveType == "daily_multiplier" %}selected-item{% endif %}">
+		<i class="fas fa-times"></i> {{ modules_sectionNames_dailyMultiplier }}
+		</div></a>
+	<hr>
+	<div class="server-name">
+	{{ DASHBOARD_YourFeatures }}
+	</div>
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/nashorn"><div class="item {% if saveType == "nashorn_commands" %}selected-item{% endif %}">
+	<i class="fab fa-js-square" aria-hidden="true"></i> {{ modules_sectionNames_customCommands }}
+	</div></a>
+	{% if environment.name == "CANARY" %}
+	<a href="/{{ website_localePath }}/guild/{{ guild.id }}/configure/key"><div class="item {% if saveType == "api_key" %}selected-item{% endif %}">
+	<i class="fas fa-key" aria-hidden="true"></i> API Key
+	</div></a>
+	{% endif %}
+	<hr>
+	<a target="_blank" href="{{ websiteUrl }}/support"><div class="item" style="color: rgb(114, 137, 218);">
+	<i class="fas fa-question-circle"></i> {{ website_navbar_support }}
+	</div></a>
+	</div>
+</div>
+<div id="right-sidebar">
+<div id="right-sidebar-contents">
+{% block rightSidebarContents %}
+{% endblock %}
+<br style="clear: both" /> <!-- So dirty! -->
+<hr>
+<!-- Loritta Teste -->
+<div style="position: relative; width: 100%; max-width: 100%; text-align: center;">
+<ins class="adsbygoogle"
+     style="display:block; width: inherit; max-width: inherit;"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="6236021665"
+	 data-ad-format="auto"></ins>
+</div>
+</div>
+
+<div class="sidebar-ad">
+		<div style="position: relative; width: 100%; max-width: 100%;">
+		<!-- Loritta Dashboard Sidebar Ad -->
+		<ins class="adsbygoogle"
+			 style="display:block; position: absolute; width: inherit; max-width: 100%;"
+			 data-ad-client="ca-pub-9989170954243288"
+			 data-ad-slot="3177212938"
+			 data-ad-format="auto"
+			 data-full-width-responsive="true"></ins>
+	</div>
+</div>
+</div>
+</div>
+<script>
+    {# DEPRECATED, PLEASE REMOVE KTHXBYE #}
+var toast = null;
+
+function prepareSave() {
+	var configAttr = {"type":"{{ saveType }}"}
+	
+	$('[data-send-on-save]').each(function( index ) {
+		var value = $(this).val();
+		if ($(this).attr("type") == "checkbox") {
+			value = $(this).is(':checked')
+		}
+		if ($(this).attr("type") == "number") {
+			value = parseInt(value)
+		}
+		
+		if ($(this).data("convert-to-list") == true) {
+			var list = []
+			if (value.length > 0) {
+				var str = value.split(";");
+				for (i in str) {
+					var element = str[i];
+					console.log("Adicionado " + element);
+					list.push(element);
+				}
+			}
+			value = list;
+		}
+		configAttr[$(this).data("internal-name")] = value
+	});
+	
+	console.log(configAttr);
+	
+	var json = JSON.stringify(configAttr);
+	
+	sendJsonToServer(json);
+}
+
+function sendJsonToServer(json) {
+	console.log("Sending...")
+	console.log(json);
+	toastr.options = {
+		"closeButton": false,
+		 "debug": false,
+	    "newestOnTop": false,
+			  "progressBar": false,
+			  "positionClass": "toast-bottom-center",
+			  "preventDuplicates": true,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "1000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+			
+	toastr.info('Salvando...', toastr)
+	// construct an HTTP request
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", window.location.origin + "/api/v1/guilds/{{ guild.getId }}/old-config", true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+	// send the collected data as JSON
+	xhr.send(json);
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			toastr.clear()
+			
+			// alert("Adicionado no servidor ~ " + xhr.responseText);
+			toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-bottom-center",
+			  "preventDuplicates": true,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "4000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+
+			console.log(xhr.responseText);
+			try { // deprecated, a API da Loritta precisa retornar tudo em JSON e não em plain text!
+				var response = JSON.parse(xhr.responseText)
+				if (xhr.responseText != "{}") {
+					toastr.error("Alguma coisa deu errado ao salvar", toastr)
+				} else {
+					toastr.success('Configurações salvas com sucesso!', toastr)
+				}
+			} catch(err) {
+				toastr.error('Alguma coisa deu errado ao salvar', toastr) // shrug
+			}
+		}
+	}
+}
+</script>
+</div>
+</div>
+{% endblock %}

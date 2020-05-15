@@ -1,0 +1,102 @@
+{% extends 'extras.html' %}
+{% block subtitle %}
+Placeholders & Variáveis
+{% endblock %}
+{% block rightSidebarContents %}
+<div class="category-name">
+Placeholders & Variáveis
+</div>
+<p>Existem vários placeholders que você pode usar nas mensagens da Loritta!</p>
+<h3>Geral</h3>
+<table style="width: 100%;" class="fancy-table">
+    <thead>
+        <tr>
+            <th>Placeholder</th>
+            <th>Significado</th>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{user}</td>
+            <td>Mostra o nome do usuário que provocou a ação</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{@user}</td>
+            <td>Menciona o usuário que provocou a ação</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{nickname}</td>
+            <td>Mostra o nome do usuário no servidor (caso ele tenha mudado o apelido dele no servidor, irá aparecer o apelido dele, em vez do nome original)</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{user-discriminator}</td>
+            <td>Mostra o discriminator do usuário que provocou a ação</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{user-id}</td>
+            <td>Mostra o ID do usuário que provocou a ação</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{user-avatar-url}</td>
+            <td>Mostra a URL do avatar do usuário</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{guild}</td>
+            <td>Mostra o nome do servidor</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{guildsize}</td>
+            <td>Mostra a quantidade de membros no servidor</td>
+        </tr>
+    </thead>
+</table>
+<h3>Moderação</h3>
+<table style="width: 100%;" class="fancy-table">
+    <thead>
+        <tr>
+            <th>Placeholder</th>
+            <th>Significado</th>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{reason}</td>
+            <td>Motivo da punição, caso nenhum motivo tenha sido especificado, isto estará vazio</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{punishment}</td>
+            <td>Punição aplicada (ban, mute, kick, etc)</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{staff}</td>
+            <td>Mostra o nome do usuário que fez a punição</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{@staff}</td>
+            <td>Menciona o usuário que fez a punição</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{staff-discriminator}</td>
+            <td>Mostra o discriminator do usuário que fez a punição</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{staff-id}</td>
+            <td>Mostra o ID do usuário que fez a punição</td>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{staff-avatar-url}</td>
+            <td>Mostra a URL do avatar do usuário que fez a punição</td>
+        </tr>
+    </thead>
+</table>
+<h3>Loritta's Server List</h3>
+<table style="width: 100%;" class="fancy-table">
+    <thead>
+        <tr>
+            <th>Placeholder</th>
+            <th>Significado</th>
+        </tr>
+        <tr>
+            <td style="white-space: nowrap;">{vote-count}</td>
+            <td>Mostra quantos votos o usuário que votou possui</td>
+        </tr>
+    </thead>
+</table>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

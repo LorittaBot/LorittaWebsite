@@ -1,0 +1,63 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.serverListConfig %}
+<div class="category-name">
+Loritta's Server List
+</div>
+{{ generateCheckbox(1, "isEnabled", "Mostrar seu servidor na lista de servidores da Loritta", "", config.isEnabled, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+<div class="flavourText">Background</div>
+<input type="file" id="uploadBackground" name="pic" accept="image/*">
+<hr>
+<div class="flavourText">Tagline</div>
+<textarea id="tagline" data-internal-name="tagline" placeholder="Um servidor muito fofo que usa a maravilhosa Lori :3">{{ config.tagline }}</textarea>
+<hr>
+<div class="flavourText">Descrição</div>
+<textarea id="description" data-internal-name="description" placeholder="Um servidor muito fofo que usa a maravilhosa Lori :3">{{ config.description }}</textarea>
+<hr>
+<div class="flavourText">Keywords</div>
+<div id="keywords" class="pure-g">
+</div>
+</div>
+<hr>
+{{ generateCheckbox(2, "sendOnVote", "Enviar uma mensagem em um canal quando alguém votar", "", config.sendOnVote, true) }}
+<hr>
+<div id="hiddenIfDisabled3">
+<div class="flavourText">Canal para anunciar quem votou</div>
+<select name="chooseChannel" id="chooseChannel" data-internal-name="voteBroadcastChannelId">
+</select>
+<hr>
+<div class="flavourText">Mensagem quando alguém votar</div>
+<textarea data-send-on-save="true" data-internal-name="voteBroadcastMessage" id="voteBroadcastMessage" name="voteBroadcastMessage">{{ config.voteBroadcastMessage }}</textarea>
+</div>
+<hr>
+{{ generateCheckbox(3, "sendOnPromote", "Enviar uma mensagem em um canal quando alguém promover o seu servidor", "", config.sendOnPromote, true) }}
+<hr>
+<div id="hiddenIfDisabled4">
+<div class="flavourText">Canal para anunciar quem promoveu</div>
+<select name="chooseChannel" id="chooseChannel2" data-internal-name="promoteBroadcastChannelId">
+</select>
+<hr>
+<div class="flavourText">Mensagem quando alguém promover</div>
+<textarea data-send-on-save="true" data-internal-name="promoteBroadcastMessage" id="promoteBroadcastMessage" name="promoteBroadcastMessage">{{ config.promoteBroadcastMessage }}</textarea>
+</div>
+<hr>
+<div id="hiddenInfo2" class="flavourText" style="color: #f04747;"></div>
+<div id="hiddenIfDisabled2">
+<div class="flavourText">Vanity URL</div>
+<input type="text" data-internal-name="vanityUrl" id="vanityUrl" placeholder="alguma-coisa" value="{{ config.vanityUrl }}">
+<div>O seu link será <a id="vanityUrlExample"></span></div>
+</div>
+<hr>
+<button onclick="window['loritta-parent-spicy-morenitta'].ConfigurePartnerView.prepareSave()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<script id="entry-hidden-data" type="text/template">
+{{ configAsJson|raw }}
+</script>
+{% endblock %}
+{% block afterlocale %}
+<script>
+window['loritta-parent-spicy-morenitta'].ConfigurePartnerView.start()
+</script>
+{% endblock %}

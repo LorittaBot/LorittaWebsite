@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+Perfil do {{ profileUser.name }}
+{% endblock %}
+{% block metaproperty %}
+<meta property="og:site_name" content="Website da Loritta">
+<meta property="og:description" content="{{ profileSettings.aboutMe }}">
+<meta property="og:title" content="Perfil de {{ profileUser.name }}">
+<meta property="og:image" content="{{ profileUser.effectiveAvatarUrl }}">
+<meta property="og:ttl" content="600">
+<meta property="og:image:width" content="320">
+<meta property="twitter:site" content="loritta">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="Perfil de {{ profileUser.name }}">
+<meta name="theme-color" content="#00c1df"> 
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block wrapper %}
+<div style="height: 49.95px"></div>
+<div style="height: 420px; width: 100vw; position: relative; background: url('https://loritta.website/assets/img/backgrounds/{{ profileUser.id }}.png') no-repeat center center; background-size: cover;">
+<img class="animated zoomIn profile-avatar" src="{{ profileUser.effectiveAvatarUrl }}?size=256">
+<div style="position: absolute;
+bottom: 3%;
+left: 445px;
+text-align: left;
+font-family: Whitney;
+font-weight: 700;
+color: white;
+text-shadow: 0px 0px 10px #000c;
+font-size: 2em;" class="animated fadeInUp">{{ profileUser.name }}#{{ profileUser.discriminator }}</div>
+</div>
+<div class="profile-navbar">
+<span style="margin-left: 445px;
+height: 60px;
+float: left;"></span>
+<div style="text-align: center; padding: 12px;">
+<div class="profile-navbar-title">Sonhos</div>
+<div class="profile-navbar-content">{{ lorittaProfile.money }}</div>
+</div>
+<div style="text-align: center; padding: 12px;">
+<div class="profile-navbar-title">Nível</div>
+<div class="profile-navbar-content">sei lá fera{# {{ lorittaProfile.getCurrentLevel().currentLevel }} #}</div>
+</div>
+<div style="text-align: center; padding: 12px;">
+<div class="profile-navbar-title">XP</div>
+<div class="profile-navbar-content">{{ lorittaProfile.xp }}</div>
+</div>
+<div style="text-align: center; padding: 12px;">
+<div class="profile-navbar-title">Reputação</div>
+<div class="profile-navbar-content">tudo na mendigagem{# {{ lorittaProfile.receivedReputations|length }} #}</div>
+</div>
+{% if discordAuth != null %}
+{% if userIdentification.id == profileUser.id %}
+<div style="font-size: 1.5em;">
+<a href="{{ loriUrl }}profile/{{ userIdentification.id }}/config"><i class="fas fa-cog"></i></a>
+</div>
+{% endif %}
+{% endif %}
+</div>
+<div style="height: 50px;"></div>
+<div class="profile-wrapper">
+<div style="width: 264px;">
+<div style="font-family: Whitney; font-weight: 600;
+text-align: center; color: #737f8d;">
+{{ profileSettings.aboutMe }}
+</div>
+<hr>
+<!-- Loritta Profile About Box 1 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:234px;height:60px"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="8501854554"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr>
+{% if ownerOfGuilds|length != 0 %}
+<div style="font-family: Whitney;
+font-weight: 600;
+text-align: left;
+color: #737f8d80;">Criador de...</div>
+{% for guild in ownerOfGuilds %}
+<div>
+<div style="width: 64px; float: left; text-align: left;">
+<a href="https://loritta.website/s/{{ guild.id }}"><img src="{{ guild.iconUrl }}" style="border-radius: 99999px;" width="64"></a>
+</div>
+<div style="text-align: left;
+width: 195px;
+float: left;
+margin-left: 5px;">
+<div style="text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+color: #737f8d;
+font-weight: 600;
+font-size: 1.25em;">
+<a href="https://loritta.website/s/{{ guild.id }}">{{ guild.name }}</a>
+</div>
+<div style="font-weight: 600; color: #737f8d;">
+<span style="color: rgb(67, 181, 129);">•</span> {{ onlineCount[guild] }} Online
+</div>
+<div style="font-weight: 600; color: #737f8d;">
+<span style="color: rgb(116, 127, 141);">•</span> {{ guild.members|length }} Membros
+</div>
+</div>
+<br style="clear: both" /> <!-- So dirty! -->
+</div>
+{% endfor %}
+<hr>
+{% endif %}
+{% if profileSettings.hideSharedServers == false %}
+<div style="font-family: Whitney;
+font-weight: 600;
+text-align: left;
+color: #737f8d80;">Nos servidores...</div>
+<div>
+{% for guild in inGuildListEnabled %}
+<a href="https://loritta.website/s/{{ guild.id }}"><img src="{{ guild.iconUrl }}" style="border-radius: 99999px;" width="32" title="{{ guild.name }}"></a>
+{% endfor %}
+</div>
+<div>
+{% for guild in notInGuildList %}
+<img src="{{ guild.iconUrl }}" style="border-radius: 99999px;" width="24" title="{{ guild.name }}">
+{% endfor %}
+</div>
+<hr>
+{% endif %}
+<div style="font-family: Whitney;
+font-weight: 600;
+text-align: left;
+color: #737f8d80;">Badges</div>
+<div style="text-align: center;">
+{% for badge in badgesBase64 %}
+<img width="32" src="data:image/png;base64,{{ badge }}">
+{% endfor %}
+</div>
+<hr>
+<div style="font-family: Whitney;
+font-weight: 600;
+text-align: left;
+color: #737f8d80;">Emotes Favoritos</div>
+{% set emoteIdx = 0 %}
+{% for emote in favoriteEmotes %}
+{% if 35 > emoteIdx %}
+<img width="32" src="{{ emote.imageUrl }}" title="{{ emote.name }}" alt="{{ emote.name }}">
+{% set emoteIdx = emoteIdx + 1 %}
+{% endif %}
+{% endfor %}
+</div>
+</div>
+<style>
+.profile-avatar {
+border-radius: 999999px;
+position: absolute;
+left: 168px;
+bottom: -100px;
+width: 250px;
+height: 250px;
+border: 5px solid #00d7ff; z-index: 1;
+box-shadow: 0px 0px 4px #0006;
+}
+
+.profile-navbar {
+height: 60px;
+background-color: #00d7ff;
+box-shadow: 0px 0px 4px #0006; text-align: left;
+display: flex;
+align-items: center;
+}
+
+.profile-wrapper {
+margin-left: 168px;
+}
+
+.profile-navbar-title {
+font-weight: 600;
+color: #00a2c1;
+font-size: 0.85em;
+}
+
+.profile-navbar-content {
+color: #007a91;
+font-weight: 600;
+}
+</style>
+{% endblock %}
+{% block afterScripts %}
+<script>
+function recaptchaCallback(response) {
+	console.log("passing to kotlin js...");
+	window['loritta-parent-spicy-morenitta'].PartnerView.recaptchaCallback(response);
+}
+
+onViewport(".animate-on-scroll-left", "animated fadeInLeft", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-right", "animated fadeInRight", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".fanclub-server-icon", "animated fadeInUp", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+</script>
+{% endblock %}

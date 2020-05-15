@@ -1,0 +1,19 @@
+{% extends 'configure_guild_base.html' %}
+{% block rightSidebarContents %}
+<div class="category-name">
+    Multiplicador de Sonhos
+</div>
+<div style="text-align: center;">
+<h2>Multiplicador de Sonhos</h2>
+<p>Patrocine sonhos no <code>+daily</code> dos seus membros! Quando um membro do seu servidor ganhar sonhos no <code>+daily</code>, o membro irá ganhar mais sonhos e irá aparecer que você patrocinou os sonhos!</p>
+</div>
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+<hr>
+{{ generateCheckbox(1, "isEnabled", DASHBOARD_ACTIVATE_MODULE, "", false, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+<hr>
+</div>
+<button id="save-button" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+{{ WEBSITE_COMMANDS }}
+{% endblock %}
+{% block afterScripts %}
+<script>
+this["loritta-parent-spicy-morenitta"].CommandsView.start()
+
+onViewport(".animate-on-scroll-left", "animated fadeInLeft", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-right", "animated fadeInRight", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".fanclub-server-icon", "animated fadeInUp", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+</script>
+{% endblock %}

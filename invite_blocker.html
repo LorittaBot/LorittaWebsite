@@ -1,0 +1,101 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+<div class="category-name">
+{{ DASHBOARD_INVITE_BLOCKER }}
+</div>
+{{ generateCheckbox(1, "isEnabled", DASHBOARD_ACTIVATE_MODULE, "", serverConfig.inviteBlockerConfig.isEnabled, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+{{ generateCheckbox(2, "whitelistServerInvites", DASHBOARD_ALLOW_SERVER_INVITES, "", serverConfig.inviteBlockerConfig.whitelistServerInvites, true) }}
+<hr>
+{{ generateCheckbox(3, "deleteMessage", DASHBOARD_DELETE_MESSAGE_ON_INVITE, "", serverConfig.inviteBlockerConfig.deleteMessage, true) }}
+<hr>
+{{ generateCheckbox(4, "tellUser", DASHBOARD_WARN_ON_INVITE, "", serverConfig.inviteBlockerConfig.tellUser, true) }}
+<hr>
+<div class="flavourText">{{ DASHBOARD_MESSAGE_ON_INVITE_DETECT }}</div>
+<textarea data-send-on-save="true" data-internal-name="warnMessage">{{ serverConfig.inviteBlockerConfig.warnMessage }}</textarea>
+<hr>
+<div class="flavourText">{{ DASHBOARD_WHITELISTED_CHANNELS_INVITE }}</div>
+<select name="chooseRole" id="chooseRole">
+	{% for channel in guild.getTextChannels() %}
+	<option value="{{ channel.getId }}">#{{ channel.getName }}</option>
+	{% endfor %}
+</select>
+<button type="button" onclick="addLink()" class="button-success pure-button">Adicionar</button>
+<div class="toggleSubText">Clique em um canal de texto na lista abaixo para remover ele!</div>
+<table id="musicTable">
+{% if serverConfig.inviteBlockerConfig.whitelistedChannels|length > 0 %}
+  {% for channel in serverConfig.inviteBlockerConfig.whitelistedChannels %}
+  {% set jdaChannel = guild.getTextChannelById(channel) %}
+  {% if jdaChannel != null %}
+  <tr>
+    <td data-internalid="{{ channel }}" onclick="DL1(this)"><div style="margin-bottom: 2px; display: inline-block; padding: 2px 0px 2px 0px;" class="discord-mention">#{{ jdaChannel.getName() }}</div></td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</table>
+<input type="hidden" id="blacklistedChannels" data-send-on-save="true" data-convert-to-list="true" data-internal-name="whitelistedChannels" value="{{ whitelistedChannels }}">
+</div>
+<hr>
+<button onclick="prepareSave()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<script>
+$("#cmn-toggle-1").click(function(e) {
+	applyBlur()
+});
+
+function addLink() {
+  var e = $("#chooseRole");
+  var value = e.val();
+  
+  var table = document.getElementById("musicTable");
+  
+  var row = table.insertRow(-1)
+  
+  var cell = row.insertCell(-1)
+  cell.innerHTML = '<div style="margin-bottom: 2px; display: inline-block; padding: 2px 0px 2px 0px;" class="discord-mention">' + e.find(":selected").text() + '</span>'
+  
+  cell.setAttribute("onclick", "DL1(this)");
+  cell.setAttribute("data-internalid", value);
+  joinToSeparators();
+}
+
+function joinToSeparators() {
+var e = $("#blacklistedChannels");
+
+var text = "";
+$('#musicTable tr').each(function(){
+    $(this).find('td').each(function(){
+        //do your stuff, you can use $(this) to get current cell
+		if (text == "") {
+			text += $(this).attr("data-internalid")
+		} else {
+			text += ";" + $(this).attr("data-internalid")
+		}
+    })
+})
+
+e.val(text);
+}
+
+function DL1(elem){
+	elem.parentNode.removeChild(elem);
+
+	joinToSeparators();
+}
+
+function applyBlur() {
+  var e = $("#hiddenIfDisabled");
+  if ($('#cmn-toggle-1').is(':checked')) {
+	e.removeClass();
+	e.addClass("noBlur");
+  } else {
+    e.removeClass();
+	e.addClass("blurSection");
+  }
+}
+
+applyBlur();
+</script>
+{% endblock %}

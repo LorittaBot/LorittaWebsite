@@ -1,0 +1,68 @@
+#fan-art-gallery {
+    .fan-art {
+      height: 256px;
+      width: auto;
+      margin: 16px;
+      box-shadow: 1px 1px 10px #0000004f;
+      background-color: white;
+    }
+  
+    .fan-arts-wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .artist-info {
+        background-color: #29a6fe;
+        border-radius: 8px;
+        box-shadow: 1px 1px 10px #0000004f;
+        display: flex;
+        align-items: center;
+        padding: 16px;
+
+        img {
+            border-radius: 999999px;
+            margin-right: 6px;
+            width: 128px;
+            height: 128px;
+        }
+
+        .text {
+            color: white;
+            padding-left: 16px;
+
+            .name {
+                font-size: 3em;
+            }
+        }
+    }
+  }
+
+  .lori-holding {
+    position: relative;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    
+    img {
+      height: 300px;
+      width: auto;
+    }
+    
+    .lori-behind {
+      position: absolute;
+    }
+    .lori-arms {
+      position: absolute;
+    }
+
+    .fan-art-in-hand {
+      position: absolute;
+      width: 128px;
+      height: auto;
+      left: 66px;
+      bottom: 60px;
+      filter: drop-shadow(rgba(0, 0, 0, 0.3) 0 0 15px);
+    }
+  }

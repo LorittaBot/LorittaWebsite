@@ -1,0 +1,21 @@
+{% extends 'configure_guild_base.html' %}
+{% block rightSidebarContents %}
+<div class="category-name">
+Emblema Personalizado
+</div>
+<div style="text-align: center;">
+<h2>Emblema Personalizado</h2>
+<p>Coloque um emblema personalizado no <code>+perfil</code> dos seus membros do seu servidor!</p>
+</div>
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+<hr>
+{{ generateCheckbox(1, "isEnabled", DASHBOARD_ACTIVATE_MODULE, "", false, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+<div class="flavourText">Imagem do Emblema</div>
+<input type="file" id="upload-badge" name="pic" accept="image/*">
+<hr>
+</div>
+<button style="float: right;" class="button-discord button-discord-success pure-button" id="save-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

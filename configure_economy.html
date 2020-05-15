@@ -1,0 +1,79 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.economyConfig %}
+<div class="category-name">
+{{ CommandCategory_ECONOMY_Name }}
+</div>
+<div style="text-align: center;">
+<img src="{{ websiteUrl }}assets/img/loritta_money_discord.png" style="border-radius: 7px; height: 300px;">
+<h2>{{ CommandCategory_ECONOMY_Name }}</h2>
+<p>placeholder</p>
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+<hr>
+<!-- Loritta Dashboard 1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="2080512288"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Loritta Dashboard 2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="9739510458"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<hr>
+{{ generateCheckbox(1, "isEnabled", DASHBOARD_ACTIVATE_MODULE, "", config.isEnabled, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+<div class="flavourText">Nome da Moeda (Singular)</div>
+<input type="text" data-internal-name="economyName" id="economyName" placeholder="Real" value="{{ config.economyName }}">
+<hr>
+<div class="flavourText">Nome da Moeda (Plural)</div>
+<input type="text" data-internal-name="economyNamePlural" id="economyNamePlural" placeholder="Reais" value="{{ config.economyNamePlural }}">
+<hr>
+{{ generateCheckbox(2, "enableDreamExchange", "Ativar câmbio de sonhos", "Permite transferir sonhos (economia global da Loritta) para a sua economia local", config.exchangeRate != null, true) }}
+<hr>
+<div id="hiddenIfDisabled2">
+<p>Será possível cambiar um sonho para <input type="number" step="0.01" data-internal-name="exchangeRate" min="1" id="exchangeRate" placeholder="1" value="{{ config.exchangeRate }}"> <span id="customCurrencyName">{{ config.economyNamePlural }}</span></p>
+</div>
+<hr>
+{{ generateCheckbox(3, "enableShop", "Loja", "Faça seus membros gastarem na loja do seu servidor!", false, true) }}
+<hr>
+<div id="hiddenIfDisabled3">
+<div class="category-name">
+Itens vendidos na Loja
+</div>
+<div>Link da Loja: <a href="{{ loriUrl }}guild/{{ guild.id }}/shop">{{ loriUrl }}guild/{{ guild.id }}/shop</a></div>
+<div><button class="button-discord button-discord-info pure-button add-new-action" id="add-new-shop-item"><i class="fas fa-plus"></i> Adicionar Item</button></div>
+<div id="shop-item-list">
+</div>
+</div>
+</div>
+<div class="totallyHidden">	
+<div class="tingle-demo" id="new-item-modal-template">
+<div class="test">
+		<div class="sectionText">
+		<div class="category-name">Novo Item</div>
+		<div class="flavourText">Nome do Item</div>
+		<input type="text" placeholder="Um item muito legal">
+		<div class="flavourText">Preço</div>
+		<input type="text" placeholder="Um item muito legal">
+		</div>
+	</div>
+</div>
+</div>
+<hr>
+<button onclick="window['loritta-parent-spicy-morenitta'].ConfigureEconomyView.prepareSave()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<script>
+window['loritta-parent-spicy-morenitta'].ConfigureEconomyView.start();
+</script>
+{% endblock %}

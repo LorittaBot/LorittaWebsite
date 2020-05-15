@@ -1,0 +1,126 @@
+$min-lori-width: 980px;
+
+#jumbotron {
+    min-height: 100vh;
+    background-image: url("../img/website_bg.png"), linear-gradient(#43b1ff, #067acc);
+    animation: background-scroll 60s linear infinite;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+@keyframes arrow-bounce {
+    0%, 20%, 50%, 80%, 100%   {transform: translateY(10px)}
+    40%  {transform: translateY(-20px)}
+    60% {transform: translateY(-5px)}
+}
+
+@keyframes background-scroll {
+    0% { background-position: 0px 0px, 0px 0px; }
+    100% { background-position: 0px -1000px, 0px 0px; }
+}
+
+    .bouncy-arrow {
+        color: white;
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        font-size: 3.5em;
+        animation: arrow-bounce 2s infinite;
+        overflow: hidden;
+    }
+
+    .right-side-text {
+        position: absolute;
+        right: 3.5vw;
+        transform: translateY(-50%);
+        top: 50%;
+        text-align: right;
+
+        @media screen and (max-width: $min-lori-width) {
+            text-align: center;
+            left: 0;
+            right: 0;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 2em;
+            display: inline-block;
+            width: 100%;
+            
+            .button {
+                display: inline-block;
+                
+                @keyframes swing-button {
+                    0%, 50%, 100% { transform: rotate(0deg); animation-timing-function: ease-out; }
+                    25% { transform: rotate(2deg); animation-timing-function: ease-in; }
+                    75% { transform: rotate(-2deg); animation-timing-function: ease-in; }
+                }
+
+                animation: 7s linear infinite forwards swing-button;
+            }
+
+            .add-me {
+                &:hover .lori-happy {
+                    opacity: 1;
+                }
+            }
+
+            .lori-happy {
+                opacity: 0;
+                top: -112px;
+
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+                transition: .6s;
+            }
+        }
+    }
+
+    .introduction {
+        font-family: Pacifico, cursive;
+        color: white;
+        text-shadow: 0 0 25px #0000004d;
+        line-height: 1.25;
+
+        @media screen and (max-width: $min-lori-width) {
+            text-align: center;
+            left: 0;
+            right: 0;
+        }
+
+        .my-name-is {
+            font-size: 4em;
+        }
+
+        .loritta {
+            font-size: 7.5em;
+            color: #29d9fe
+        }
+
+        .tagline {
+            font-size: 2em;
+        }
+    }
+
+    #loritta-selfie {
+        position: absolute;
+        bottom: 0;
+        left: 3.5vw;
+        height: 92.5vh;
+        z-index: 1;
+
+        img {
+            height: 100%;
+            position: absolute;
+        }
+
+        @media screen and (max-width: $min-lori-width) {
+           display: none;
+        }
+    }
+}
+

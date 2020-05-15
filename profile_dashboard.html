@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+Painel de Controle
+{% endblock %}
+{% block afterNavbar %}
+<script>
+	document.querySelector("#container").style.overflow = "hidden"; // hack porque o chrome gosta de dar overflow
+</script>
+<div id="content">
+{% macro generateCheckbox(index, internalName, mainText, subText, isEnabled, needsToBeSaved) %}
+<div class="pure-g" style="text-align: center;">
+    <div class="pure-u-1 pure-u-md-7-8">
+		<p class="toggleMainText">{{ mainText }}</p>
+		{% if subText|length > 0 %}<div class="toggleSubText">{{ subText | raw }}</div>{% endif %}
+	</div>
+    <div class="pure-u-1 pure-u-md-1-8">
+		<div class="switch">
+		  <input type="checkbox" data-internal-name="{{ internalName }}" value="true" {% if needsToBeSaved == true %}data-send-on-save="true"{% endif %} {% if isEnabled == true %}checked{% endif %} id="cmn-toggle-{{ index }}" class="cmn-toggle cmn-toggle-round" type="checkbox">
+		  <label for="cmn-toggle-{{ index }}"></label>
+		</div>
+	</div>
+</div>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endmacro %}
+
+<div id="dummy-navbar" style="height: 46px"></div>
+<div id="server-configuration">
+<div id="left-sidebar">
+<div class="discord-scroller" id="left-sidebar-contents"> 
+	<div id="left-sidebar-entries">
+	<a href="/{{ website_localePath }}/dashboard" data-enable-link-preload="true"><div class="item {% if saveType == "main" %}selected-item{% endif %}">
+			<i class="fa fa-cogs" aria-hidden="true"></i> {{ website_dashboard_profile_sectionNames_yourServers }}
+			</div></a>
+	<div class="server-name">
+		Configurações do Usuário
+	</div>
+	<a href="/{{ website_localePath }}/user/@me/dashboard/profiles" data-enable-link-preload="true"><div class="item {% if saveType == "profile_list" %}selected-item{% endif %}">
+			<i class="far fa-id-card"></i> {{ website_dashboard_profile_sectionNames_profileLayout }}
+			</div></a>
+	<a href="/{{ website_localePath }}/user/@me/dashboard/backgrounds" data-enable-link-preload="true"><div class="item {% if saveType == "background_list" %}selected-item{% endif %}">
+		<i class="far fa-images"></i> Backgrounds
+		</div></a>
+	<a href="/{{ website_localePath }}/user/@me/dashboard/ship-effects" data-enable-link-preload="true"><div class="item {% if saveType == "ship_effects" %}selected-item{% endif %}">
+			<i class="fas fa-heart"></i> {{ website_dashboard_profile_sectionNames_shipEffects }}
+	</div></a>
+	<div class="server-name">
+		Miscelânea
+	</div>
+	<a href="/{{ website_localePath }}/daily"><div class="item">
+		<i class="fas fa-money-bill-wave"></i> Daily
+	</div></a>
+	<a href="/{{ website_localePath }}/user/@me/dashboard/daily-shop" data-enable-link-preload="true"><div class="item {% if saveType == "daily_shop" %}selected-item{% endif %}">
+		<i class="fas fa-store"></i> {{ website_dailyShop_title }}
+	</div></a>
+	<a href="/{{ website_localePath }}/user/@me/dashboard/bundles" data-enable-link-preload="true"><div class="item {% if saveType == "bundles" %}selected-item{% endif %}">
+		<i class="fas fa-shopping-cart"></i> {{ website_dashboard_profile_sectionNames_sonhosShop }}
+	</div></a>
+	<a href="/{{ website_localePath }}/guidelines"><div class="item">
+		<i class="fas fa-asterisk"></i> {{ website_guidelines_communityGuidelines }}
+	</div></a>
+	<hr>
+	<a id="delete-account-button"><div class="item" style="color: rgb(240, 71, 71);">
+		<i class="fas fa-trash"></i> {{ website_dashboard_profile_sectionNames_deleteAccount }}
+	</div></a>
+	<hr>
+	<a id="logout-button"><div class="item" style="color: rgb(240, 71, 71);">
+		<i class="fas fa-sign-out-alt"></i> {{ website_dashboard_profile_sectionNames_logout }}
+	</div></a>
+	</div>
+</div>
+</div>
+<div id="right-sidebar">
+<div id="right-sidebar-contents">
+{% block rightSidebarContents %}
+{% endblock %}
+<hr>
+</div>
+<div class="sidebar-ad">
+		<div style="position: relative; width: 100%; max-width: 100%;">
+		<!-- Loritta Dashboard Sidebar Ad -->
+		<ins class="adsbygoogle"
+			 style="display:block; position: absolute; width: inherit; max-width: 100%;"
+			 data-ad-client="ca-pub-9989170954243288"
+			 data-ad-slot="3177212938"
+			 data-ad-format="auto"
+			 data-full-width-responsive="true"></ins>
+	</div>
+</div>
+</div>
+<br style="clear: both" />
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends 'extras.html' %}
+{% block subtitle %}
+Embeds
+{% endblock %}
+{% block rightSidebarContents %}
+<div class="category-name">
+Embeds
+</div>
+<p>Embeds são um tipo especial de mensagem no Discord, você provavelmente já viu elas antes... aquelas caixinhas que possuem uma corzinha na esquerda e que ainda por cima podem ter imagens, autor, footer e muito mais! Sim, elas são bonitas, e é claro que a Loritta suporta elas também!</p>
+<p>Na Loritta, embeds são suportadas em todos os lugares que aceitam uma mensagem no painel, ao colocar uma embed no local da mensagem, ela irá mostrar a embed na preview e irá mostrar que está no modo "Extended Code".</p>
+<p>Embeds são formatadas em JSON, baseado no jeito que o Discord envia embeds.</p>
+<h2>Dicas</h2>
+<ul>
+<li>Embeds também podem ser enviadas usando o comando <code>+say</code> da Loritta.</li>
+<li>Embeds feitas usando JavaScript objects em libraries como discord.js/eris também funcionam na Loritta! <a href="https://anidiots.guide/first-bot/using-embeds-in-messages">Veja alguns exemplos aqui</a>!</li>
+<li><a href="{{ loriUrl }}extras/placeholders">Placeholders</a> são suportados dentro de embeds!</li>
+<li>Caso alguma imagem esteja inválida em sua embed, a Loritta irá substituir por uma <a href="https://loritta.website/assets/img/oopsie_woopsie_invalid_image.png">imagem avisando que você fez algo de errado</a>!</li>
+<li>Não está conseguindo ver embeds? Então quer dizer que você desativou a pré-visualização de links nas configurações de "Texto & Imagem" do seu Discord!</li>
+<li>Menções dentro de embeds podem não funcionar corretamente (usuários mencionados dentro de uma embed não receberão notificações e, caso seja um usuário que o seu Discord não tenha carregado, irá aparecer <code><@IdDoUsuario></code>), caso isto aconteça, adicione a menção do usuário no <code>content</code> também!</li>
+<li>Embeds no Discord Mobile (iOS/Android) podem não funcionar igual como elas funcionam no Discord de computador/web!</li>
+<li>As cores utilizadas nos embeds estão em formato decimal, para pegar a cor em formato decimal, utilize <code>+colorinfo</code>!</li>
+</ul>
+<hr>
+<h2>Templates</h2>
+<p>Para você ver como é feito os embeds, deixamos alguns embeds prontos para você ver, usar e se divertir! Para utilizar eles, copie o código, coloque no lugar de texto no painel da Loritta aonde você quer usar o embed e veja como ele ficou!</p>
+<hr>
+<h3>Mensagem de Entrada</h3>
+<pre>
+{
+   "content":"{@user}",
+   "embed":{
+      "color":-9270822,
+      "title":"👋 Bem-vindo(a)!",
+      "description":"Olá {@user}, espero que você se divirta no meu servidor! <:loritta:331179879582269451>",
+      "author":{
+         "name":"{user}#{user-discriminator}",
+         "icon_url":"{user-avatar-url}"
+      },
+      "thumbnail":{
+         "url":"{user-avatar-url}"
+      },
+    "footer": {
+      "text": "ID do usuário: {user-id}"
+    }
+   }
+}
+</pre>
+<hr>
+<h3>Mensagem de Saída</h3>
+<pre>
+{
+   "content":"",
+   "embed":{
+      "color":-6250077,
+      "title":"😭 #chateada!",
+      "description":"⚰ **{nickname}** saiu do servidor... <:lori_triste:370344565967814659>",
+      "author":{
+         "name":"{user}#{user-discriminator}",
+         "icon_url":"{user-avatar-url}"
+      },
+      "thumbnail":{
+         "url":"{user-avatar-url}"
+      },
+    "footer": {
+      "text": "ID do usuário: {user-id}"
+    }
+   }
+}
+</pre>
+<hr>
+<h3>Mensagem de Entrada (via mensagem direta)</h3>
+<pre>
+{
+   "content":" ",
+   "embed":{
+      "color":-16727585,
+      "title":"👋 Bem-Vindo(a) ao {guild}!",
+      "description":"Obrigado por entrar no meu servidor e divirta-se! Ah, e é claro, não se esqueça de seguir as regras do servidor! <:loritta:331179879582269451>",
+      "thumbnail":{
+         "url":"https://loritta.website/assets/img/loritta_star.png"
+      },
+     "image":{ "url":"https://loritta.website/assets/img/fanarts/Loritta_Headset_-_N3GR3SC0.png"}
+   }
+}
+</pre>
+<hr>
+<h3>Mensagem quando alguém é banido</h3>
+<pre>
+{
+   "content":"",
+   "embed":{
+      "color":-1957094,
+      "title":"<:blobpoliceangery:376473590901637120> **{nickname}** foi banido por {staff}!",
+      "description":"**Motivo:** `{reason}`",
+      "author":{
+         "name":"{user}#{user-discriminator}",
+         "icon_url":"{user-avatar-url}"
+      },
+      "thumbnail":{
+         "url":"{user-avatar-url}"
+      },
+    "footer": {
+      "text": "ID do usuário: {user-id}"
+    }
+   }
+}
+</pre>
+<hr>
+<h3>Mensagem quando alguém é expulso</h3>
+<pre>
+{
+   "content":"",
+   "embed":{
+      "color":-1957094,
+      "title":"<:blobpoliceangery:376473590901637120> **{nickname}** foi expulso por {staff}!",
+      "description":"**Motivo:** `{reason}`",
+      "author":{
+         "name":"{user}#{user-discriminator}",
+         "icon_url":"{user-avatar-url}"
+      },
+      "thumbnail":{
+         "url":"{user-avatar-url}"
+      },
+    "footer": {
+      "text": "ID do usuário: {user-id}"
+    }
+   }
+}
+</pre>
+<hr>
+<h3>Mensagem quando alguém é punido (Moderação)</h3>
+<pre>
+{
+   "content":"",
+   "embed":{
+      "color":-9270822,
+      "title":"{user}#{user-discriminator} | {punishment}",
+      "thumbnail": { "url" : "{staff-avatar-url}" },
+      "description":"O usuário foi punido por quebrar as regras do {guild}, fazer o que né, quebrou as #regras levou punição! <:tavares:412577570190655489> <:BlobAxolotlPride:445377761440301068> <:smol_lori_putassa_aline:395010059157110785>",
+      "fields": [
+        {
+            "name": "Tag do Usuário",
+            "value": "{user}#{user-discriminator}",
+            "inline": true
+        },
+        {
+            "name": "ID do Usuário",
+            "value": "{user-id}",
+            "inline": true
+        },
+        {
+            "name": "Quem puniu",
+            "value": "{staff}#{staff-discriminator}",
+            "inline": true
+        },
+        {
+            "name": "Motivo",
+            "value": "{reason}",
+            "inline": true
+        }
+      ],
+    "footer": {
+      "text": "ID do usuário: {user-id}"
+    }
+   }
+}
+</pre>
+<hr>
+<h3>Mensagem quando alguém vota no servidor (Lori's Server List)</h3>
+<pre>
+{
+   "content":"{@user}",
+   "embed":{
+      "color":-9270822,
+      "title":"<:lori_owo:417813932380520448> Obrigada {nickname}!",
+      "thumbnail": { "url" : "{user-avatar-url}" },
+      "image": { "url" : "https://perfectdreams.net/assets/img/loritta_mapinha.png" },
+      "description":"{@user} já votou {vote-count} vezes no {guild} na **Lori's Server List**! Que tal você votar também [clicando aqui](https://loritta.website/s/lori) <:loritta:331179879582269451>",
+    "footer": {
+      "text": "ID do usuário: {user-id}"
+    }
+   }
+}
+</pre>
+<hr>
+<h3>Mensagem quando alguém promove o servidor (Lori's Server List)</h3>
+<pre>
+{
+   "content":"{@user}",
+   "embed":{
+      "color":-9270822,
+      "title":"<:lori_owo:417813932380520448> Obrigada {nickname}!",
+      "thumbnail": { "url" : "{user-avatar-url}" },
+      "image": { "url" : "https://perfectdreams.net/assets/img/loritta_star.png" },
+      "description":"{@user} promoveu o {guild} na **Lori's Server List**! Que tal você promover também [clicando aqui](https://loritta.website/s/lori) <:loritta:331179879582269451>",
+    "footer": {
+      "text": "ID do usuário: {user-id}"
+    }
+   }
+}
+</pre>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

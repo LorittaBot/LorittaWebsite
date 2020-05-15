@@ -1,0 +1,110 @@
+$compact-sidebar: 920px;
+
+#sidebar-wrapper {
+    overflow: hidden;
+    height: calc(100vh - 46px);
+    display: flex;
+
+    @media screen and (max-width: $compact-sidebar) {
+        flex-direction: column;
+        flex: 1 1 46px;
+    }
+
+    #left-sidebar {
+        background: linear-gradient(-90deg, #ebebeb 55%, #43b1ff00), url("../img/website_bg.png");
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        display: flex;
+        overflow: auto;
+        height: 100%;
+        justify-content: flex-end;
+        flex: 1 1 40%;
+        transition: 0.5s;
+
+        @media screen and (max-width: $compact-sidebar) {
+            flex: 1 1 46px;
+            background: #2991fe;
+            display: block;
+        }
+        
+        .subnavbar-hamburger {
+            display: block;
+            text-align: right;
+            padding: 10px 16px;
+            color: white;
+
+            .subnavbar-hamburger-button {
+                display: none;
+    
+                @media screen and (max-width: $compact-sidebar) {
+                    display: initial;
+                }
+            }
+        }
+
+        &.expanded {
+            @media screen and (max-width: $compact-sidebar) {
+                background-color: none;
+                justify-content: center;
+                min-height: 100%;
+                overflow: auto;
+            }
+
+            .contents {
+                display: initial;
+            }
+        }
+
+        .contents {
+            height: 100%;
+            margin-right: 8px;
+            // padding-top: 40px;
+            width: 250px;
+
+            @media screen and (max-width: $compact-sidebar) {
+                display: none;
+                margin: 0px;
+            }
+
+            .entry {
+                padding: 6px 10px;
+                border-radius: 3px;
+                margin-bottom: 2px;
+                padding-bottom: 6px;
+                padding-top: 6px;
+                line-height: 20px;
+                transition: 0.3s;
+                cursor: pointer;
+                max-width: 280px;
+                // color: #4f5660;
+
+                &:hover {
+                    background-color: #0000001a;
+                }
+
+                .title {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .subtitle {
+                    color: #3339;
+                    font-size: 0.8em;
+                    line-height: 12px;
+                }
+            }
+        }
+    }
+    
+    #right-sidebar {
+        padding-top: 40px;
+        overflow: auto;
+        display: flex;
+        flex-basis: 100%;
+        
+        .contents {
+            padding: 0px 42px 0px 42px;
+            width: 75%;
+        }
+    }
+}

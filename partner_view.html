@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block subtitle %}{{ guild.name }}{% endblock %}
+{% block metaproperty %}
+<meta property="og:site_name" content="{{ guild.owner.user.name }}#{{ guild.owner.user.discriminator }}">
+<meta property="og:description" content="{{ tagline }}">
+<meta property="og:title" content="{{ guild.name }}">
+<meta property="og:ttl" content="600">
+<meta property="og:image:width" content="320">
+<meta property="twitter:site" content="loritta">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="Página inicial">
+<meta name="theme-color" content="#7289DA">
+<meta content='{{ iconUrl }}' property='og:image'>
+{% endblock %}
+{% block body %}
+<div class="totallyHidden">
+{% include 'entities/guild-template.html' %}
+<div id="self-profile-json">{{ selfProfile|raw }}</div>
+<div id="server-information-json">{{ serverInformation|raw }}</div>
+</div>
+<style>
+.tingle-modal {
+background-color: inherit !important;
+}
+
+html {
+background: url("https://loritta.website/assets/img/discord_bg.png") repeat;
+}
+</style>
+{% endblock %}
+{% block afterlocale %}
+<script>
+console.log("owo whats this");
+function recaptchaCallback(response) {
+	console.log("passing to kotlin js...");
+	window['loritta-parent-spicy-morenitta'].PartnerView.recaptchaCallback(response);
+}
+var guildId = "{{ guildId }}"
+window['loritta-parent-spicy-morenitta'].PartnerView.start()
+</script>
+{% endblock %}

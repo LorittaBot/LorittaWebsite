@@ -1,0 +1,53 @@
+.lori-section {
+    border: 1px solid #dcddde;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: hsla(0, 0%, 97%, 1);
+    display: flex;
+
+    .left {
+        display: flex;
+        flex: 0 1 auto;
+        margin-right: 10px;
+    }
+
+    .right {
+        display: flex;
+        flex: 1 1 auto;
+        margin-left: 10px;
+    }
+
+    .as-column {
+        flex-direction: column;
+    }
+}
+
+.section-title {
+    color: rgba(114,118,125,.6);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 10px 6px;
+}
+
+input[type=text], select {
+    margin: 8px 0;
+    border: 1px solid #c7c9cb;
+    border-radius: 4px;
+    background-color: #fbfbfc;
+    padding: 8px;
+    -moz-transition: .2s;
+    -webkit-transition: .2s;
+    transition: .2s;
+    outline: none;
+    font-family: "Ubuntu", Arial, Helvetica, sans-serif;
+    
+    &:hover {
+        border: 1px solid #b9bbbe;
+    }
+
+    &:focus {
+        border-color: #29a6fe;
+    }
+}

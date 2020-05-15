@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-53518408-9"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'UA-53518408-9');
+
+function authenticate(p) { output.net.perfectdreams.spicymorenitta.utils.AuthUtils.handlePostAuth(p); };
+    
+document.domain = "loritta.website";
+    
+function onGoogleRecaptchaLoadCallback() { this['loritta-parent-spicy-morenitta'].net.perfectdreams.spicymorenitta.utils.GoogleRecaptchaUtils.onRecaptchaLoadCallback(); };
+    
+window.addEventListener('load', function () {
+    // Verificar se o usuário está usando o antigo Edge ou MSIE, já que nós não suportamos nenhum desses dois
+    // ; MSIE == MS Internet Explorer
+    // Trident/7.0 == MSIE11
+    if (/(?:\b(MS)?IE\s+|\bTrident\/7\.0;.*\s+rv:|\bEdge\/)(\d+)/.test(navigator.userAgent)) {
+        alert("Você está utilizando um navegador não suportado, funcionalidades do website podem não funcionar corretamente!\n\nNós recomendamos que você atualize para...\n\nMozilla Firefox: https://www.mozilla.org/firefox\n\nGoogle Chrome: https://www.google.com/chrome\n\nNovo Microsoft Edge: https://www.microsoft.com/edge\n\nPara mais informações, entre no servidor da Loritta no Discord e contate a equipe de suporte: https://loritta.website/support")
+    }
+    // Verificar se o SpicyMorenitta foi carregado corretamente
+    if (window.spicyMorenittaLoaded === undefined) {
+        alert("Algo deu errado ao carregar o JavaScript do website da Loritta, funcionalidades do website podem não funcionar corretamente!\n\nVerifique se o seu navegador está atualizado (recomendado: Mozilla Firefox, Google Chrome ou o Novo Microsoft Edge) e verifique se o seu navegador não possui nenhuma extensão maliciosa ou que esteja bloqueado requisições externas.\n\nCaso o problema persista, entre no servidor da Loritta no Discord e contate a equipe de suporte: https://loritta.website/support")
+    }
+});
+</script>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% block subtitle %}{{ WEBSITE_DEFAULT_TITLE }}{% endblock %} • Loritta{% endblock %}</title>
+<meta name="description" content="{{ WEBSITE_MetaDescription }}">
+{% if environment.name == "CANARY" %}
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/countUp.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/showdown.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/tingle.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/autosize.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/toastr.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/select2.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/jszip.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/select2.min.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/kotlin.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/kotlinx-coroutines-core.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/kotlinx-serialization-runtime-js.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/kotlinx-html-js.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/kotlinx-io.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/ktor-ktor-io.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/kotlinx-coroutines-io.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/ktor-ktor-utils.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/ktor-ktor-http.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/ktor-ktor-http-cio.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/ktor-ktor-client-core.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/ktor-ktor-client-js.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/kotlin-logging.js"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/loritta-parent-loritta-api.js?hash={{ asset_hash_app }}"></script>
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/loritta-parent-spicy-morenitta.js?hash={{ asset_hash_app }}"></script>
+{% else %}
+<script type="text/javascript" src="{{ websiteUrl }}v2/assets/js/app.js?hash={{ asset_hash_app }}"></script>
+{% endif %}
+{# <script type="text/javascript" src="{{ websiteUrl }}assets/js/moment-with-locales.min.js"></script> #}
+<link rel="stylesheet" href="{{ websiteUrl }}assets/css/style.css?v={{ legacy_asset_hash_style }}">
+<script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src='https://www.google.com/recaptcha/api.js?render=explicit&onload=onGoogleRecaptchaLoadCallback'></script>
+<script>
+function onGoogleRecaptchaLoadCallback() {
+  this['loritta-parent-spicy-morenitta'].net.perfectdreams.spicymorenitta.utils.GoogleRecaptchaUtils.onRecaptchaLoadCallback()
+}
+</script>
+<meta name="author" content="MrPowerGamerBR">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+{% block metaproperty %}
+<meta property="og:site_name" content="Website da Loritta">
+<meta property="og:description" content="{{ WEBSITE_MetaDescription }}">
+<meta property="og:title" content="Meu Website!">
+<meta property="og:image" content="http://loritta.website/assets/img/loritta_gabizinha_v1.png">
+<meta property="og:ttl" content="600">
+<meta property="og:image:width" content="320">
+<meta property="twitter:site" content="loritta">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="Página inicial">
+<meta name="theme-color" content="#00c1df"> 
+{% endblock %}
+<link rel="alternate" hreflang="en" href="https://loritta.website/us{{ pathNL }}" />
+<link rel="alternate" hreflang="pt" href="https://loritta.website/pt{{ pathNL }}" />
+<link rel="alternate" hreflang="pt-BR" href="https://loritta.website/br{{ pathNL }}" />
+<link rel="alternate" hreflang="es" href="https://loritta.website/es{{ pathNL }}" />
+</head>
+<body class="light">
+<div class="totallyHidden">
+</div>
+<div id="loading-screen">
+<img alt="Loading Spinner" src="{{ websiteUrl }}assets/img/loritta_loading.png">
+<div class="loading-text">Salvando...</div>
+</div>
+{% block body %}
+<div id="container">
+{% block container %}
+<div class="navigation-bar" id="navigation-bar">
+<div class="left-side-entries">
+  <div class="entry loritta-navbar-logo"><a href="{{ loriUrl }}" style="font-family: 'Pacifico', cursive; text-transform: none;" class="left-border">Loritta</a></div>
+  <div class="entry"><a href="{{ loriUrl }}support"><i class="fab fa-discord" aria-hidden="true"></i> {{ website_navbar_support }}</a></div>
+  <div class="entry"><a href="{{ loriUrl }}fanarts"><i class="fa fa-paint-brush" aria-hidden="true"></i> {{ WEBSITE_FAN_ARTS }}</a></div>
+  <div class="entry"><a href="{{ loriUrl }}donate"><i class="fa fa-gift" aria-hidden="true"></i> {{ WEBSITE_DONATE }}</a></div>
+  <div class="entry"><a href="{{ loriUrl }}extras"><i class="fa fa-star" aria-hidden="true"></i> Extras</a></div>
+  <div class="entry"><a href="{{ loriUrl }}blog"><i class="fas fa-newspaper" aria-hidden="true"></i> Blog</a></div>
+  <div class="entry"><a href="{{ loriUrl }}sponsors"><i class="far fa-kiss-wink-heart" aria-hidden="true"></i> {{ website_navbar_sponsors }}</a></div>
+  {# <a target="_blank" href="https://bit.ly/loristickers"><i class="far fa-grin-squint-tears"></i> Stickers</a></div>
+  <a target="_blank" href="https://produto.mercadolivre.com.br/MLB-1366127151-caneca-pster-da-loritta-morenitta-novembro-2019-_JM?quantity=1"><i class="fas fa-heart"></i> Merch</a> #}
+</div>
+<div class="right-side-entries">
+  <div class="entry"><a id="theme-changer-button" class="left-border"><i class="fas fa-moon" aria-hidden="true"></i></a></div>
+  <div id="locale-changer-button" class="entry" style="cursor: default;">
+      <i class="fas fa-globe-americas" aria-hidden="true"></i> {{ loritta_languageShort }} <i class="fas fa-chevron-down" style="opacity: 0.7;"></i>
+      <div id="languages">
+      </div>
+  </div>
+  {% if userIdentification != null %}
+  <a href="{{ websiteUrl }}/logout"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></a>
+  <a href="{{ loriUrl }}dashboard" id="login-button">
+  <span style="position: relative;"><span style="width: 0; height: 0; position: relative;"><img alt="Avatar do Usuário" src="https://cdn.discordapp.com/avatars/{{ userIdentification.id }}/{{ userIdentification.avatar }}.png" style="height: 40px; border-radius: 99999px; bottom: -8px; position: absolute;"><img alt="Avatar do Usuário" src="https://cdn.discordapp.com/avatars/{{ userIdentification.id }}/{{ userIdentification.avatar }}.png" style="height: 0px; width: 40px; border-radius: 99999px; visibility: hidden;"></span> {{ userIdentification.username }}</span>
+  </a>
+  {% else %}
+  <div class="entry">
+    <a href="{{ loriUrl }}dashboard" id="login-button">
+    <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+  </div>
+  {% endif %}
+  <div class="icon entry" id="hamburger-menu-button">&#9776;</div>
+  </div>
+</div>
+{% block afterNavbar %}
+{% block header %}
+<div style="height: 46px" id="dummy-navbar"></div>
+{% endblock %}
+<div id="belowHeader">
+<div id="wrapper" style="min-height: 100vh; background-color: rgb(243, 243, 243);">
+<div id="wrapperBlur">
+{% block wrapper %}
+{% endblock %}
+</div>
+</div>
+{% block footer %}
+<footer style="background-color: rgb(114, 137, 218); color: hsla(0,0%,100%,.6);">
+<div style="padding: 30px;">
+<div style="text-align: center; font-size: 18px; font-weight: 600;">© MrPowerGamerBR & PerfectDreams 2017-<script>document.write(new Date().getFullYear());</script> — Todos os direitos reservados</div>
+<div style="text-align: center; font-weight: 600;"><a style="color: hsla(0,0%,100%,.6);" href="https://mrpowergamerbr.com/">https://mrpowergamerbr.com/</a></div>
+<hr>
+<div style="text-align: center; font-size: 14px; padding-bottom: 8px;">A Loritta não está de forma alguma afiliado ao Discord. Nem deve ser considerada uma empresa endossada pelo Discord.</div>
+<div style="text-align: center; font-size: 10px;">Discord ®/™ &amp; © 2015-<script>document.write(new Date().getFullYear());</script> Discord Inc.</div>
+<div style="text-align: center; font-size: 14px; padding-bottom: 8px;">By using Loritta and/or this website, you agree to our <a href="{{ loriUrl }}privacy" style="color: hsla(0,0%,100%,.6);">Terms of Service & Privacy Policy</a></div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% endblock %}
+{% endblock %}
+{% block afterScripts %}
+{% endblock %}
+{% endblock %}
+<div class="totallyHidden">	
+<div class="tingle-demo please-disable-modal">
+<div class="test">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-1-4" style="overflow: hidden;">
+		<img class="animated fadeInUp" src="https://loritta.website/assets/img/loritta_pobre.png" alt="Loritta Pobre" style="width: 100%;">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		{{ LORITTA_PleaseDisableAdblock }}
+		</h2>
+{{ LORITTA_WhyDisableAdblock | raw }}
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<script src="{{ websiteUrl }}adsbygoogle.js"></script>
+<div id="locale-json" class="totallyHidden">{{ localeAsJson|raw }}</div>
+<script>
+this["loritta-parent-spicy-morenitta"].loadEmbeddedLocale()
+</script>
+{% block afterlocale %}
+{% endblock %}
+<style>
+/* latin */
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6Mk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oswald Regular'), local('Oswald-Regular'), url(https://fonts.gstatic.com/s/oswald/v16/TK3iWkUHHAIjg752GT8G.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends 'extras.html' %}
+{% block subtitle %}
+Sobre a Loritta (Bot)
+{% endblock %}
+{% block rightSidebarContents %}
+<div class="category-name">
+Sobre a Loritta (Bot)
+</div>
+<h2>Como eu posso adicionar a Loritta no meu servidor?</h2>
+<p>Você pode adicionar a Loritta <a href="{{ addBotUrl }}">clicando aqui</a>!</p>
+<p>Para você conseguir me adicionar em um servidor, você precisa ter permissão de <b>Administrador</b> ou permissão de <b>Gerenciar Servidor</b> no servidor que você deseja adicionar!</p>
+<p>Não está encontrando o servidor? Veja se a conta que você está logado no <a href="https://discordapp.com/channels/@me">Discord de navegador</a> é a mesma que está o servidor que você deseja me adicionar!</p>
+<hr>
+<h2>Quais são os comandos da Loritta?</h2>
+<p>Você pode ver todos os comandos que ela tem <a href="{{ loriUrl }}commands">clicando aqui</a>!</p>
+<hr>
+<h2>Qual é o prefixo da Loritta?</h2>
+<p>O prefixo padrão da Loritta é <code>+</code>, mas você pode alterar ele no <a href="{{ loriUrl }}dashboard">painel de administração</a> da Loritta. Se você quer descobrir o prefixo dela em um servidor que você está, mencione ela no chat que ela irá responder o prefixo no servidor que você mencionou ela!</p>
+<hr>
+<h2>Como altero a linguagem da Loritta?</h2>
+<p>Você pode alterar a linguagem que a Loritta fala utilizando <code>+linguagem</code></p>
+<hr>
+<h2>Como posso configurar/personalizar a Loritta?</h2>
+<p>Você pode configurar ela no <a href="{{ loriUrl }}dashboard">painel de administração</a>!</p>
+<hr>
+<h2>Tenho uma dúvida sobre a Loritta! Aonde posso perguntar?</h2>
+<p>No nosso <a href="{{ loriUrl }}support">servidor de suporte</a>!</p>
+<hr>
+<h2>Como altero o avatar da Loritta?</h2>
+<p>É impossível alterar o avatar dela, apenas quem criou ela pode alterar, e, ao alterar, o avatar é alterado para todos que usam a Loritta... Não iremos alterar o avatar dela só porque você quer colocar uma imagemzinha tosca com o logo do seu servidor.</p>
+<hr>
+<h2>Quais são as variáveis/placeholders que eu posso usar em mensagens do painel?</h2>
+<p>Existem vários placeholders que você pode usar nas mensagens da Loritta! Veja a lista <a href="{{ loriUrl }}extras/placeholders">clicando aqui</a>!</p>
+<hr>
+<h2>Porque a Loritta existe?</h2>
+<p><b>Ela existe por vários motivos, mas aqui vai alguns deles...</b></p>
+<ul>
+<li>Eu queria refazer o meu antigo bot (SparklyBot) que eu tinha feito apenas para diversão (ele era muito bagunçado, já que foi o meu primeiro bot), ele era um bot com vários comandos de entreterimento (<a hrfe="https://mrpowergamerbr.com/uploads/DiscordCanary_2018-07-30_11-01-39.png">muitos deles foram adicionados na Loritta!</a> Como o <a href="https://mrpowergamerbr.com/uploads/DiscordCanary_2018-07-30_11-02-11.png">treta news</a>, <a href="https://mrpowergamerbr.com/uploads/DiscordCanary_2018-07-30_11-03-37.png">sistema de anti-flood</a>, <a href="https://mrpowergamerbr.com/uploads/DiscordCanary_2018-07-30_11-04-44.png">vaporwave</a>, <a href="https://mrpowergamerbr.com/uploads/DiscordCanary_2018-07-30_11-05-24.png">sistema de música</a> e muito mais!) e com algumas funções básicas como mensagens de entrada/saída.</li>
+<li>A <span class="discord-mention">@Pandinhaaa</span> queria um bot para o servidor do Discord dela.</li>
+<li>Na época eu não conhecia nenhum bot brasileiro decente para o Discord e, na época, várias pessoas brasileiras estavam começando a migrar para o Discord.</li>
+</ul>
+<p>Então eu resolvi criar a <span class="discord-mention">@Loritta!</p>
+<hr>
+<h2>Quando a Loritta foi criada?</h2>
+<p>Ela começou a ser desenvolvida em 30 de Março de 2017, mas ela só ficou pública para qualquer um adicionar em 12 de Abril de 2017.</p>
+<hr>
+<h2>Quem fez o avatar da Loritta?</h2>
+<p>MrPowerGamerBR#4185, o criador da Loritta!</p>
+<hr>
+<h2>Eu posso fazer vídeos, tutoriais, desenhos, histórias com a personagem e o bot Loritta?</h2>
+<p>Sim! Você tem total direito de fazer vídeos, tutoriais, desenhos/fan arts, histórias e muito mais com a Loritta! Se você quiser, você pode mostrar o seu trabalho para a nossa equipe no <a href="/support">servidor de suporte</a>.</p>
+<hr>
+<h2>A Loritta está falando sozinha no meu servidor!</h2>
+<p>Antes de você ficar "jesus me salva a lori foi hackeada tira ela do servidor <img class="inline-emoji" src="https://cdn.discordapp.com/emojis/398950551422894080.png?v=1">", existem vários motivos dela poder estar falando assim.</p>
+<p>Se você ver uma mensagem "estranha" vinda dela, pode ser várias coisas, como por exemplo:</p>
+<ul>
+<li>Alguém usando o comando <code>+say</code>, é possível você enviar mensagens em um canal usando o <code>+say</code> até em outros canais de texto (<code>+say <span class="discord-mention">#canal-de-texto</span> Eu sou muito fofa!</code>), sendo assim possível "trollar" outras pessoas deste jeito.</li>
+<li>Alguém usando a função de "Testar Mensagem" no painel dela. Para facilitar a criação e customização de mensagens, existe um botão no painel dela para testar a sua mensagem criada, para você ver como fica no Discord. Infelizmente algumas pessoas gostam de "abusar" desta função usando ela para mandar mensagens como se fosse a Loritta.</li>
+<li>Alguém usando uma webhook que tem o mesmo avatar e nome. Para descobrir se é uma webhook, clique no avatar da webhook, se não aparecer nenhuma informação (apenas o avatar e o nome), quer dizer que é uma webhook.</li>
+<li>Alguém criou um bot com o mesmo avatar e nome. Para descobrir se é um bot falso, veja se o nome e o discriminator é <code>Loritta#0219</code>, se não for, quer dizer que não é a Loritta!</li>
+</ul>
+<hr>
+<h2>Qual linguagem a Loritta usa, e qual library?</h2>
+<p>Português, inglês, espanhol... ah, calma, não é isto que você quer saber, né?</p>
+<p>Originalmente ela foi criada em Java (utilizei o Eclipse para programar), mas alguns meses depois de eu ter criado ela, eu fiquei interessado sobre Kotlin, então resolvi começar a migrar ela para Kotlin!</p>
+<p>Atualmente ela é feita usando Java e Kotlin (utilizando o IntelliJ IDEA para programar), usando a incrível library <a href="https://github.com/DV8FromTheWorld/JDA">JDA</a> para interagir com a plataforma Discord.</p>
+<hr>
+<h2>Cadê o código-fonte da Loritta?</h2>
+<p><a href="https://github.com/LorittaBot/Loritta">Disponível no GitHub e licenciado em AGPL-3.0!</a></p>
+<hr>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

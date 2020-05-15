@@ -1,0 +1,78 @@
+<div class="content">
+<div class="smTitleBar">
+{{ WEBSITE_MYSERVER }}
+</div>
+<div class="insideContent" style="text-align: center;">
+<a href="https://discord.gg/3rXgN8x"><img src="https://discordapp.com/api/guilds/297732013006389252/embed.png?style=banner2&t=0"></img></a>
+</div>
+</div>
+{#
+<div class="content">
+<div class="smTitleBar">
+{{ WEBSITE_SERVERFANCLUB }}
+</div>
+<div class="insideContent">
+<div class="pure-g" style="text-align: center;">
+    {% for server in fanClubServers %}
+    <div class="pure-u-1 pure-u-md-1-6">
+		<a href="https://loritta.website/serversfanclub#{{ server.id }}"><img style="border-radius: 999999px;" src="{{ server.guildIcon }}"></img></a>
+	</div>
+	{% endfor %}
+</div>
+</div>
+</div> 
+
+<div class="content">
+<div class="smTitleBar">
+{{ WEBSITE_STATISTICS }}
+</div>
+<div class="insideContent">
+<div class="pure-g" style="text-align: center;">
+    <div class="pure-u-1 pure-u-md-1-2">
+		<i style="font-size: 5em;" class="fa fa-server" aria-hidden="true"></i>
+		<p><b>{{ totalServers }}{{ WEBSITE_SERVERS }}</b></p>
+		<p>{{ WEBSITE_USING_LORITTA }}</p>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-2">
+		<i style="font-size: 5em;" class="fa fa-users" aria-hidden="true"></i>
+		<p><b>{{ totalUsers }}{{ locale.WEBSITE_DIFFERENT_USERS }}</b></p>
+		<p>{{ locale.WEBSITE_IN_SERVERS_USING_LORITTA }}</p>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-1">
+		<i style="font-size: 5em;" class="fa fa-clock-o" aria-hidden="true"></i>
+		<p><b>{{ uptime }}</b></p>
+		<p>{{ locale.WEBSITE_WITHOUT_RESTARTING }}</p>
+	</div>
+</div>
+</div>
+</div>
+ #}
+ {#
+<div class="content">
+<div class="smTitleBar">
+Servidores mais Famosos
+</div>
+<div class="insideContent">
+{% set currentIndex = 0 %}
+{% for server in servers %}
+{% if 30 > currentIndex %}
+<div class="pure-g" style="text-align: center;">
+    <div class="pure-u-1 pure-u-md-1-5">
+		<img style="border-radius: 999999px;" src="{{ server.getIconUrl() }}"></img>
+	</div>
+	<div class="pure-u-1 pure-u-md-4-5" style="text-align: left;">
+	    <div style="font-size: 1.5em;font-weight: bold;">
+		{{ server.getName() }}
+		</div>
+		<div><b>🙋 Pessoas:</b> {{ serversMiscInfo[server].getMembers() }}</div>
+		<div><b>🤖 Bots:</b> {{ serversMiscInfo[server].getBots() }}</div>
+		<div>🌟 Divertindo este servidor desde <b>{{ serversMiscInfo[server].getJoinDate() }}</b>!</div>
+	</div>
+</div>
+<hr>
+{% endif %}
+{% set currentIndex = currentIndex + 1 %}
+{% endfor %}
+</div>
+</div> 
+#}

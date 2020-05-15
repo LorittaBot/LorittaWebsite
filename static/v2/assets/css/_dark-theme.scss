@@ -1,0 +1,42 @@
+body {
+    &.dark {
+        color: #e1e1e1;
+        background-color: #2c2f33;
+    }
+}
+
+.dark {
+    .odd-wrapper {
+        background-color: #2c2f33;
+        background-image: linear-gradient(-90deg, #43b1ff00, #2c2f33 15%, #2c2f33 85%, #43b1ff00), url("/v2/assets/img/website_bg.png");
+        &.wobbly-bg::before {
+            background-image: url("../img/wobby-lines-odd-dark.svg");
+        }
+    }
+
+    .even-wrapper {
+        background-color: #23272a;
+        background-image: linear-gradient(-90deg, #43b1ff00, #23272a 15%, #23272a 85%, #43b1ff00), url("/v2/assets/img/website_bg.png");
+        &.wobbly-bg::before {
+            background-image: url("../img/wobby-lines-even-dark.svg");
+        }
+    }
+
+    .dark-sweater-pose {
+        visibility: visible;
+    }
+
+    #sidebar-wrapper {
+        #left-sidebar {
+            background-image: linear-gradient(-90deg, #2c2f33 55%, #43b1ff00), url("../img/website_bg.png");
+
+            .contents {
+                .entry {
+                    .subtitle {
+                        color: #fff9;
+                    }
+                }
+            }
+        }
+    }
+}

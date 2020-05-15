@@ -1,0 +1,501 @@
+{% extends 'base.html' %}
+{% block header %}
+<div id="header" style="overflow: hidden; z-index: 0; position: relative;">
+<img alt="Loritta Morenitta" class="is-invisible" id="loritta" src="{{ websiteUrl }}assets/img/loritta.png?v2">
+<img alt="Loritta Morenitta" style="width: 0px; height: 0px;" src="{{ websiteUrl }}assets/img/loritta_blinking.png?v2">
+  <div id="rightSideText">
+  <div style="position: relative;" class="is-invisible" id="animate_myNameIs"><span class="text">{{ WEBSITE_HELLO }}</span></div>
+  <div style="position: relative;" class="is-invisible" id="animate_myName"><span style="font-size: 7.5em; color: #00d7ff;" class="text">Loritta</span></div>
+  <div id="animate_subtext" style="position: relative;" class="is-invisible"><span style="font-size: 2em; margin-bottom: 0.55em; display: block;" class="text">{{ WEBSITE_JUST_A_SIMPLE_DISCORD_BOT }}</span></div>
+  <div style="text-align: center;"><span class="swingimage" style="display: inline-block;"><div id="animate_textbutton" style="font-size: 1.25em;background: fuchsia;border-radius: 6px;box-shadow: 0 0 14px #f0f9;" class="is-invisible button-discord button-discord-info pure-button"><a href="{{ addBotUrl }}" style="color: white;"><i class="fab fa-discord"></i> {{ WEBSITE_ADD_ME }}</a></div></span> <span class="swingimage" style="display: inline-block;"><div id="animate_textbutton2" style="font-size: 1.25em;background: #00b7f2;border-radius: 6px;box-shadow: 0 0 14px #00b7f2;" class="is-invisible button-discord button-discord-info pure-button"><a href="#belowHeader" style="color: white;"><i class="fas fa-plus"></i> {{ LORITTA_LearnMore }}</a></div></span></div>
+</div>
+<div class="arrowBottom arrowAnimated arrowBounce">
+  <img width="40" height="40" alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yOTMuNzUxLDQ1NS44NjhjLTIwLjE4MSwyMC4xNzktNTMuMTY1LDE5LjkxMy03My42NzMtMC41OTVsMCwwYy0yMC41MDgtMjAuNTA4LTIwLjc3My01My40OTMtMC41OTQtNzMuNjcyDQoJbDE4OS45OTktMTkwYzIwLjE3OC0yMC4xNzgsNTMuMTY0LTE5LjkxMyw3My42NzIsMC41OTVsMCwwYzIwLjUwOCwyMC41MDksMjAuNzcyLDUzLjQ5MiwwLjU5NSw3My42NzFMMjkzLjc1MSw0NTUuODY4eiIvPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTIyMC4yNDksNDU1Ljg2OGMyMC4xOCwyMC4xNzksNTMuMTY0LDE5LjkxMyw3My42NzItMC41OTVsMCwwYzIwLjUwOS0yMC41MDgsMjAuNzc0LTUzLjQ5MywwLjU5Ni03My42NzINCglsLTE5MC0xOTBjLTIwLjE3OC0yMC4xNzgtNTMuMTY0LTE5LjkxMy03My42NzEsMC41OTVsMCwwYy0yMC41MDgsMjAuNTA5LTIwLjc3Miw1My40OTItMC41OTUsNzMuNjcxTDIyMC4yNDksNDU1Ljg2OHoiLz4NCjwvc3ZnPg0K" />
+</div>
+</div>
+{% endblock %}
+{% block wrapper %}
+<div class="oddWrapper">
+<!-- Loritta Teste -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="6236021665"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Loritta Teste 2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="8369584507"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="contentWrapper">
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img class="animate-on-scroll-left is-invisible" src="https://loritta.website/assets/img/loritta_tophalf.png" alt="Foto da Loritta" style="width: 100%;">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		{{ DASHBOARD_WhoAmI }}
+		</h2>
+{{ DASHBOARD_WhoAmIIntro|raw }}
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="evenWrapper">
+{#
+<div style="width: 100%;">
+<div style="overflow: hidden;">
+<div class="handle" style="width: 100vw; white-space: nowrap; overflow: hidden; padding-top: 32px; padding-bottom: 32px;">
+{% set i = 0 %}
+{% for guild in randomFamousGuilds %}
+<img src="{{ guild.getIconUrl }}" class="server-icon-circle {% if i == 0 %}server-icon-top{% elseif i == 1 %}server-icon-middle{% else %}server-icon-bottom{% endif %}">
+{% set i = i + 1 %}
+{% if i == 3 %}
+{% set i = 0 %}
+{% endif %}
+{% endfor %}
+</div>
+</div>
+<hr>
+#}
+<div class="contentWrapper">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader" style="text-align: center;">
+		Status
+		</h2>
+		<div class="pure-g vertically-centered-content" style="text-align: center;">
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div class="stat-name"><i class="fa fa-map-pin" aria-hidden="true"></i> {{ DASHBOARD_Servers }}</div>
+			<div class="stat-value" id="serverCount">0</div>
+		</div>
+{#		<div class="pure-u-1 pure-u-md-1-3">
+			<div class="stat-name"><i class="fa fa-users" aria-hidden="true"></i> {{ DASHBOARD_Users }}</div>
+			<div class="stat-value" id="userCount">0</div>
+		</div> #}
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div class="stat-name"><i class="far fa-clock"></i> {{ DASHBOARD_AwakeFor }}</div>
+			<div class="stat-value"><span id="dayCount">0</span>d, <span id="hourCount">0</span>h, <span id="minuteCount">0</span>m, <span id="secondCount">0</span>s</div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div class="stat-name"><i class="fa fa-terminal" aria-hidden="true"></i> {{ DASHBOARD_CommandCount }}</div>
+			<div class="stat-value" id="availableCommandsCount">0</div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div class="stat-name"><i class="fa fa-heart" aria-hidden="true"></i> {{ DASHBOARD_Love }}</div>
+			<div class="stat-value">∞</div>
+		</div>
+		<div class="pure-u-1 pure-u-md-1-3">
+			<div class="stat-name"><i class="fa fa-rocket" aria-hidden="true"></i> {{ DASHBOARD_ExecutedCommands }}</div>
+			<div class="stat-value" id="executedCommandsCount">0</div>
+		</div>
+		</div>
+	</div>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img class="animate-on-scroll-right is-invisible" src="https://loritta.website/assets/img/loritta_mendigagem_300w.png" sizes="(max-width: 768px) 100vw, 25vw" srcset="https://loritta.website/assets/img/loritta_mendigagem_300w.png 300w, https://loritta.website/assets/img/loritta_mendigagem_400w.png 400w, https://loritta.website/assets/img/loritta_mendigagem_500w.png 500w, https://loritta.website/assets/img/loritta_mendigagem.png 1259w" alt="Foto da Loritta" style="width: 100%;">
+	</div>
+</div>
+</div>
+{# </div> #}
+</div>
+<div class="oddWrapper">
+<div class="contentWrapper">
+<!-- Loritta Landing Page 2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="9588510136"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img class="animate-on-scroll-left is-invisible" src="https://loritta.website/assets/img/loritta_star.png" alt="Foto da Loritta" style="width: 100%;">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<div class="sectionHeader">
+		{{ DASHBOARD_VarietyAndQuality }}
+		</div>
+{{ DASHBOARD_VarietyAndQualityIntro|raw }}
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="evenWrapper">
+<div class="contentWrapper">
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		{{ DASHBOARD_Customization }}
+		</h2>
+{{ DASHBOARD_CustomizationIntro|raw }}
+		</div>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img class="animate-on-scroll-right is-invisible" src="https://loritta.website/assets/img/loritta_tophalf_rena.png" alt="Foto da Loritta" style="width: 100%;">
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="oddWrapper">
+<div class="contentWrapper">
+<!-- Loritta Landing Page 3 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="7275894337"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img class="animate-on-scroll-left is-invisible" src="https://loritta.website/assets/img/loritta_tophalf.png" alt="Foto da Loritta" style="width: 100%;">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		{{ DASHBOARD_Entertainment }}
+		</h2>
+{{ DASHBOARD_EntertainmentIntro|raw }}
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="evenWrapper">
+<div class="contentWrapper">
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		{{ DASHBOARD_Music }}
+		</h2>
+{{ DASHBOARD_MusicIntro|raw }}
+		</div>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img class="animate-on-scroll-right is-invisible" src="https://loritta.website/assets/img/loritta_headset_300w.png" sizes="(max-width: 768px) 100vw, 25vw" srcset="https://loritta.website/assets/img/loritta_mendigagem_300w.png 300w, https://loritta.website/assets/img/loritta_headset_400w.png 400w, https://loritta.website/assets/img/loritta_headset_500w.png 500w, https://loritta.website/assets/img/loritta_headset.png 512w" alt="Loritta escutando música" style="width: 100%;">
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="oddWrapper">
+<div class="contentWrapper">
+<!-- Loritta Landing Page 4 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="1531299988"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<a href="https://discord.gg/V7Kbh4z"><img class="animate-on-scroll-left is-invisible" src="https://discordapp.com/api/guilds/297732013006389252/embed.png?style=banner3&t={{ epochMillis }}" alt="Foto da Loritta" style="width: 100%;"></a><a href="https://discord.gg/ZWt5mKB"><img class="animate-on-scroll-left is-invisible" src="https://discordapp.com/api/guilds/420626099257475072/embed.png?style=banner3&t={{ epochMillis }}" alt="Foto da Loritta" style="width: 100%;"></a>
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		{{ DASHBOARD_FanClub }}
+		</h2>
+{{ DASHBOARD_FanClubIntro|raw }}
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<div class="evenWrapper">
+<div class="contentWrapper">
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		YourKit
+		</h2>
+<p>YourKit supports open source projects with its full-featured Java Profiler.</p>
+<p>YourKit, LLC is the creator of <a href="https://www.yourkit.com/java/profiler/">YourKit Java Profiler</a></p>
+<p>and <a href="https://www.yourkit.com/.net/profiler/">YourKit .NET Profiler</a>,</p>
+<p>innovative and intelligent tools for profiling Java and .NET applications.</p>
+		</div>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img class="animate-on-scroll-right is-invisible" src="https://www.yourkit.com/images/yklogo.png" style="width: 100%;">
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block leftColumn %}
+<div class="content">
+<div class="smTitleBar">
+{{ WEBSITE_ABOUT }}
+</div>
+<div class="insideContent">
+<div style="width: 100%; max-width: 100%;">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Loritta Teste -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="6236021665"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div>
+<img src="{{ websiteUrl }}assets/img/loritta_tophalf.png" alt="Foto da Loritta" style="float: left;" width="358">
+{{ WEBSITE_INTRO | raw }}
+<div style="text-align: center;">
+<h1 class="headerLine">Porque VOCÊ deveria me adicionar?</h1>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img id="money" src="{{ websiteUrl }}assets/img/loritta_real.png">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Grátis</h2>
+		<p>Você não precisa pagar nada para poder me adicionar no seu servidor. Sim, absolutamente nada, você não terá que gastar nenhum centavo para poder me ter em seu servidor! E, é claro, atualmente todas as funções também são grátis. (e eu prometo nunca remover uma função que eu já tenho para transformar ela em paga 🙋)</p><p>E sabe qual é a melhor parte de tudo isto? Se você não gostar de mim você pode me remover do seu servidor sem você ter precisado gastar nada! Ou seja, você não irá perder nada se você me adicionar! A vida é muito curta para ficar filosofando se algo vale a pena ou não. 🙂</p>
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Variedade e Qualidade</h2>
+		<p>Qual seria a graça de ter um bot com apenas 10 comandos? Ou que simplesmente possui funções que 1000 outros bots possuem? Eu sou diferente, seguindo um simples pensamento de "Variedade e Qualidade: Tudo que outro bot faz eu também irei fazer, só que de uma maneira maior, melhor e mais criativa".</p><p>Atualmente eu possuo mais de 100 comandos diferentes, variando de categorias como comandos administrativos, comandos utilitários, comandos para diversão, comandos "Photoshop", comandos relacionados com games e muito mais! E é claro, também existem as funções fora do contexto de comandos: Sistema de sincronização de Feeds RSS/Atom, mensagens quando alguém entra/sai do servidor, autorole, event/action log, avisar novos vídeos de um YouTuber, sincronização de posts do Amino, starboard e muito mais!</p>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="https://via.placeholder.com/256x256">
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="https://via.placeholder.com/256x256">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Customização</h2>
+		<p>Tá, parece ser muito legal ter "Variedade e Qualidade"... mas e se você não quiser todos estes comandos no seu servidor? Sem problemas! Todas as funções da Loritta podem ser desativadas na hora que você quiser, quando você quiser.</p><p>Você só quer que o comando <span>vieirinha</span> esteja ativado no seu servidor porque o Vieirinha é 🔝? Quer alterar o meu prefixo porque outro bot já usa <span>+</span>? Você simplesmente quer me deixar no seu servidor como um peso de papel? Tudo isto e muito mais você pode configurar e customizar no meu painel!</p>
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Entretenimento</h2>
+		<p>Vamos ser sinceros, qual é a graça de ter um bot no servidor que nem consegue tirar um pequeno sorriso do seu rosto? 🤷</p><p>Por isto eu possuo vários comandos diferentes e engraçados para você se divertir e ter gargalhadas com eles! Como o <span>avaliarwaifu</span>, que dá nota a sua waifu; <span>faustão</span>, que invoca o nosso querido Faustão no seu servidor para relembrar as clássicas frases dele; <span>ship</span>, que permite shippar dois usuários do seu servidor; <span>cepo</span>, para destruir alguém no estilo Gugu Gaiteiro; <span>tretanews</span>, para você criar um vídeo "não clickbait"™ com membros do seu servidor e vários outros comandos divertidos e engraçados!</p>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="https://via.placeholder.com/256x256">
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="https://i.imgur.com/C9idIUF.png">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Música</h2>
+		<p>As vezes você e sua gangue desejam ouvir o novo batidão do MC Hariel... ou talvez desejam ouvir aquele Despacito maroto... ou até mesmo aquela música clássica para relaxar a mente... Mas não se preocupe, pois eu também sou uma DJ!</p><p>Configure canais de voz, restringa músicas muito grandes, crie canais de texto para anunciar as músicas que eu estou tocando, crie uma playlist automática para ficar tocando quando ninguém estiver tocando nada e muito mais!</p>
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Social</h2>
+		<p>Eu e você somos seres humanos (bem, eu espero que você seja né) e, como qualquer outra pessoa neste planeta, gostamos de se socializar (afinal, se você não gostasse, você nem estaria mexendo no Discord 😋) e, por isto, eu possuo algumas coisinhas relacionadas com coisas sociais!</p><p>Mostre o seu perfil para outros usuários, customize o papel de parede do seu perfil, dê reputação para outros usuários para mostrar como essa pessoa é incrível, ganhe experiência e níveis falando em outros servidores, veja o rank do seu servidor e muito mais!</p>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="{{ websiteUrl }}assets/img/mini_bg.png">
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="https://via.placeholder.com/256x256">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Administração</h2>
+		<p>Se o mundo fosse perfeito, todos os usuários do seu servidor seriam felizes e respeitariam as regras do seu servidor... infelizmente não é assim que o mundo funciona. 😢</p><p>Para conseguir bloquear crianças de 10 anos tentando virar o seu servidor de cabeça para baixo eu possuo várias funções para administradores! Limpe mensagens, silencie usuários, taca-lê martelo do ban em usuários que nem estão no seu servidor e muito mais!</p>
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Comunidade</h2>
+		<p>Você sabe o que pessoas que gostam bastante de algo fazem? Elas começam a conversar mais e mais, unidas por um denominador comum.</p><p>E é claro que existe o Fã Clube da Loritta... que por algum motivo resolveram montar esse fã clube bem no meu apartamento... Quem teve a ideia de criar isto justamente no meu apartamento? As vezes gosto de ficar sozinha, sabia?</p><p>Brincadeiras a parte, todos são bem-vindos no meu servidor no Discord! Se você quiser falar sobre mim, falar sobre bugs que devem ser corrigidos, sugestões incríveis e maravilhosas para mim ou até mesmo falar como foi o seu dia então você veio ao lugar certo!</p><p><a href="https://discord.gg/3rXgN8x"><img src="https://discordapp.com/api/guilds/297732013006389252/embed.png?style=banner2&t=0"></a><p>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="https://via.placeholder.com/256x256">
+	</div>
+</div>
+<div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img src="https://via.placeholder.com/256x256">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<h2 style="font-family:Oswald;">Faça Você Mesmo™</h2>
+		<p>Eu não tenho uma função que você queria que eu tivesse? Você queria criar comandos mais complexos que apenas uma mensagenzinha quando alguém escreve o comando? Não se preocupe, eu tenho a solução perfeita para você!</p><p>Eu possuo uma API para que você mesmo possa criar seus próprios comandos em JavaScript! Desde comandos que mandam apenas uma mensagenzinha ao escrever a até comandos de dar cargos ao usar, o céu é o limite! (e, é claro, a API do Discord 😋)</p>
+	</div>
+</div>
+<h2 style="font-family:Oswald;">Feito por um Brasileiro, para Brasileiros</h2>
+<p>Seja sincero: Fale um bot brasileiro que possue várias funções únicas e que fique online 24/7.</p>
+<p>Se você precisar pensar por mais de 15 segundos, então você já deve ter entendido o motivo de eu existir:</p>
+<h3>Faltam bots brasileiros diferentes/únicos/legais para o Discord.</h3>
+<p>Nós não precisamos de 20 bots brasileiros diferentes que só sabem responder um comando de ping, nós precisamos de bots únicos, coisas que jamais foram vistas em outros bots.</p>
+<p>Você pode até falar "ah mas coisas feitos por brasileiros são sempre um lixo"... Errado, porque eu sou a prova viva que quebra esse pensamento. 😉 (E se você é brasileiro: Você percebeu que você é algo feito por dois brasileiros? Ou seja, quer dizer que você é um lixo? 🤔)</p>
+<p>Você pode até argumentar "ah, mas a Tatsumaki (ou qualquer outro bot) tem tradução para português" mas existe uma grande diferença entre "tradução" e "feito por um brasileiro". A Tatsumaki é um bot incrível e diferente, mas o grupo foco dela não são brasileiros... afinal, ela nunca iria ter um comando que cria vídeos do <span>tretanews</span>, não é mesmo?</p>
+<p>Outra vantagem disto é que (provavelmente) você é brasileiro também, ou seja, fica mais fácil para você poder fazer sugestões ou até mesmo reportar bugs!</p>
+<hr>
+<h2 style="font-family:Oswald;">Como adicionar a Loritta no seu Servidor</h2>
+Faça login clicando <a href="https://loritta.website/auth">aqui</a>, depois escolha o servidor que você deseja adicionar ela!
+<img alt="Banner de Divulgação da Loritta" src="{{ websiteUrl }}assets/img/loritta_banner.png">
+</div>
+</div>
+</div>
+</div>
+<img src="https://www.yourkit.com/images/yklogo.png">
+<p>YourKit supports open source projects with its full-featured Java Profiler.</p>
+<p>YourKit, LLC is the creator of <a href="https://www.yourkit.com/java/profiler/">YourKit Java Profiler</a></p>
+<p>and <a href="https://www.yourkit.com/.net/profiler/">YourKit .NET Profiler</a>,</p>
+<p>innovative and intelligent tools for profiling Java and .NET applications.</p>
+{% endblock %}
+{% block rightColumn %}
+{% include "widgets.html" %}
+{% endblock %}
+{% block afterScripts %}
+<script>
+// Example:
+onViewport(".animate-on-scroll-left", "animated fadeInLeft", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-right", "animated fadeInRight", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".fanclub-server-icon", "animated fadeInUp", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+var startedServerCountdown = false;
+var startedUserCountdown = false;
+var startedUptimeCountdown = false;
+var startedAvailableCommandsCountdown = false;
+var startedExecutedCommandsCountdown = false;
+
+var options = {
+useEasing: true,
+useGrouping: true,
+separator: '.',
+decimal: ',',
+};
+
+onViewport("#serverCount", "teste teste teste", 0, function(el) {
+if (startedServerCountdown) { return; }
+startedServerCountdown = true;
+var demo = new CountUp('serverCount', 0, {{ guildCount }}, 0, 5.5, options);
+if (!demo.error) {
+  demo.start();
+} else {
+  console.error(demo.error);
+}
+});
+
+{# onViewport("#userCount", "teste teste teste", 0, function(el) {
+if (startedUserCountdown) { return; }
+startedUserCountdown = true;
+
+var demo = new CountUp('userCount', 0, {{ userCount }}, 0, 5.5, options);
+if (!demo.error) {
+  demo.start();
+} else {
+  console.error(demo.error);
+}
+}); #}
+
+onViewport("#dayCount", "teste teste teste", 0, function(el) {
+if (startedUptimeCountdown) { return; }
+startedUptimeCountdown = true;
+
+{
+	var demo = new CountUp('dayCount', 0, {{ uptimeDays }}, 0, 5.5, options);
+	if (!demo.error) {
+	  demo.start();
+	} else {
+	  console.error(demo.error);
+	}
+}
+{
+	var demo = new CountUp('hourCount', 0, {{ uptimeHours }}, 0, 5.5, options);
+	if (!demo.error) {
+	  demo.start();
+	} else {
+	  console.error(demo.error);
+	}
+}
+{
+	var demo = new CountUp('minuteCount', 0, {{ uptimeMinutes }}, 0, 5.5, options);
+	if (!demo.error) {
+	  demo.start();
+	} else {
+	  console.error(demo.error);
+	}
+}
+{
+	var demo = new CountUp('secondCount', 0, {{ uptimeSeconds }}, 0, 5.5, options);
+	if (!demo.error) {
+	  demo.start();
+	} else {
+	  console.error(demo.error);
+	}
+}
+});
+
+onViewport("#availableCommandsCount", "teste teste teste", 0, function(el) {
+if (startedAvailableCommandsCountdown) { return; }
+startedAvailableCommandsCountdown = true;
+
+var demo = new CountUp('availableCommandsCount', 0, {{ availableCommandsCount }}, 0, 5.5, options);
+if (!demo.error) {
+  demo.start();
+} else {
+  console.error(demo.error);
+}
+});
+
+onViewport("#executedCommandsCount", "teste teste teste", 0, function(el) {
+if (startedExecutedCommandsCountdown) { return; }
+startedExecutedCommandsCountdown = true;
+
+var demo = new CountUp('executedCommandsCount', 0, {{ executedCommandsCount }}, 0, 5.5, options);
+if (!demo.error) {
+  demo.start();
+} else {
+  console.error(demo.error);
+}
+});
+</script>
+{% endblock %}

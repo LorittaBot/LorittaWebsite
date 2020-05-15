@@ -1,0 +1,256 @@
+$min-all-entries-on-navbar-width: 1500px;
+$break-off-social-media-links: 1024px;
+$subtract-by: 90px;
+
+/* latin */
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap; 
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(https://fonts.gstatic.com/s/oswald/v16/TK3iWkUHHAIjg752GT8G.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap; // Logo text is a good candidate for swap since displaying a company’s name using a reasonable fallback will get the message across but you’d eventually use the official typeface.
+  src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6Mk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.navigation-bar {
+    top: 0px; // Deixa a navbar no topo da página (se não ela sempre fica um pouco abaixo)
+    width: 100%; // Necessário se não fica feio
+    height: 46px;
+    position: fixed;
+    // overflow: hidden;
+    background-color: #29a6fe;
+    box-shadow: 0 0 15px rgba(0,0,0,.3);
+    text-transform: uppercase;
+    text-shadow: 0 1px rgba(0,0,0,.2);
+    font-family: Oswald,Impact,Arial,sans-serif;
+    line-height: 1;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: 1200px) {
+      letter-spacing: -1px;
+    }
+    
+    .entry {
+        float: left;
+        display: block;
+        color: #f2f2f2 !important;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        transition: 500ms;
+        // height: 46px;
+        cursor: pointer;
+        white-space: nowrap;
+        position: relative;
+
+        a {
+          color: #f2f2f2 !important;
+          text-decoration: none;
+        }
+
+        &:hover {
+            background-color: #2ba2f5;
+        }
+
+        &.social-media-link {
+          @media screen and (max-width: $break-off-social-media-links) {
+            display: none;
+          }
+        }
+    }
+
+    .icon {
+        display: none;
+    }
+
+    .left-side-entries {
+        float: left;
+        display: flex;
+        justify-content: space-evenly;
+        flex-grow: 1;
+
+        @for $i from 1 through 10 {
+          .entry {
+            &:nth-last-child(#{$i}):not(.loritta-navbar-logo) {
+              @media screen and (max-width: $min-all-entries-on-navbar-width - ($subtract-by * $i)) {
+                display: none;
+              }
+            }
+          }
+        }
+    }
+    
+    .right-side-entries {
+        margin-left: auto;
+    }
+
+    #hamburger-menu-button {
+      display: none;
+      @media screen and (max-width: 1366px) {
+        display: block;
+      }
+    }
+
+    &.expanded {
+      height: 100vh;
+      overflow: auto;
+      
+      .entry {
+        display: block !important;
+        float: none;
+        text-align: left;
+        height: auto;
+      }
+
+      .left-side-entries {
+        float: none;
+      }
+
+      .right-side-entries {
+        float: none;
+      }
+
+      #hamburger-menu-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+}
+
+@media screen and (max-width: 1366px) {
+  .navigation-bar a.icon {
+    float: right;
+    display: block;
+    padding: 14px 16px;
+  }
+}
+
+@media screen and (max-width: 968px) {
+  .navigation-bar .entry:not(.loritta-navbar-logo) {display: none;}
+}
+
+@media screen and (max-width: 1366px) {
+  .navigation-bar.responsive {position: relative;}
+  .navigation-bar.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .navigation-bar.responsive .entry {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.navigation-bar.responsive {
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    height: 100vh;
+    overflow: auto;
+    position: fixed;
+    flex-direction: column;
+
+    .left-side-entries {
+      flex-direction: column;
+      flex-grow: 0;
+
+      .entry {
+        display: block;
+      }
+    }
+
+    .right-side-entries {
+      flex-direction: column;
+      margin-left: unset;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+  .navigation-bar.expanded {position: relative;}
+  .navigation-bar.expanded .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .navigation-bar.expanded .entry {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+.navigation-bar.expanded {
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    height: 100vh;
+    overflow: auto;
+    position: fixed;
+    flex-direction: column;
+
+    .left-side-entries {
+      flex-direction: column;
+      flex-grow: 0;
+
+      .entry {
+        display: block;
+      }
+    }
+
+    .right-side-entries {
+      flex-direction: column;
+      margin-left: unset;
+    }
+}
+
+#languages {
+  position: absolute;
+  background-color: white;
+  left: 0;
+  top: 100%;
+  display: none;
+  text-align: left;
+  box-shadow: 0 0 15px rgba(0,0,0,.3);
+  padding: 4px;
+  min-width: 100%;
+  border-radius: 0px 0px 7px 7px;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+#languages a {
+  width: 100%;
+  font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
+  color: #4f545c !important;
+  font-weight: 500;
+  text-transform: none;
+  padding: 0px;
+
+  &:hover {
+    color: #00b0f4 !important;
+  }
+}
+
+#locale-changer-button:hover #languages {
+  display: block;
+}

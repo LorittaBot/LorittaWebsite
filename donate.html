@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+{{ WEBSITE_DONATE }}
+{% endblock %}
+{% block wrapper %}
+{{ donate_html|raw }}
+{% endblock %}
+{% block afterScripts %}
+<script>
+// Example:
+onViewport(".animate-on-scroll-left", "animated fadeInLeft", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-right", "animated fadeInRight", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-up", "animated fadeInUp", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".fanclub-server-icon", "animated fadeInUp", 250, function(el) {
+  el.removeClass("is-invisible");
+});
+</script>
+{% endblock %}

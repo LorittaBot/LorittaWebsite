@@ -1,0 +1,450 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.youTubeConfig %}
+<div class="category-name">
+Twitch
+</div>
+<div class="category-name">
+Canais da Twitch
+</div>
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-3-4">
+<div id="communityTitle" class="toggleSubText">
+Alguma coisa super topperson aqui
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-1-4">
+<button onclick="addEntryWithModal()" style="float: right;" class="button-discord button-discord-info pure-button">{{ DASHBOARD_AddChannel }}</button>
+</div>
+</div>
+<hr>
+<div id="custom-config-entries">
+</div>
+<hr>
+<button onclick="transformEntriesToJson()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<div class="totallyHidden">		
+<div id="custom-config-entry-template" class="config-entry">
+<div  class="discord-generic-entry">
+<img class="entry-icon" style="width: 6%; height: auto; border-radius: 999999px; float: left;">
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-18-24">
+<div style="margin-left: 10px; margin-right: 10px;">
+<div class="entry-title">...</div>
+<div class="entry-channel toggleSubText">...</div>
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-6-24 vertically-centered-content">
+<button class="entry-delete button-discord button-discord-edit pure-button" style="margin-right: 8px; min-width: 0px;"><i class="fas fa-trash" aria-hidden="true"></i></button>
+<button class="entry-edit button-discord button-discord-edit pure-button">{{ DASHBOARD_EditButton }}</button>
+</div>
+</div>
+</div>
+</div>
+<div class="tingle-demo add-new-entry-modal">
+<div class="test">
+<div class="category-name">{{ DASHBOARD_AddChannel }}</div>
+	<div style="width: 25%">
+		<img style="width: 100%; height: auto; float: left; border-radius: 999999px;" class="entry-icon" src="https://i.imgur.com/s4dTtBy.jpg"></img>
+	</div>
+	<div style="width: 73%; float: right;">
+		<div class="flavourText">{{ DASHBOARD_ChannelLink }}</div> <div class="entry-error flavourText totallyHidden" style="color: #f04747;">{{ DASHBOARD_ErrorWhileGettingChannel }}</div>
+		<input style="width: 100%;" class="entry-url" data-internal-id="inviteUrl" placeholder="https://www.twitch.tv/coloniacontraatacalive" type="text">
+		<div class="blurSection entry-info">
+		<div class="flavourText">{{ DASHBOARD_ChannelName }}</div>
+		<div class="toggleSubText entry-title">A Loritta é muito fofa! <3</div>
+		<div class="flavourText">{{ DASHBOARD_ChannelToAnnounceLive }}</div>
+		<select class="entry-repost-id">
+			{% for textChannel in guild.getTextChannels %}
+			<option value="{{ textChannel.getId }}">{{ textChannel.getName }}</option>
+			{% endfor %}
+		  </select>
+		<div class="flavourText">{{ DASHBOARD_MessageToBroadcastLive }}</div>
+		<textarea class="entry-description">{{ DASHBOARD_LivestreamTemplate }}</textarea>
+		<button onclick="sendMessage(this)" class="button-discord button-discord-info pure-button">{{ DASHBOARD_TestMessage }}</button>
+		</div>
+	</div>
+	<br style="clear: both" /> <!-- So dirty! -->
+</div>
+</div>
+<div class="tingle-demo delete-entry-modal">
+<div class="test">
+<div class="category-name">Deletar canal</div>
+	Você tem certeza que você deseja fazer isto?
+</div>
+</div>
+<script id="entry-hidden-data" type="text/template">
+{{ channels|raw }}
+</script>
+</div>
+<script data-cfasync="false">
+function sendMessage(button) {
+	var payload = {}
+	
+	payload["type"] = "livestreamMessage"
+	payload["content"] = $(button).parent().find(".entry-description").val()
+	payload["textChannelId"] = $(button).parent().find('.entry-repost-id option:selected').val()
+	payload["channelUrl"] = $(button).parent().parent().find('.entry-url').val()
+
+	
+	console.log(payload)
+	toastr.options = {
+		"closeButton": false,
+		 "debug": false,
+	    "newestOnTop": false,
+			  "progressBar": false,
+			  "positionClass": "toast-bottom-center",
+			  "preventDuplicates": true,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "1000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+			
+	toastr.info('Enviando mensagem...', toastr)
+	
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", window.location.origin + "/dashboard/configure/{{ guild.getId }}/testmessage", true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');	
+	// send the collected data as JSON
+	xhr.send(JSON.stringify(payload));
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			toastr.clear()
+			var response = JSON.stringify(xhr.responseText)
+			// alert("Adicionado no servidor ~ " + xhr.responseText);
+			toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-bottom-center",
+			  "preventDuplicates": true,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "4000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+
+			if (response["error"] != null) {
+				toastr.error(response["error"], toastr)
+			} else {
+				toastr.success('Mensagem enviada!', toastr)
+			}
+		}
+	}
+}
+
+var typingTimer;
+
+function transformEntriesToJson() {
+	var configAttr = {"type":"{{ saveType }}"}
+	
+	/* $("body").find("[data-internal-name]").each(function( index ) {
+		var value = $(this).val();
+		if ($(this).attr("type") == "checkbox") {
+			value = $(this).is(':checked')
+		}
+		configAttr[$(this).data("internal-name")] = value
+	}); */
+
+	var entries = [];
+	$(".config-entry").each(function( index ) {
+		var entry = {};
+		
+		if ($(this).attr("id") !== "custom-config-entry-template") {
+			entry["repostToChannelId"] = $(this).attr("data-entry-repost-id");
+			entry["channelUrl"] = $(this).attr("data-entry-url");
+			entry["channelId"] = $(this).attr("data-entry-channel-id");
+			entry["videoSentMessage"] = htmldecode($(this).attr("data-entry-description"));
+			entries.push(entry);
+		}
+	});
+	
+	configAttr["entries"] = entries;
+	
+	console.log(configAttr);
+	
+	var json = JSON.stringify(configAttr);
+	
+	sendJsonToServer(json);
+}
+
+function getContentAsJson(url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	
+	xhr.send();
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			console.log(xhr.responseText);
+			var json = JSON.parse(xhr.responseText)
+			callback(json);
+		}
+	}
+}
+
+function addEntryWithModal() {
+	var guid = uuidv4();
+	
+    var modal = new tingle.modal({
+        closeMethods: [],
+        footer: true
+		});
+		
+    modal.addFooterBtn('Salvar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		var element = $("#editing-" + guid);
+		/* if (element.attr("data-is-ready") == "false") { return; } */
+		var iconUrl = element.attr("data-entry-icon");
+		var channelId = element.attr("data-entry-channel-id");
+		var channelUrl = element.attr("data-entry-url");
+		console.log("addEntryWithModal ~ cId " + channelId);
+		console.log("addEntryWithModal ~ cUrl " + channelUrl);
+		var title = element.attr("data-entry-title");
+		var description = element.find(".entry-description").val()
+		var textChannelName = element.find(".entry-repost-id").find('option:selected').text()
+		var textChannelId = element.find(".entry-repost-id").find('option:selected').val()
+		console.log("addEntryWithModal ~ " + textChannelName);
+		addNewConfigEntryData(title, iconUrl, channelUrl, channelId, textChannelName, textChannelId, description, guid)
+		modal.close();
+    });
+
+	modal.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		modal.close();
+	});
+	
+	var cloned = $(".add-new-entry-modal").clone()
+	cloned.children().attr("id", "editing-" + guid);
+	cloned.children().attr("data-guid", guid);
+	
+    modal.setContent(cloned.html());
+	modal.open();
+	
+	addInputEvent($("#editing-" + guid));
+}
+
+function editEntry(guid) {
+	if ($("#" + guid).attr("data-is-ready") == "false") {
+		return;
+	}
+    var modal = new tingle.modal({
+        closeMethods: [],
+        footer: true
+	});
+		
+    modal.addFooterBtn('Salvar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		var element = $("#editing-" + guid);
+		/* if (element.attr("data-is-ready") == "false") { return; } */
+		var iconUrl = element.attr("data-entry-icon");
+		var channelId = element.attr("data-entry-channel-id");
+		var title = element.attr("data-entry-title");
+		var channelUrl = element.attr("data-entry-url");
+		var description = element.find(".entry-description").val()
+		var textChannelName = element.find(".entry-repost-id").find('option:selected').text()
+		var textChannelId = element.find(".entry-repost-id").find('option:selected').val()
+		setChannelData($("#" + guid), title, iconUrl, channelUrl, channelId, textChannelName, textChannelId, description, guid)
+		// addNewConfigEntryData(title, iconUrl, channelId, textChannelName, textChannelId, description, guid)
+		modal.close();
+    });
+
+	modal.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		modal.close();
+	});
+	
+	var entry = $("#" + guid)
+	var cloned = $(".add-new-entry-modal").clone()
+	cloned.children().attr("id", "editing-" + guid);
+	cloned.children().attr("data-guid", guid);
+	cloned.find(".entry-info").removeClass("blurSection");
+	cloned.find(".entry-icon").attr("src", entry.attr("data-entry-icon"))
+	cloned.find(".entry-title").html(entry.attr("data-entry-title"))
+    modal.setContent(cloned.html());
+	modal.open();
+	$("#editing-" + guid).find(".entry-url").val(entry.attr("data-entry-url"))
+	$("#editing-" + guid).find(".entry-description").val(htmldecode(entry.attr("data-entry-description")))
+	$("#editing-" + guid).find(".entry-repost-id").val(entry.attr("data-entry-repost-id")).change();
+	
+	addInputEvent($("#editing-" + guid));
+}
+
+function deleteEntry(guid) {	
+    var modal = new tingle.modal({
+        closeMethods: [],
+        footer: true
+	});
+		
+    modal.addFooterBtn('Deletar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		var element = $("#" + guid);
+		element.remove();
+		modal.close();
+    });
+
+	modal.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		modal.close();
+	});
+	var cloned = $(".delete-entry-modal").clone()
+    modal.setContent(cloned.html());
+	modal.open();
+}
+
+function addInputEvent(element) {
+	element.find(".entry-url").on('input', function() {
+		element.find(".entry-info").addClass("blurSection");
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(function() { doneTyping(element) }, 1500);
+	});
+}
+
+function doneTyping(element) {
+	element.attr("data-is-ready", false)
+	element.find(".entry-error").addClass("totallyHidden");
+	var json = getContentAsJson(window.location.origin + "/api/v1/get_twitch_info?channelLink=" + encodeURI(element.find(".entry-url").val()), function(json) {
+		if (json["raw"] != null || json["error"] != null) {
+			element.find(".entry-info").removeClass("noBlur")
+			element.find(".entry-info").addClass("blurSection")
+			element.find(".entry-error").removeClass("totallyHidden");
+			element.attr("data-is-ready", false)
+			return;
+		}
+		element.find(".entry-info").removeClass("blurSection")
+		element.find(".entry-info").addClass("noBlur")
+		element.find(".entry-title").text(json["display_name"])
+		element.find(".entry-icon").attr("src", json["profile_image_url"])
+		element.attr("data-entry-title", json["display_name"])
+		element.attr("data-entry-icon", json["profile_image_url"])
+		element.attr("data-entry-url", element.find(".entry-url").val())
+		element.attr("data-is-ready", true)
+	});
+}
+
+function addNewConfigEntry(channelUrl, channelId, channelName, textChannelId, description, guid) {
+	console.log(channelUrl + " ~ " + guid);
+	var cloned = $("#custom-config-entry-template").clone();
+	cloned.find(".entry-channel").text(channelName);
+	cloned.attr("id", guid);
+	cloned.attr("data-entry-description", description);
+	cloned.attr("data-entry-url", channelUrl);
+	cloned.attr("data-entry-channel-id", channelId);
+	cloned.attr("data-entry-repost-id", textChannelId);
+	cloned.attr("data-entry-title", channelName);
+	cloned.attr("data-is-ready", false)
+	cloned.find(".entry-edit").attr("onclick", "editEntry('" + guid + "');")
+	cloned.find(".entry-delete").attr("onclick", "deleteEntry('" + guid + "');")
+	$("#custom-config-entries").append(cloned);
+
+	var json = getContentAsJson(window.location.origin + "/api/v1/get_twitch_info?channelLink=" + encodeURI(channelUrl), function(json) {
+		console.log("callback!");
+		if (json["error"] != null) {
+			$("#custom-config-entries").find("#" + guid).remove();
+			return;
+		}
+		cloned.attr("data-is-ready", true)
+		cloned.attr("data-entry-icon", json["profile_image_url"])
+		cloned.attr("data-entry-title", json["display_name"])
+		cloned.attr("data-entry-channel-url", channelUrl)
+		cloned.find(".entry-title").text(json["display_name"])
+		cloned.find(".entry-icon").attr("src", json["profile_image_url"])
+	});
+}
+
+function addNewConfigEntryData(channelName, channelIcon, channelUrl, channelId, textChannelName, textChannelId, description, guid) {
+	console.log("addNewConfigEntryData ~ " + textChannelName);
+		console.log("addNewConfigEntryData ~ cId " + channelId);
+		console.log("addNewConfigEntryData ~ cUrl " + channelUrl);
+	var cloned = $("#custom-config-entry-template").clone();
+	cloned.attr("id", guid);
+	setChannelData(cloned, channelName, channelIcon, channelUrl, channelId, textChannelName, textChannelId, description, guid);
+	
+	$("#custom-config-entries").append(cloned);
+}
+
+function setChannelData(cloned, channelName, channelIcon, channelUrl, channelId, textChannelName, textChannelId, description, guid) {
+	console.log("setChannelData ~ " + textChannelName);
+	cloned.find(".entry-channel").text("#" + textChannelName);
+	cloned.find(".entry-title").text(channelName)
+	cloned.find(".entry-icon").attr("src", channelIcon)
+	cloned.find(".entry-edit").attr("onclick", "editEntry('" + guid + "');");
+	cloned.find(".entry-delete").attr("onclick", "deleteEntry('" + guid + "');");
+	
+	cloned.attr("data-entry-channel-name", channelName);
+	cloned.attr("data-entry-icon", channelIcon);
+	cloned.attr("data-entry-description", description);
+	cloned.attr("data-entry-channel-id", channelId)
+	cloned.attr("data-entry-url", channelUrl)
+	cloned.attr("data-entry-repost-id", textChannelId)
+		console.log("setChannelData ~ cId " + channelId);
+		console.log("setChannelData ~ cUrl " + channelUrl);
+	cloned.attr("data-is-ready", true)
+}
+
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  )
+}
+
+var jsonFeed = JSON.parse($('#entry-hidden-data').html())
+console.log(jsonFeed);
+jQuery.each(jsonFeed, function() {
+var guid = uuidv4();
+console.log(this);
+addNewConfigEntry(this["channelUrl"], this["channelId"], "#" + this["textChannelName"], this["repostToChannelId"], this["videoSentMessage"], guid);
+});
+
+$("#cmn-toggle-1").click(function(e) {
+	applyBlur()
+});
+
+$("#cmn-toggle-3").click(function(e) {
+	applyBlur2()
+});
+
+function applyBlur() {
+  var e = $("#hiddenIfDisabled");
+  if ($('#cmn-toggle-1').is(':checked')) {
+	e.removeClass();
+	e.addClass("noBlur");
+  } else {
+    e.removeClass();
+	e.addClass("blurSection");
+  }
+}
+
+function applyBlur2() {
+  var e = $("#hiddenIfDisabled2");
+  if ($('#cmn-toggle-3').is(':checked')) {
+	e.removeClass();
+	e.addClass("noBlur");
+  } else {
+    e.removeClass();
+	e.addClass("blurSection");
+  }
+}
+
+applyBlur();
+applyBlur2();
+
+function htmldecode(s){
+    window.HTML_ESC_MAP = {
+    "nbsp":" ","iexcl":"¡","cent":"¢","pound":"£","curren":"¤","yen":"¥","brvbar":"¦","sect":"§","uml":"¨","copy":"©","ordf":"ª","laquo":"«","not":"¬","reg":"®","macr":"¯","deg":"°","plusmn":"±","sup2":"²","sup3":"³","acute":"´","micro":"µ","para":"¶","middot":"·","cedil":"¸","sup1":"¹","ordm":"º","raquo":"»","frac14":"¼","frac12":"½","frac34":"¾","iquest":"¿","Agrave":"À","Aacute":"Á","Acirc":"Â","Atilde":"Ã","Auml":"Ä","Aring":"Å","AElig":"Æ","Ccedil":"Ç","Egrave":"È","Eacute":"É","Ecirc":"Ê","Euml":"Ë","Igrave":"Ì","Iacute":"Í","Icirc":"Î","Iuml":"Ï","ETH":"Ð","Ntilde":"Ñ","Ograve":"Ò","Oacute":"Ó","Ocirc":"Ô","Otilde":"Õ","Ouml":"Ö","times":"×","Oslash":"Ø","Ugrave":"Ù","Uacute":"Ú","Ucirc":"Û","Uuml":"Ü","Yacute":"Ý","THORN":"Þ","szlig":"ß","agrave":"à","aacute":"á","acirc":"â","atilde":"ã","auml":"ä","aring":"å","aelig":"æ","ccedil":"ç","egrave":"è","eacute":"é","ecirc":"ê","euml":"ë","igrave":"ì","iacute":"í","icirc":"î","iuml":"ï","eth":"ð","ntilde":"ñ","ograve":"ò","oacute":"ó","ocirc":"ô","otilde":"õ","ouml":"ö","divide":"÷","oslash":"ø","ugrave":"ù","uacute":"ú","ucirc":"û","uuml":"ü","yacute":"ý","thorn":"þ","yuml":"ÿ","fnof":"ƒ","Alpha":"Α","Beta":"Β","Gamma":"Γ","Delta":"Δ","Epsilon":"Ε","Zeta":"Ζ","Eta":"Η","Theta":"Θ","Iota":"Ι","Kappa":"Κ","Lambda":"Λ","Mu":"Μ","Nu":"Ν","Xi":"Ξ","Omicron":"Ο","Pi":"Π","Rho":"Ρ","Sigma":"Σ","Tau":"Τ","Upsilon":"Υ","Phi":"Φ","Chi":"Χ","Psi":"Ψ","Omega":"Ω","alpha":"α","beta":"β","gamma":"γ","delta":"δ","epsilon":"ε","zeta":"ζ","eta":"η","theta":"θ","iota":"ι","kappa":"κ","lambda":"λ","mu":"μ","nu":"ν","xi":"ξ","omicron":"ο","pi":"π","rho":"ρ","sigmaf":"ς","sigma":"σ","tau":"τ","upsilon":"υ","phi":"φ","chi":"χ","psi":"ψ","omega":"ω","thetasym":"ϑ","upsih":"ϒ","piv":"ϖ","bull":"•","hellip":"…","prime":"′","Prime":"″","oline":"‾","frasl":"⁄","weierp":"℘","image":"ℑ","real":"ℜ","trade":"™","alefsym":"ℵ","larr":"←","uarr":"↑","rarr":"→","darr":"↓","harr":"↔","crarr":"↵","lArr":"⇐","uArr":"⇑","rArr":"⇒","dArr":"⇓","hArr":"⇔","forall":"∀","part":"∂","exist":"∃","empty":"∅","nabla":"∇","isin":"∈","notin":"∉","ni":"∋","prod":"∏","sum":"∑","minus":"−","lowast":"∗","radic":"√","prop":"∝","infin":"∞","ang":"∠","and":"∧","or":"∨","cap":"∩","cup":"∪","int":"∫","there4":"∴","sim":"∼","cong":"≅","asymp":"≈","ne":"≠","equiv":"≡","le":"≤","ge":"≥","sub":"⊂","sup":"⊃","nsub":"⊄","sube":"⊆","supe":"⊇","oplus":"⊕","otimes":"⊗","perp":"⊥","sdot":"⋅","lceil":"⌈","rceil":"⌉","lfloor":"⌊","rfloor":"⌋","lang":"〈","rang":"〉","loz":"◊","spades":"♠","clubs":"♣","hearts":"♥","diams":"♦","\"":"quot","amp":"&","lt":"<","gt":">","OElig":"Œ","oelig":"œ","Scaron":"Š","scaron":"š","Yuml":"Ÿ","circ":"ˆ","tilde":"˜","ndash":"–","mdash":"—","lsquo":"‘","rsquo":"’","sbquo":"‚","ldquo":"“","rdquo":"”","bdquo":"„","dagger":"†","Dagger":"‡","permil":"‰","lsaquo":"‹","rsaquo":"›","euro":"€"};
+    if(!window.HTML_ESC_MAP_EXP)
+        window.HTML_ESC_MAP_EXP = new RegExp("&("+Object.keys(HTML_ESC_MAP).join("|")+");","g");
+    return s?s.replace(window.HTML_ESC_MAP_EXP,function(x){
+        return HTML_ESC_MAP[x.substring(1,x.length-1)]||x;
+    }):s;
+}
+</script>
+{% endblock %}

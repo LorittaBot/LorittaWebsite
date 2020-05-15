@@ -1,0 +1,104 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+<div class="discord-scroller" style="width: 25.5%; float: left;">
+	<div class="server-name">
+	{{ USERINFO_ROLES }}
+	</div>
+	{% for role in guild.getRoles %}
+	<div data-clickable-role="true" onclick="displayRoleStuff(this, '{{ role.getId }}');" class="item" style="font-weight: 600; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;{% if role.getColor != null %}color: rgb({{ role.getColor.getRed }}, {{ role.getColor.getGreen }}, {{ role.getColor.getBlue }});{% endif %}">
+	{{ role.getName }}
+	</div>
+	{% endfor %}
+</div>
+<div style="padding: 0px 0px 80px 20px;">
+{% for role in guild.getRoles %}
+<div id="role-{{ role.getId }}" data-internal-id="{{ role.getId }}" style="width: 74.5%; float: right;" class="totallyHidden">
+{{ generateCheckbox(role.getId + 1, 
+"allowInvites", 
+DASHBOARD_AllowSendingInvites, 
+"", 
+roleConfigs[role].allowInvites, 
+true) }}
+<hr>
+{{ generateCheckbox(role.getId + 2, 
+"ignoreCommands", 
+"Permitir usar comandos", 
+"Caso esteja ativado, eu irei processar comandos enviados por este usuário.", 
+roleConfigs[role].ignoreCommands == false, 
+true) }}
+<hr>
+{{ generateCheckbox(role.getId + 3, 
+"bypassCommandBlacklist", 
+"Permitir usar comandos em qualquer canal", 
+"Caso esteja ativado, eu irei permitir usar comandos em canais que foram adicionados para eu ignorar.", 
+roleConfigs[role].bypassCommandBlacklist, 
+true) }}
+<hr>
+{{ generateCheckbox(role.getId + 7, 
+"allowUsingMusicCommands", 
+"dj", 
+"dj", 
+roleConfigs[role].allowUsingMusicCommands, 
+true) }}
+<hr>
+{{ generateCheckbox(role.getId + 8, 
+"allowAccessToDashboard", 
+"Permitir acessar a configuração deste servidor", 
+"Caso esteja ativado, usuários com esta permissão poderão acessar e manipular a configuração deste servidor no meu painel. Essa é uma permissão perigosa para conceder.", 
+roleConfigs[role].allowAccessToDashboard, 
+true) }}
+<hr>
+<br style="clear: both" /> <!-- So dirty! -->
+</div>
+{% endfor %}
+</div>
+<hr>
+<script>
+function displayRoleStuff(element, roleId) {
+$('div[data-internal-id]').each(function(index) {
+  $(this).addClass("totallyHidden");
+});
+  
+$('div[data-clickable-role]').each(function(index) {
+  $(this).removeClass("selected-item");
+});
+  
+
+$(element).addClass("selected-item");
+
+$("#role-" + roleId).removeClass("totallyHidden");
+}
+
+function transformRolesToJson() {
+var configAttr = {"type":"{{ saveType }}"}
+
+$('[data-internal-id]').each(function( index ) {
+
+var roleAttr = {}
+
+$(this).find("[data-internal-name]").each(function( index ) {
+	var value = $(this).val();
+	if ($(this).attr("type") == "checkbox") {
+		value = $(this).is(':checked')
+	}
+        if ($(this).attr("data-internal-name") == "ignoreCommands") {
+		value = !value
+	}
+	roleAttr[$(this).data("internal-name")] = value
+});
+
+configAttr[$(this).data("internal-id")] = roleAttr;
+
+});
+
+console.log(configAttr);
+
+var json = JSON.stringify(configAttr);
+
+sendJsonToServer(json);
+}
+
+</script>
+<button onclick="transformRolesToJson()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

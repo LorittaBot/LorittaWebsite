@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+Servidores que usam a Loritta
+{% endblock %}
+{% block wrapper %}
+<div class="oddWrapper">
+<!-- Loritta Teste -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="6236021665"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="contentWrapper" style="text-align: center;">
+<div class="sectionHeader">
+Servidores que usam a Loritta
+</div>
+<p>Servidores que me adicionaram tem, em média, {{ averageTotal }} membros. ({{ realAverageTotal }}, se não considerar bot collections)</p>
+<p>Servidores que me adicionaram tem, em média, {{ averageBots }} bots. ({{ realAverageBots }}, se não considerar bot collections)</p>
+<p>Atualmente em {{ botCollections }} servidores que só servem para juntar bots (bot collections) 🤖.</p>
+<div class="pure-g vertically-centered-content">
+{% for guild in serversSortedByMembers %}
+	{% set serverAverage = guild.members.size / realAverageTotal %}
+	{% set ownerId = guild.owner.user.id %}
+    <div class="pure-u-1 {% if serverAverage >= 75 %}pure-u-md-1-3{% elseif serverAverage >= 25 %}pure-u-md-1-4{% elseif serverAverage >= 5 %}pure-u-md-1-5{% elseif serverAverage >= 1 %}pure-u-md-1-6{% else %}pure-u-md-1-8{% endif %} server-entry is-invisible"><img style="width: 21%; height: auto; border-radius: 100%;" src="{% if guild.getIconUrl != null %}{{ guild.getIconUrl }}{% else %}{{ websiteUrl }}assets/img/unknown.png{% endif %}" alt="{{ guild.getId }}"></img></br>{{ guild.name }} ({{ guild.getMembers.size }} membros){% if isPatreon[ownerId] == true or isDonator[ownerId] == true %} <i style="color: #f04747;" class="fa fa-heart" aria-hidden="true"></i>{% endif %}</div>
+{% endfor %}
+</div>
+</div>
+</div>
+{% block afterScripts %}
+<script>
+onViewport(".server-entry", "animated fadeInUp", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+</script>
+{% endblock %}
+{% endblock %}

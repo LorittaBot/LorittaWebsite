@@ -1,0 +1,437 @@
+@import 'navigation-bar';
+@import 'header';
+@import 'bouncy-arrow';
+@import 'effects';
+@import 'buttons';
+@import 'discord_style';
+@import 'sidebars';
+@import 'fan-arts';
+@import 'dashboard';
+@import '_fonts';
+@import 'sponsors';
+@import 'rainbow';
+@import 'blog';
+@import 'headings';
+@import 'footer';
+@import 'tingle.min';
+@import 'fancy-table';
+@import 'discord_buttons';
+@import '/home/loritta_canary/frontend/css/_daily-shop.scss';
+
+$min-reading-width: 1260px;
+$min-image-stacked-width: 800px;
+
+iframe {
+  max-width: 100vw;
+}
+
+.guild-icons-horizontal {
+  width: 100vw;
+  overflow: hidden;
+
+  .guilds-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 9000px;
+    transform: translateX(-50%);
+    text-align: center;
+    margin-left: 50%;
+    padding: 32px;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: "Lato", Arial, Helvetica, sans-serif;
+  background-color: #f3f3f3;
+  color: #333333;
+  overflow-x: hidden;
+}
+
+.centralized-ad {
+  text-align: center;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.blinking-pose {
+  visibility: hidden;
+}
+
+.blushing-pose {
+  visibility: hidden;
+}
+
+.dark-sweater-pose {
+  visibility: hidden;
+}
+
+.odd-wrapper {
+  background-color: #f3f3f3;
+
+  &.wobbly-bg::before {
+    display: inline-block;
+    content: "";
+    background-image: url("../img/wobby-lines-odd-light.svg");
+    height: 49px;
+    width: 100%;
+  }
+
+  background-image: linear-gradient(-90deg, #43b1ff00, #f3f3f3 15%, #f3f3f3 85%, #43b1ff00), url("/v2/assets/img/website_bg.png");
+}
+
+.even-wrapper {
+  background-color: #ebebeb;
+
+  &.wobbly-bg::before {
+    display: inline-block;
+    content: "";
+    background-image: url("../img/wobby-lines-even-light.svg");
+    height: 49px;
+    width: 100%;
+  }
+
+  background-image: linear-gradient(-90deg, #43b1ff00, #ebebeb 15%, #ebebeb 85%, #43b1ff00), url("/v2/assets/img/website_bg.png");
+}
+
+.media {
+  display: flex;
+  align-items: center;
+  width: 75%;
+  max-width: 60em;
+  margin: auto;
+  line-height: 1.58;
+
+  @media screen and (max-width: $min-image-stacked-width) {
+    flex-direction: column;
+  }
+
+  &.single-column {
+    max-width: 50em;
+  }
+}
+
+// Colocar uma margem no li, para que não fique fei
+li {
+  margin-top: 0.7em;
+}
+
+// Links
+a {
+  background-color: transparent;
+  color: #006bf4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.media-figure {
+  margin-right: 1em;
+  width: 25%;
+
+  @media screen and (max-width: $min-image-stacked-width) {
+    width: 50%;
+    order: 1;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.media-body {
+  flex: 1;
+  width: 75%;
+
+  @media screen and (max-width: $min-image-stacked-width) {
+    order: 2;
+    width: 95%;
+  }
+}
+
+h1, h2, h3 {
+  color: #29a6fe;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2.25em;
+}
+
+h3 {
+  font-size: 1.75em;
+}
+
+h4 {
+  font-size: 1.125em;
+}
+
+.inline-emoji {
+  height: 1.3em;
+  position: relative;
+  top: 0.3em;
+}
+
+@keyframes icon-middle {
+  0%, 50%, 100% { transform: translateY(0px); animation-timing-function: ease-out; }
+  25% { transform: translateY(10px); animation-timing-function: ease-in; }
+  75% { transform: translateY(-10px); animation-timing-function: ease-in; }
+}
+
+.icon-bottom {
+  animation: 8s linear infinite forwards icon-middle;
+  position: relative;
+  top: 16px;
+  animation-delay: 1s;
+}
+
+.icon-top {
+  animation: 8s linear infinite forwards icon-middle;
+  position: relative;
+  top: -16px;
+}
+
+.icon-middle {
+  animation: 8s linear infinite forwards icon-middle;
+  animation-delay: 0.5s;
+}
+
+.funny-commands {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  position: relative;
+  height: 400px;
+}
+
+.marquee {
+  margin: 0 auto;
+  white-space: nowrap;
+  position: absolute;
+  top: 30px;
+  width: 100vw;
+}
+
+.marquee {
+  .scroller {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 120s linear infinite;
+    will-change: transform;
+  }
+}
+
+.marquee2 {
+  .scroller {
+  animation-delay: 60s;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(-100%, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.cards {
+  max-width: 960px;
+  margin: 0 auto 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 30px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.left-horizontal-line {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    top: 51%;
+    overflow: hidden;
+    width: 100%;
+    height: 2px;
+    content: '\a0';
+    background-color: #1996ed;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.color {
+  background-color: #ccc;
+}
+
+#loading-screen {
+  position: fixed;
+  background-color: #0006;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  opacity: 0;
+  transition: 0.75s;
+  pointer-events: none;
+
+  div {
+    font-size: 1.5em;
+    color: white;
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000
+  }
+}
+
+#loading-screen img {
+  @keyframes loading-spinner {
+    0% {
+      transform: scale(1, 1)
+    }
+    25%, 75% {
+      transform: scale(0, 1)
+    }
+    50% {
+      transform: scale(-1, 1)
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+
+  animation: 15s linear infinite forwards loading-spinner;
+}
+
+.user-info {
+  background-color: #29a6fe;
+  border-radius: 8px;
+  box-shadow: 1px 1px 10px #0000004f;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+
+  img {
+      border-radius: 999999px;
+      margin-right: 6px;
+      width: 128px;
+      height: 128px;
+  }
+
+  .text {
+      color: white;
+      padding-left: 16px;
+
+      .name {
+          font-size: 3em;
+      }
+  }
+}
+
+.server-entry {
+  background-color: #7289DA;
+  border-radius: 8px;
+  box-shadow: 1px 1px 10px #0000004f;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.server-list {
+  width: 100%;
+  margin: 0 auto 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 30px;
+  
+  .entry {
+    width: 100%;
+    background-color: #7289DA;
+    border-radius: 8px;
+    box-shadow: 1px 1px 10px #0000004f;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .icon {
+      height: 48px;
+      border-radius: 100%;
+    }
+
+    .top-row {
+      align-items: center;
+      display: flex;
+      padding: 4px;
+      background-color: #5e77d4;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+
+      .info {
+        overflow: hidden;
+        padding-left: 4px;
+
+        .name {
+          color: white;
+          font-size: 1.1em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+    
+        .role {
+          color: rgba(255, 255, 255, 0.4);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .bottom-row {
+      background-color: #7289DA;
+      padding: 4px;
+      text-align: right;
+
+      a {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        border: 1px solid #a4b2e5;
+        border-radius: 4px;
+        padding: 4px;
+        transition: 0.5s;
+
+        &:hover {
+          background-color: #5e77d4;
+          border: 1px solid hsla(227, 56%, 47%, 1);
+        }
+      }
+    }
+  }
+}
+
+// Queremos que o tema escuro faça override de qualquer regra anterior
+@import 'dark-theme';

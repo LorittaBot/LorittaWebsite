@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block header %}
+{% endblock %}
+{% block wrapper %}
+<div style="height: 49.95px"></div>
+<div class="oddWrapper">
+<style>
+.sponsor-banner {
+  width: 70%;
+}
+
+.sponsor-mobile-image {
+  display: none;
+}
+@media screen and (orientation:portrait) {
+  .sponsor-pc-image {
+    display: none;
+  }
+  .sponsor-mobile-image {
+    display: inline-block;
+  }
+  .sponsor-banner {
+    width: 95%;
+  }
+}
+</style>
+
+{# ===[ SPONSOR 1 ] === #}
+{% if sponsor_0_enabled == true %}
+<a target="_blank" href="/sponsor/{{ sponsor_0_slug }}">
+  <div class="sponsor-pc-image">
+    <img src="{{ sponsor_0_pc_url }}" alt="{{ sponsor_0_name }}" class="sponsor-banner">
+  </div>
+  <div class="sponsor-mobile-image">
+    <img src="{{ sponsor_0_mobile_url }}" alt="{{ sponsor_0_name }}" class="sponsor-banner">
+  </div>
+</a>
+{% else %}
+<!-- Loritta Daily Reward -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="4638598063"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{% endif %}
+
+{# ===[ SPONSOR 2 ] === #}
+{% if sponsor_1_enabled == true %}
+<a target="_blank" href="/sponsor/{{ sponsor_1_slug }}">
+  <div class="sponsor-pc-image">
+    <img src="{{ sponsor_1_pc_url }}" alt="{{ sponsor_1_name }}" class="sponsor-banner">
+  </div>
+  <div class="sponsor-mobile-image">
+    <img src="{{ sponsor_1_mobile_url }}" alt="{{ sponsor_1_name }}" class="sponsor-banner">
+  </div>
+</a>
+{% endif %}
+
+<div class="contentWrapper" style="text-align: center;">
+<div class="sectionHeader">
+Prêmio Diário
+</div>
+<div style="text-align: center;">
+  <p>Pegue o seu prêmio diário para conseguir sonhos!</p>
+<div id="daily-prewrapper">
+<div id="daily-wrapper">
+<div id="daily-captcha" style="display: inline-block;"></div>
+<div>
+<div class="button-discord pure-button daily-reward-button button-discord-disabled" style="font-size: 1.25em; transition: 0.3s;"><i class="fas fa-gift"></i> Receber Prêmio</div>
+</div>
+</div>
+</div>
+<div class="daily-notification flavourText" style="color: #f04747;"></div>
+</div>
+</div>
+{# ===[ SPONSOR 3 ] === #}
+{% if sponsor_2_enabled == true %}
+<a target="_blank" href="/sponsor/{{ sponsor_2_slug }}">
+  <div class="sponsor-pc-image">
+    <img src="{{ sponsor_2_pc_url }}" alt="{{ sponsor_2_name }}" class="sponsor-banner">
+  </div>
+  <div class="sponsor-mobile-image">
+    <img src="{{ sponsor_2_mobile_url }}" alt="{{ sponsor_2_name }}" class="sponsor-banner">
+  </div>
+</a>
+{% else %}
+<!-- Loritta Daily Reward -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="4638598063"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+{% endif %}
+
+{# ===[ SPONSOR 4 ] === #}
+{% if sponsor_3_enabled == true %}
+<a target="_blank" href="/sponsor/{{ sponsor_3_slug }}">
+  <div class="sponsor-pc-image">
+    <img src="{{ sponsor_3_pc_url }}" alt="{{ sponsor_3_name }}" class="sponsor-banner">
+  </div>
+  <div class="sponsor-mobile-image">
+    <img src="{{ sponsor_3_mobile_url }}" alt="{{ sponsor_3_name }}" class="sponsor-banner">
+  </div>
+</a>
+{% endif %}
+</div>
+<div class="evenWrapper">
+<div class="contentWrapper">
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<div class="sectionHeader">
+		Mas... o que são sonhos?
+		</div>
+      <p>Sonhos são a moeda que você pode utilizar na Loritta. Você pode usar sonhos para apostar na Lorifa, comprar novos designs para o perfil, casar, comprar raspadinhas e muito mais!</p>
+      <p>Para apostar na rifa, use `+rifa`!</p>
+      <p>Para apostar comprar raspadinhas, use `+raspadinhas`!</p>
+      <p>Você pode casar com a pessoa que você tanto ama com `+casamento`!</p>
+      <p>Envie sonhos para seus amigos e amigas com `+pay`!</p>
+      <p>Você pode comprar novos designs para o seu perfil no `+profile shop`!</p>
+    </div>
+	</div>
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img src="https://loritta.website/assets/img/loritta_money_discord.png" alt="Foto da Loritta" style="width: 100%;">
+	</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+this['loritta-parent-spicy-morenitta'].net.perfectdreams.spicymorenitta.views.DailyView.start()
+
+function recaptchaCallback(response) {
+	this['loritta-parent-spicy-morenitta'].net.perfectdreams.spicymorenitta.views.DailyView.recaptchaCallback(response)
+}
+</script>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'configure_guild_base.html' %}
+{% block rightSidebarContents %}
+<div class="category-name">
+YouTube
+</div>
+<div style="text-align: center;">
+    {# <img src="{{ websiteUrl }}assets/img/loritta_twitter.png" style="border-radius: 7px; height: 300px;"> #}
+{# <h2>Sistema de Level Up</h2> #}
+<div style="display: flex;justify-content: center;align-items: center;">
+    {# <div style="flex-grow: 1; text-align: left;">
+        <p>{{ modules_twitter_description }}</p>
+      </div> #}
+    <div>
+        <button class="button-discord button-discord-info pure-button" id="add-new-entry" style="margin: 0.75em;">Adicionar</button>
+    </div>
+</div>
+
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+</div>
+<hr>
+<div>
+<div id="level-stuff"></div>
+<button id="save-button" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'extras.html' %}
+{% block subtitle %}
+Loritta's Bans Network
+{% endblock %}
+{% block rightSidebarContents %}
+<div class="category-name">
+Loritta's Bans Network
+</div>
+<p>Usuários nesta lista são usuários banidos globalmente em todos os servidores que utilizam o sistema de Network Bans da Loritta.</p>
+<hr>
+<p>Usuários com o nome "???" são usuários que não possuem servidores compartilhados com ela.</p>
+<table style="width: 100%; text-align: center;" class="fancy-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Encontrado em</th>
+            <th>Tipo</th>
+            <th>Motivo</th>
+        </tr>
+		
+		{{ tableContents | raw }}
+    </thead>
+</table>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

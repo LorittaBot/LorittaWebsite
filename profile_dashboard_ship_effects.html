@@ -1,0 +1,43 @@
+{% extends 'profile_dashboard.html' %}
+{% block rightSidebarContents %}
+<div id="ship-content">
+        <div style="text-align: center;">
+                <div style="height: 300px; position: relative; display: inline-block; overflow: hidden;">
+                <img src="https://i.imgur.com/uF1trnZ.png" style="border-radius: 7px; height: 300px;">
+                </div>
+                <style>
+                @-webkit-keyframes spaceboots {
+                    0% { -webkit-transform: translate(0px, 0px) rotate(0deg); }
+                    60% { -webkit-transform: translate(0px, 4px) rotate(0deg); }
+                    80% { -webkit-transform: translate(0px, -15px) rotate(0deg); }
+                  100% { -webkit-transform: translate(0px, 0px); }
+                }
+                
+                .hand-shake {
+                    -webkit-animation-name: spaceboots;
+                    -webkit-animation-duration: 1.6s;
+                    -webkit-transform-origin:50% 50%;
+                    -webkit-animation-iteration-count: infinite;
+                    -webkit-animation-timing-function: ease;
+                }
+                </style>
+                <h2>Editar valores do Ship</h2>
+                <p>Mudar os valores do oráculo do amor não é fácil, o oráculo não gosta quando as pessoas acham que o valor dado pelo <code>+ship</code> está errado, afinal, o valor está certo! Você que está querendo trocar o impossivel...</p>
+                <p>Mas é claro, nada que um pouco de sonhos não mude o oráculo de ideia, né? Por apenas 3000 sonhos, você pode convencer o oráculo que *talvez* ele esteja errado... Mas cuidado, o oráculo só irá aceitar a sua oferenda por uma semana, após uma semana, você deverá dar a oferenda de novo!</p>
+                <p>(Sim, o oráculo sou eu)</p>
+                <hr>
+            </div>
+        <div class="flavourText">Usuário que você deseja que altere o valor com você (Exemplo: MrPowerGamerBR#4185)</div>
+        <input type="text" id="userName" placeholder="MrPowerGamerBR#4185"></input>
+        <hr>
+        <div class="flavourText">Novo valor do ship</div>
+        <input type="number" id="newShipValue" min="0" max="100" value="100">%
+        <hr>
+        <button id="buy-button" class="button-discord pure-button">Comprar</button>
+        <hr>
+        <h2>Subornos Ativos</h2>
+        <div id="ship-active-effects"></div>
+</div>
+<div id="profile-json" class="totallyHidden">{{ profile_json|raw }}</div>
+<div id="ship-effects-json" class="totallyHidden">{{ ship_effects_json|raw }}</div>
+{% endblock %}

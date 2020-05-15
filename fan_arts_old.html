@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block metaproperty %}
+<meta property="og:site_name" content="Loritta">
+<meta property="og:description" content="Sabia que existem pessoas que gostam de me desenhar só porque eu ajudei no servidor delas? Então eu resolvi colocar nesta página todas as fan arts que fizeram de mim! Obrigada a todos que fizeram estas fan arts, eu fico muito agradecida!">
+<meta property="og:title" content="Fan Arts">
+<meta property="og:image" content="{{ websiteUrl }}/assets/img/lobby_mural1.png">
+<meta property="og:ttl" content="600">
+<meta property="og:image:width" content="320">
+<meta property="twitter:site" content="loritta">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="Fan Arts">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#00c1df"> 
+{% endblock %}
+{% block subtitle %}
+Fan Arts
+{% endblock %}
+{% block wrapper %}
+<div class="oddWrapper">
+<!-- Loritta Teste -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="6236021665"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Loritta Teste 2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="8369584507"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="contentWrapper">
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+    <div class="pure-u-1 pure-u-md-1-4">
+		<img class="animate-on-scroll-left is-invisible" src="https://loritta.website/assets/img/fan_arts_logo.png" alt="Desenhando a Loritta" style="width: 100%;">
+	</div>
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<h2 class="sectionHeader">
+		Fan Arts
+		</h2>
+{{ DASHBOARD_FanArtInfo|raw }}
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="evenWrapper">
+<div class="contentWrapper" id="fanArts">
+<!-- Loritta Fan Arts 2 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="8312330754"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div id="fan-arts-wrapper">
+</div>
+<div id="artists-json" class="totallyHidden">{{ artists_json|raw }}</div>
+<script>
+this["loritta-parent-spicy-morenitta"].net.perfectdreams.spicymorenitta.views.FanArtsView.start()
+</script>
+</div>
+</div>
+{% endblock %}
+{% block afterScripts %}
+<script>
+// Example:
+onViewport(".animate-on-scroll-left", "animated fadeInLeft", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-right", "animated fadeInRight", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".fan-art-box", "animated fadeInUp", 250, function(el) {
+  el.removeClass("is-invisible");
+});
+</script>
+{% endblock %}

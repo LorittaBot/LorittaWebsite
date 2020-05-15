@@ -1,0 +1,28 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.moderationConfig %}
+<div class="category-name">
+Moderação
+</div>
+{{ generateCheckbox(1, "sendPunishmentViaDm", "Enviar punição via mensagem direta?", "Quando o usuário for punido, ele receberá uma mensagem direta (caso esteja ativado) com o motivo da punição", config.sendPunishmentViaDm, true) }}
+<hr>
+{{ generateCheckbox(2, "sendPunishmentToPunishLog", "Enviar punição para um canal de punições?", "Quando o usuário for punido, uma mensagem será enviada em um canal mostrando o motivo da punição", config.sendToPunishLog, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+<div class="flavourText">Canal de punições</div>
+	<select data-send-on-save="true" data-internal-name="punishLogChannelId" id="punishmentLogChannelId" style="width: 320px;">
+	</select>
+<hr>
+<div class="flavourText">Mensagem que será mostrada ao ser punido</div>
+<textarea data-send-on-save="true" data-internal-name="punishLogMessage" id="punishmentLogMessage">{{ config.punishmentLogMessage }}</textarea>
+<hr>
+<div id="specific-punishment-messages">
+</div>
+</div>
+<div class="flavourText">Avisos</div>
+<div id="warnActions"></div>
+<div><button class="button-discord button-discord-info pure-button add-new-action"><i class="fas fa-plus"></i></button></div>
+<hr>
+<button id="save-button" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

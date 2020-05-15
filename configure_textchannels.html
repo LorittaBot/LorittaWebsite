@@ -1,0 +1,227 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+
+{# TEXT CHANNEL GENERATOR #}
+{% macro generateTextChannel(textChannel, textChannelConfigs) %}
+{{ generateConfig(textChannel.getId, textChannelConfigs[textChannel]) }}
+{% endmacro %}
+
+{% macro generateConfig(id, textChannelConfig) %}
+{% set automodConfig = textChannelConfig.automodConfig %}
+<div id="textChannel-{{ id }}" data-internal-id="{{ id }}" style="width: 74.5%; float: right;" class="totallyHidden">
+{% if id != "default" %}
+{{ generateCheckbox(id + 1, 
+"enableOverride", 
+"Ativar configuração deste canal", 
+"Caso esteja desativado, a <a onclick=\"displayRoleStuff(this, 'default');\">configuração geral</a> será usada", 
+textChannelConfig.isBlacklisted, 
+true) }}
+{% endif %}
+<hr>
+<div class="button-discord button-discord-info pure-button" onclick="openAutocapsModal(this)">Caps Automod</div>
+<div class="totallyHidden">	
+<div class="tingle-demo" id="autocaps-{{ id }}-modal">
+<div class="test" style="box-sizing: initial;">
+<div class="category-name">Caps Automod</div>
+{{ generateCheckbox(id + 1 + "autocaps", 
+"isEnabled", 
+"Ativar módulo?", 
+"", 
+automodConfig.automodCaps.isEnabled, 
+true) }}
+<hr>
+	Deletar mensagem caso <input data-internal-name="capsThreshold" type="number" name="quantity" class="autocaps-quantity" min="0" max="100" value="{{ automodConfig.automodCaps.capsThreshold }}">% dela esteja em caixa alta
+	</br>
+	Apenas verificar caixa alta caso a mensagem tenha mais de <input data-internal-name="lengthThreshold" type="number" name="quantity" class="autocaps-length" min="0" value="{{ automodConfig.automodCaps.lengthThreshold }}"> caracteres
+	<div class="flavourText">Testar</div>
+	<textarea class="autocaps-testarea">Olá, eu me chamo Loritta!</textarea>
+	<div class="flavourText autocaps-info">oao</div>
+{{ generateCheckbox(id + 2 + "autocaps", 
+"deleteMessage", 
+"Deletar mensagem ao exceder o limite", 
+"", 
+automodConfig.automodCaps.deleteMessage, 
+true) }}
+<hr>
+{{ generateCheckbox(id + 3 + "autocaps", 
+"replyToUser", 
+"Enviar mensagem para o usuário ao exceder o limite", 
+"", 
+automodConfig.automodCaps.replyToUser, 
+true) }}
+<hr>
+	<div class="flavourText">Mensagem ao exceder o limite</div>
+	<textarea class="autocaps-replymessage" data-internal-name="replyMessage">{{ automodConfig.automodCaps.replyMessage }}</textarea>
+	<br style="clear: both" /> <!-- So dirty! -->
+</div>
+</div>
+</div>
+<br style="clear: both" /> <!-- So dirty! -->
+<hr>
+<br style="clear: both" /> <!-- So dirty! -->
+</div>
+{% endmacro %}
+
+<div class="discord-scroller" style="width: 25.5%; float: left;">
+	<div class="server-name">
+	Canais de Texto
+	</div>
+	<div data-clickable-role="true" onclick="displayRoleStuff(this, 'default');" class="item" style="font-weight: 600; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+	Configuração Geral
+	</div>
+	{% for textChannel in guild.getTextChannels %}
+	<div data-clickable-role="true" onclick="displayRoleStuff(this, '{{ textChannel.getId }}');" class="item" style="font-weight: 600; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+	#{{ textChannel.getName }}
+	</div>
+	{% endfor %}
+</div>
+<div style="padding: 0px 0px 80px 20px;">
+{{ generateConfig("default", serverConfig.defaultTextChannelConfig) }}
+{% for textChannel in guild.getTextChannels %}
+{{ generateTextChannel(textChannel, textChannelConfigs) }}
+{% endfor %}
+</div>
+<hr>
+<script>
+function openAutocapsModal(_element) {
+	var element = $(_element)
+	
+    var modal = new tingle.modal({
+        closeMethods: [],
+        footer: true
+		});
+		
+	console.log(element.parent())
+	var id = element.parent().attr("data-internal-id")
+	var name = "#autocaps-" + element.parent().attr("data-internal-id") + "-modal"
+	var original = $("#autocaps-" + element.parent().attr("data-internal-id") + "-modal")
+	var cloned = $(name).clone()
+	
+	var uuid = uuidv4()
+	
+	cloned.children().attr("id", "autocaps-" + uuid)
+    modal.setContent(cloned.html());
+	modal.open();
+	
+	modal.addFooterBtn('Fechar', "button-discord button-discord-info pure-button button-discord-modal", function(){
+		var modified = $("#autocaps-" + uuid)
+		var isEnabled = modified.find("#cmn-toggle-" + id + "1autocaps").is(':checked')
+		var deleteMessage = modified.find("#cmn-toggle-" + id + "2autocaps").is(':checked')
+		var replyToUser = modified.find("#cmn-toggle-" + id + "3autocaps").is(':checked')
+		console.log(isEnabled)
+		console.log(deleteMessage)
+		console.log(replyToUser)
+		var percentageQuantity = modified.find(".autocaps-quantity").val();
+		var lengthQuantity = modified.find(".autocaps-length").val();
+		var replyMessage = modified.find(".autocaps-replymessage").val();
+		console.log(percentageQuantity)
+		original.find("#cmn-toggle-" + id + "1autocaps").attr("checked", isEnabled)
+		original.find("#cmn-toggle-" + id + "2autocaps").attr("checked", deleteMessage)
+		original.find("#cmn-toggle-" + id + "3autocaps").attr("checked", replyToUser)
+		original.find(".autocaps-quantity").attr("value", percentageQuantity);
+		original.find(".autocaps-length").attr("value", lengthQuantity);
+		original.find(".autocaps-replymessage").text(replyMessage);
+		console.log("Closing modal... " + original)
+		modal.close();
+    });
+	
+	applyCapsPercentage($("#autocaps-" + uuid).find(".autocaps-quantity"))
+	$("#autocaps-" + uuid).find(".autocaps-quantity").bind('input', function (e) {
+		applyCapsPercentage(this)
+	});
+	$("#autocaps-" + uuid).find(".autocaps-length").bind('input', function (e) {
+		applyCapsPercentage(this)
+	});
+	$("#autocaps-" + uuid).find(".autocaps-testarea").bind('input propertychange', function (e) {
+		applyCapsPercentage(this)
+	});
+}
+
+function applyCapsPercentage(element) {
+	var parent = $(element).parent()
+	var percentageQuantity = parent.find(".autocaps-quantity").val();
+	var lengthQuantity = parent.find(".autocaps-length").val();
+	var text = parent.find(".autocaps-testarea").val();
+	var info = parent.find(".autocaps-info")
+	var textLength = text.length
+	var i = textLength;
+	var upperCaseCount = 0
+	while (i--) {
+		var ch = text.charAt(i)
+		if (ch == ch.toUpperCase()) {
+			upperCaseCount++
+		}
+	}
+	
+	var percentage = (upperCaseCount / textLength) * 100
+	
+	console.log(info)
+	
+	if (lengthQuantity > textLength) {
+		info.html("Mensagem pequena demais!")
+		return;
+	}
+	
+	if (percentage >= percentageQuantity) {
+		info.html(upperCaseCount + "/" + textLength + " caracteres estão em caixa alta (" + percentage + "%), ou seja, a mensagem será bloqueada!")
+	} else {
+		info.html(upperCaseCount + "/" + textLength + " caracteres estão em caixa alta (" + percentage + "%), ou seja, a mensagem não será bloqueada!")
+	}
+}
+
+function displayRoleStuff(element, roleId) {
+$('div[data-internal-id]').each(function(index) {
+  $(this).addClass("totallyHidden");
+});
+  
+$('div[data-clickable-role]').each(function(index) {
+  $(this).removeClass("selected-item");
+});
+  
+
+$(element).addClass("selected-item");
+
+$("#textChannel-" + roleId).removeClass("totallyHidden");
+}
+
+function transformRolesToJson() {
+var configAttr = {"type":"{{ saveType }}"}
+
+var channelArray = []
+$('[data-internal-id]').each(function( index ) {
+
+var roleAttr = {}
+
+$(this).find("[data-internal-name]").each(function( index ) {
+	var value = $(this).val();
+	if ($(this).attr("type") == "checkbox") {
+		value = $(this).is(':checked')
+	}
+	roleAttr[$(this).data("internal-name")] = value
+});
+
+roleAttr["id"] = $(this).data("internal-id")
+
+if (roleAttr["enableOverride"] == true || roleAttr["id"] == "default") {
+	channelArray.push(roleAttr)
+}
+});
+
+configAttr["entries"] = channelArray
+
+console.log(configAttr);
+
+var json = JSON.stringify(configAttr);
+
+sendJsonToServer(json);
+}
+
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  )
+}
+</script>
+<button onclick="transformRolesToJson()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block subtitle %}Loritta API{% endblock %}
+{% block body %}
+<style>
+body {
+margin:0;
+}
+
+#loriDocs {
+height: 100vh;
+background-color: white;
+}
+
+.sidebar {
+height: 100vh;
+width: 25%;
+overflow: auto;
+background-color: rgb(243, 243, 244);
+color: rgb(114, 118, 125);
+font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+font-weight: 600;
+float: left;
+}
+
+#documentationPanel {
+width: 75%;
+float: right;
+color: #586069;
+font-size: 14px;
+font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+line-height: 1.35em;
+height: 100vh;
+overflow: auto;
+}
+
+#documentationWrapper {
+margin: 1%;
+}
+
+.optionInfo {
+text-align: center;
+}
+
+.entry {
+padding: 5px;
+}
+
+.loriAngel {
+height: 100%;
+opacity: 0.25;
+}
+
+#hiddenDocs {
+display: none;
+}
+
+.methodName {
+font-size: 1.5em;
+line-height: 1.5em;
+}
+
+.methodArguments {
+color: #b10000;
+}
+
+.methodReturnType {
+color: #00b198;
+}
+</style>
+<script>
+function loadDocumentation(name) {
+$('#documentationWrapper').fadeOut(400, function() {
+    $('#documentationWrapper').html(document.getElementById(name).innerHTML);
+    $('#documentationWrapper').fadeIn(400);
+});
+}
+</script>
+{% macro generateDoc(clazz, id, docsAnnotation) %}
+<div id="{{ id }}">
+{% for method in clazz.getDeclaredMethods %}
+{% set annotation = method.getAnnotation(docsAnnotation) %}
+{% if annotation != null %}
+<div class="methodName">{{ method.getName() }}(<span class="methodArguments">{% if annotation != null %}{{ annotation.arguments }}{% endif %}</span>) : <span class="methodReturnType">{{ method.getReturnType().getSimpleName() }}</span></div>
+{{ annotation.description }}
+</br>
+<pre class="discordPre">
+{{ annotation.example }}
+</pre>
+{% endif %}
+{% endfor %}
+</div>
+{% endmacro %}
+<div id="loriDocs">
+<div class="sidebar">
+<div class="entry" onclick="loadDocumentation('exampleHelloWorld');">Olá mundo!</div>
+<div class="entry" onclick="loadDocumentation('exampleGiveRole');">Sistema básico de give role</div>
+<div class="entry" onclick="loadDocumentation('exampleCats');">Gatinhos aleatórios</div>
+<div class="entry" onclick="loadDocumentation('exampleFanArts');">Enviar uma imagem aleatória</div>
+<hr>
+{% for wrappers in nashClasses %}
+<div class="entry" onclick="loadDocumentation('{{ wrappers.getId() }}');">{{ wrappers.getClazz().getSimpleName() }}</div>
+{% endfor %}
+</div>
+<div id="documentationPanel">
+<div id="documentationWrapper">
+<div style="text-align: center;">
+<img class="loriAngel" src="https://loritta.website/assets/img/loritta_angel_v2.png">
+</div>
+</div>
+</div>
+</div>
+<div id="hiddenDocs">
+<div id="exampleHelloWorld">
+<p>Um exemplo bem básico da API, ao usar "comando", eu irei responder "Olá, eu me chamo Loritta" e, ao usar "comando fofa", eu irei responder "ownt~ 😊"</p>
+<pre class="discordPre">
+if (getArgument(0) == "fofa") { // Se o argumento 0 (ou seja, o primeiro argumento) for "fofa"...
+	reply("ownt~ 😊");
+	return;
+}
+reply("Olá, eu me chamo Loritta!");
+</div>
+<div id="exampleGiveRole">
+<p>Um sistema básico de give role</p>
+<pre class="discordPre">
+var guild = getGuild(); // Pega a guild (servidor) atual
+
+var role = guild.getRoleById("ID da Role"); // Pega a guild pelo ID (dica: Você pode usar o comando "roleid" para ver a ID da sua role!)
+
+if (author().hasRole(role)) { // Se o usuário já tem a role...
+    author().removeRole(role); // Então vamos remover ela!
+    
+    reply("Role removida! 😞");
+} else { // Se não...
+    author().addRole(role); // Vamos adicionar a role!
+    
+    reply("Role adicionada! 😊");
+}
+</pre>
+</div>
+
+<div id="exampleCats">
+<p>Pega um gatinho aleatório do random.cat e envia no chat.</p>
+<pre class="discordPre">
+var conteudo = getURL("http://random.cat/meow"); // Pega o conteúdo de uma URL...
+
+var json = JSON.parse(conteudo); // Transformamos ela em JSON...
+
+reply("Olha, um gatinho fofinho para você! " + json["file"]);
+</pre>
+</div>
+<div id="exampleFanArts">
+<p>Envia uma imagem aleatória de uma lista!</p>
+<pre class="discordPre">
+var list = ["http://i.imgur.com/hxRTmHF.png", // Primeiro iremos criar uma lista com todas as nossas fan arts da Shantae
+	"http://i.imgur.com/Da8B9Jn.png",
+	"http://i.imgur.com/oRntw7X.jpg",
+	"http://i.imgur.com/nuXwUbv.jpg",
+	"http://i.imgur.com/3vsg9cY.png",
+	"http://i.imgur.com/W1VIEdL.jpg",
+	"http://i.imgur.com/EmxhIv5.jpg",
+	"http://i.imgur.com/1eZUIRa.png",
+	"http://i.imgur.com/injGJ4J.png",
+	"http://i.imgur.com/wmxcQBt.jpg",
+	"http://i.imgur.com/HLQFIj8.jpg",
+	"http://i.imgur.com/Gg4HdI3.jpg"]
+
+var rand = list[Math.floor(Math.random() * list.length)]; // Pegamos uma imagem aleatória da lista...
+
+reply(rand);
+</pre>
+</div>
+{% for wrappers in nashClasses %}
+{{ generateDoc(wrappers.getClazz(), wrappers.getId(), docsAnnotation) }}
+{% endfor %}
+</div>
+</div>
+<link async rel="stylesheet" type="text/css" href="{{ websiteUrl }}assets/style.css?v=1.1">
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+Servidores do Fã Clube da Loritta
+{% endblock %}
+{% block wrapper %}
+<div class="oddWrapper">
+<!-- Loritta Teste -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="6236021665"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="contentWrapper" style="text-align: center;">
+<div class="sectionHeader">
+Servidores do Fã Clube da Loritta
+</div>
+<p>Servidores criados por pessoas no <span style="color: rgb(52, 152, 219); background-color: rgba(52, 152, 219, 0.0980392); font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600;">@Fã Clube da Loritta 😍🎀</span> (ou seja, pessoas que usam e gostam de mim!)</p>
+<p>Esta lista foi criada para <s>mostrar como muita gente me ama</s> ajudar donos de servidores no Discord a conseguir novos membros para seus servidores e, é claro, mostrar como outros servidores me usam!</p>
+<p>Se eu estou no seu servidor e o foco do seu servidor não é coisas obscenas (ou seja, coisas NSFW), então você pode adicionar o seu servidor aqui! Peça para o MrPowerGamerBR#4185 colocar ele aqui caso você queira!</p>
+<p>Não existe muitos requisitos para estar aqui... desde que o seu servidor tenha uma quantidade considerável de membros (e que seu servidor não seja "mais um outro bot collection") então você pode estar aqui!</p>
+<p>Lembrando que, só porque o servidor está aqui não quer dizer que ele recebeu o selo maravilhoso de aprovação perpétua da Loritta (ou seja, garanto nada sobre a qualidade destes servidores!), já que aqui é só uma pequena lista de servidores que usam a Loritta!</p>
+</div>
+</div>
+{% set idx = 0 %}
+{% for server in serversFanClub %}
+<div class="{% if idx == 0 %}evenWrapper{% else %}oddWrapper{% endif %}" id="{{ server.id }}">
+<div class="contentWrapper">
+<div class="vertically-centered-content">
+<div class="pure-g vertically-centered-content" style="text-align: left;">
+	{% if idx == 0 %}
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img class="animate-on-scroll-left is-invisible" src="{{ server.guildIcon }}?size=2048" alt="Foto do {{ server.guild.name }}" style="width: 128px; height: 100%; border-radius: 99999px; background-color: rgb(47, 49, 54);"">
+	</div>
+	{% endif %}
+    <div class="pure-u-1 pure-u-md-3-4">
+		<div class="sectionText">
+		<div class="sectionHeader">
+		{{ server.guild.name }}
+		</div>
+		<div class="sectionHeader" style="font-size: 1.25em; color: #7289b3;">
+		{{ server.guild.owner.user.name }}#{{ server.guild.owner.user.discriminator }}{% if server.isSuper %} <i style="color: #f04747;" class="fa fa-heart" aria-hidden="true"></i>{% endif %}
+		</div>
+		<div><b><i class="fa fa-users" aria-hidden="true"></i> {{ server.guild.members.size }} membros</b></div>
+		<div><b><i class="fa fa-star" aria-hidden="true"></i> Divertindo este servidor desde {{ server.fancyJoinDate }}!</b></div>
+		{{ server.description|raw }}
+		<a href="{{ server.inviteUrl }}" target="_blank"><div class="button-discord button-discord-info pure-button"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar no Servidor</div></a>
+		</div>
+	</div>
+	{% if idx == 1 %}
+    <div class="pure-u-1 pure-u-md-1-4" style="text-align: center;">
+		<img class="animate-on-scroll-right is-invisible" src="{{ server.guildIcon }}?size=2048" alt="Foto do {{ server.guild.name }}" style="width: 128px; height: 100%; border-radius: 99999px; background-color: rgb(47, 49, 54);"">
+	</div>
+	{% endif %}
+</div>
+</div>
+</div>
+</div>
+{% set idx = idx + 1 %}
+{% if idx == 2 %}
+{% set idx = 0 %}
+{% endif %}
+{% endfor %}
+{% block afterScripts %}
+<script>
+onViewport(".animate-on-scroll-left", "animated fadeInLeft", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+
+onViewport(".animate-on-scroll-right", "animated fadeInRight", 0, function(el) {
+  el.removeClass("is-invisible");
+});
+</script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,44 @@
+.sponsor-wrapper {
+    flex-shrink: 0;
+    flex-grow: 1;
+    display: flex;
+}
+
+.sponsor-banner {
+    width: 100%;
+    flex-grow: 1;
+}
+  
+.sponsor-pc-image {
+    flex-grow: 1;
+}
+
+.sponsor-mobile-image {
+    display: none;
+    flex-grow: 1;
+}
+
+@media screen and (orientation:portrait) {
+    .sponsor-pc-image {
+      display: none;
+    }
+    .sponsor-mobile-image {
+      display: inline-block;
+    }
+    .sponsor-banner {
+      width: 95%;
+    }
+}
+
+.sponsor-button {
+    background-color: #29a6fe;
+    font-weight: 500;
+    color: white;
+    border-radius: 4px;
+    display: inline-block;
+    line-height: 1.3;
+    vertical-align: middle;
+    padding: 2px;
+    position: relative;
+    bottom: 1px;
+}

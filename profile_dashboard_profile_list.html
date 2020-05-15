@@ -1,0 +1,8 @@
+{% extends 'profile_dashboard.html' %}
+{% block rightSidebarContents %}
+<div id="ship-content">
+        <div id="ship-active-effects"></div>
+</div>
+<div id="profile-json" class="totallyHidden">{{ profile_json|raw }}</div>
+<div id="profile-list-json" class="totallyHidden">{{ available_profiles_json|raw }}</div>
+{% endblock %}

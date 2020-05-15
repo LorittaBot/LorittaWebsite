@@ -1,0 +1,43 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.starboardConfig %}
+<div class="category-name">
+Starboard
+</div>
+{{ generateCheckbox(1, "isEnabled", DASHBOARD_ACTIVATE_MODULE, "", config.isEnabled, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+<div class="flavourText">{{ DASHBOARD_StarboardChannel }} <i class="fa fa-star" aria-hidden="true"></i></div>
+	<select data-send-on-save="true" data-internal-name="starboardId">
+		{% for textChannel in guild.getTextChannels %}
+		{% if textChannel.canTalk %}
+		<option value="{{ textChannel.getId }}" {% if textChannel.getId == config.starboardId %}selected="selected"{% endif %}>{{ textChannel.getName }}</option>
+		{% endif %}
+		{% endfor %}
+	</select>
+<hr>
+<div class="flavourText">{{ DASHBOARD_MinimumStars }} <i class="fa fa-star" aria-hidden="true"></i></div>
+<input data-send-on-save="true" data-internal-name="requiredStars" type="number" value="{{ config.requiredStars }}" min="1" step="1"/>
+</div>
+<hr>
+<button onclick="prepareSave()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<script>
+$("#cmn-toggle-1").click(function(e) {
+	applyBlur()
+});
+
+function applyBlur() {
+  var e = $("#hiddenIfDisabled");
+  if ($('#cmn-toggle-1').is(':checked')) {
+	e.removeClass();
+	e.addClass("noBlur");
+  } else {
+    e.removeClass();
+	e.addClass("blurSection");
+  }
+}
+
+applyBlur();
+</script>
+{% endblock %}

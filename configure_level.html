@@ -1,0 +1,18 @@
+{% extends 'configure_guild_base.html' %}
+{% block rightSidebarContents %}
+<div class="category-name">
+{{ modules_levelUp_title }}
+</div>
+<div style="text-align: center;">
+    <img src="{{ websiteUrl }}v2/assets/img/lori_prize.png" style="border-radius: 7px; height: 300px;">
+{# <h2>Sistema de Level Up</h2> #}
+<p>{{ modules_levelUp_description }}</p>
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+</div>
+<hr>
+<div>
+<div id="level-stuff"></div>
+<button id="save-button" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+</div>
+{% endblock %}

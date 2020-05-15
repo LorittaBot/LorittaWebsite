@@ -1,0 +1,329 @@
+{% extends 'base.html' %}
+{% block body %}
+<script>
+var converter = new showdown.Converter()
+</script>
+<div class="topnav navbar-fixed-top" id="myTopnav">
+<div class="topnavWrapper">
+<div class="topnavLeft">
+  <a style="font-family: 'Pacifico', cursive; text-transform: none;">Loritta</a>
+	{% if discordAuth != null %}
+	{% if userIdentification.getId() == "123170274651668480" %}
+	 <a title="Salvar JSON" onclick="saveJsonInServer();"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+	{% endif %}
+	{% endif %}
+  <a title="Carregar JSON" onclick="loadJson();"><i class="fa fa-file-alt" aria-hidden="true"></i></a>
+  <a title="Baixar JSON" onclick="downloadJson()"><i class="fa fa-download" aria-hidden="true"></i></a>
+  <a title="Gerar JSON" onclick="generateJson();"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+  {% if localeId == "default" %}
+  <a title="Criar nova linguagem" onclick="createNewLanguage()"><i class="fas fa-plus-circle" aria-hidden="true"></i></a>
+  {% endif %}
+  <a title="Adicionar nova chave" onclick="generateNewKey()"><i class="fas fa-keyboard" aria-hidden="true"></i></a>
+  {% if localeId != "default" %}
+  <a title="Mostrar chaves não traduzidas" onclick="showOnlyNonTranslated()"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i></a>
+  <a title="Mostrar todos" onclick="showAll()"><i class="fa fa-eye" aria-hidden="true"></i></a>
+  {% endif %}
+  <a><input type="text" id="searchInput" style="padding: 0px; margin: 0px; line-height: 0px; color: black;"></input></a>
+</div>
+<div class="topnavRight">
+  <div class="rightEntries">
+  <a id="themeChanger" class="left-border" onclick="changeTheme(this)"><i class="fas fa-moon" aria-hidden="true"></i></a>
+  <a id="localeChanger" onclick="openLocaleChanger(this)"><i class="fa fa-globe" aria-hidden="true"></i></a>
+  {% if discordAuth != null %}
+  <a href="{{ websiteUrl }}?logout"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></a>
+  <a href="{{ loriUrl }}dashboard">
+  <span style="position: relative;"><span style="width: 0; height: 0; position: relative;"><img alt="Avatar do Usuário" src="https://cdn.discordapp.com/avatars/{{ userIdentification.id }}/{{ userIdentification.avatar }}.png" style="height: 40px; border-radius: 99999px; bottom: -8px; position: absolute;"><img alt="Avatar do Usuário" src="https://cdn.discordapp.com/avatars/{{ userIdentification.id }}/{{ userIdentification.avatar }}.png" style="height: 0px; width: 40px; border-radius: 99999px; visibility: hidden;"></span> {{ userIdentification.username }}</span>
+  </a>
+  {% else %}
+  <a href="{{ loriUrl }}dashboard">
+  <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login</a>
+  {% endif %}
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+</div>
+</div>
+<div style="height: 100vh; overflow: hidden;">
+<div id="dummyNavbar"></div>
+<div class="sidebar">
+<div class="keys" id="languageKeys">
+{% for entry in locale_strings %}
+<div class="entry cities" data-translation-key="{{ entry.getKey }}" onclick="loadDocumentation('{{ entry.getKey }}');" id="{{ entry.getKey }}entryentryentry">{{ entry.getKey }}</div>
+{% endfor %}
+</div>
+</div>
+<div id="documentationPanel">
+<div id="documentationWrapper">
+<div style="text-align: center;">
+Locale carregada: {{ localeId }}
+</div>
+</div>
+</div>
+<div id="hiddenDocs">
+{% for entry in locale_strings %}
+<div id="{{ entry.getKey }}">
+<div class="methodName">{{ entry.getKey }}</div>
+<textarea id="{{ entry.getKey }}textareatextareatextarea" data-translation-key="{{ entry.getKey }}" class="{{ entry.getKey }}" oninput="updateStuff(this)" rows="8" cols="100" style="height: 90%;">
+{{ entry.getValue }}
+</textarea>
+<b>Original</b>
+<textarea rows="8" cols="100" style="height: 90%;" disabled>
+{{ original_strings[entry.getKey] }}
+</textarea>
+<b>Markdown</b>
+<div id="{{ entry.getKey }}markdown">
+</div>
+<script>
+html = converter.makeHtml($("#{{ entry.getKey }}textareatextareatextarea").val());
+$("#{{ entry.getKey }}markdown").html(html);
+</script>
+</div>
+{% endfor %}
+<div id="generatedJson">
+<pre id="json">
+Deu ruim!
+</pre>
+</div>
+</div>
+</div>
+<style>
+.entry {
+    padding: 5px;
+	font-size: 0.8em;
+	cursor:pointer
+}
+.cities {
+    color: rgb(114, 118, 125);
+    font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 600;
+}
+
+.sidebar {
+height: 100%;
+width: 25%;
+overflow: auto;
+background-color: rgb(243, 243, 244);
+color: rgb(114, 118, 125);
+font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;
+font-weight: 600;
+float: left;
+}
+
+.keys {
+height: 90%;
+overflow: auto;
+}
+
+.optionButtons {
+height: 10%;
+}
+.methodName {
+font-size: 1.5em;
+line-height: 1.5em;
+}
+
+#rightBar {
+width: 70%;
+}
+
+#documentationWrapper {
+padding: 1%;
+}
+
+#documentationPanel {
+width: 75%;
+float: right;
+color: #586069;
+font-size: 14px;
+font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+line-height: 1.35em;
+height: 100%;
+overflow: auto;
+}
+
+#hiddenDocs {
+display: none;
+}
+
+.needsTranslation {
+background-color: #ffaeae;
+}
+
+.needsTranslation:after {
+content: " - Necessita de tradução! 📚";
+}
+</style>
+<form id="upload-json-form" method="post" enctype="multipart/form-data">
+<input id="file-input" type="file" name="uploaded-json" style="display: none;" accept=".json"/>
+</form>
+<script>
+function loadJson() {
+    $('#file-input').trigger('click');
+}
+
+document.getElementById("file-input").onchange = function() {
+    document.getElementById("upload-json-form").submit();
+};
+
+$('#searchInput').on('input', function() {
+    // do something
+	var elements = $(this).children(".cities"); 
+	var searchText = $(this).val().toLowerCase();
+	$(".cities").each(function() {
+		var translationKey = $(this).data("translation-key");
+		
+		if (translationKey.toLowerCase().indexOf(searchText) != -1){
+			$(this).removeClass("totallyHidden");
+		} else {
+			$(this).addClass("totallyHidden");
+		}
+	});
+});
+
+var originalLocales = {{ original_strings_as_json | raw }};
+
+var localeId = "{{ localeId }}";
+
+console.log(originalLocales)
+function loadDocumentation(name) {
+$('#documentationWrapper').fadeOut(400, function() {
+    $('#documentationWrapper').html(document.getElementById(name).innerHTML);
+	var elements = document.querySelectorAll('textarea[data-translation-key]');
+	for (i in elements) {
+		try {
+			elements[i].textContent = currentLocale[elements[i].getAttribute("data-translation-key")]
+		} catch (err) {}
+	}
+    $('#documentationWrapper').fadeIn(400);
+});
+}
+
+var currentLocale = {}
+
+var elements = document.querySelectorAll('textarea[data-translation-key]');
+for (i in elements) {
+try {
+currentLocale[elements[i].getAttribute("data-translation-key")] = elements[i].value;
+updateStuff(elements[i]);
+} catch (err) {}
+}
+
+console.log(currentLocale);
+
+function generateJson() {
+loadDocumentation("generatedJson");
+$( "#json" ).text(JSON.stringify(currentLocale, null, 2))
+}
+
+function downloadJson() {
+var a = window.document.createElement('a');
+a.href = window.URL.createObjectURL(new Blob([JSON.stringify(currentLocale, null, 2)], {type: 'text/json'}));
+a.download = localeId + '.json';
+
+// Append anchor to body.
+document.body.appendChild(a);
+a.click();
+
+// Remove anchor from body
+document.body.removeChild(a);
+}
+
+function createNewLanguage() {
+var newLocaleName = prompt("Nome da nova linguagem", "loritta_is_cute");
+localeId = newLocaleName;
+var elements = document.querySelectorAll('textarea[data-translation-key]');
+for (i in elements) {
+try {
+currentLocale[elements[i].getAttribute("data-translation-key")] = elements[i].value;
+updateStuff(elements[i]);
+} catch (err) {}
+}
+}
+
+function updateStuff(updated) {
+	var transKey = updated.getAttribute("data-translation-key")
+	var newString = updated.value
+	html = converter.makeHtml(newString);
+	$("#" + transKey + "markdown").html(html);
+	currentLocale[transKey] = newString;
+	if (localeId != "default") {
+		if (originalLocales[transKey] == newString) {
+			$("#" + transKey + "entryentryentry").addClass("needsTranslation");
+		} else {
+			$("#" + transKey + "entryentryentry").removeClass("needsTranslation");
+		}
+	}
+}
+
+function showOnlyNonTranslated() {
+	$(".cities").each(function() {		
+		if ($(this).hasClass("needsTranslation")) {
+			$(this).removeClass("totallyHidden");
+		} else {
+			$(this).addClass("totallyHidden");
+		}
+	});
+}
+
+function showAll() {
+	$(".cities").each(function() {		
+		$(this).removeClass("totallyHidden");
+	});
+}
+
+function generateNewKey() {
+var text = prompt("Nome da nova chave", "HELLOWORLD_HOWDY");
+console.log("Gerando nova key " + text + "...");
+currentLocale[text] = "Olá mundo!";
+
+$("#hiddenDocs")
+.append(
+    $("<div id='" + text + "'><div class='methodName'>" + text + "</div>")
+    .append(
+        $("<textarea data-translation-key=\"" + text + "\" class=\"" + text + "\" oninput=\"updateStuff(this)\" rows=\"8\" cols=\"100\" style=\"height: 90%;\">Olá mundo!</textarea><b>Markdown</b><div id=\"" + text + "markdown\"></div>")
+    )
+);
+
+$("#languageKeys")
+.append(
+$("<div class=\"entry cities\" onclick=\"loadDocumentation('" + text + "');\">" + text + "</div>")
+)
+
+loadDocumentation(text);
+}
+
+function saveJsonInServer() {
+  // construct an HTTP request
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "{{ websiteUrl }}translation/{{ localeId }}/save", true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send(JSON.stringify(currentLocale, null, 2));
+
+  xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			alert("Adicionado no servidor ~ " + xhr.responseText);
+		}
+	}
+}
+
+$("#dummyNavbar").css("height", $("#myTopnav").height() + "px");
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+	var element = $("#myTopnav");
+	if (!element.hasClass("responsive")) {
+		element.addClass("responsive")
+	} else {
+	element.removeClass("responsive")
+	}
+}
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function toggleDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+</script>
+{% endblock %}

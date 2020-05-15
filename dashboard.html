@@ -1,0 +1,33 @@
+{% extends 'profile_dashboard.html' %}
+{% block rightSidebarContents %}
+    {% if userGuilds|length == 0 %}
+    <h1>¯\_(ツ)_/¯</h1>
+    <h2>{{ DASHBOARD_NoServerFound }}</h2>
+    {{ DASHBOARD_TryLoggingIn|raw }}
+    {% else %}
+    <p>Antes de começar, leia as <a href="{{ websiteUrl }}guidelines">diretrizes de comunidades da Loritta</a>!</p>
+    <div id="choose-your-server" class="pure-g vertically-centered-content" style="text-align: center;">
+        {% for guild in userGuilds %}
+        <div class="pure-u-1 pure-u-md-1-2">
+        <div class="server-sample server-normal">
+        <div class="server-sample-upper">
+        <img class="server-sample-icon" src="{% if guild.icon|length != 0 %}https://cdn.discordapp.com/icons/{{ guild.id }}/{{ guild.icon }}{% else %}{{ websiteUrl }}assets/img/unknown.png{% endif %}">
+        <div style="display: flex;
+            justify-content: space-between;
+            text-align: left;
+            align-items: center; height: 48px; padding-left: 22px;">
+            {% set userPermissionLevel = userPermissionLevels[guild] %}
+        <div class="server-info"><div class="server-name">{{ guild.name }}</div><div class="server-author">{% if userPermissionLevel.name == "OWNER" %}{{ DASHBOARD_OWNER }}{% elseif userPermissionLevel.name == "ADMINISTRATOR" %}{{ DASHBOARD_ADMINISTRATOR }}{% else %}{{ DASHBOARD_MANAGER }}{% endif %}</div></div>
+        {# {% if joinedServers[guild] == true %} #}
+        <a style="color: white;" href="{{ websiteUrl }}guild/{{ guild.id }}/configure/"><div class="server-button"><div class="discord-logo"><i class="fab fa-discord"></i></div><div class="click-here">{{ DASHBOARD_MANAGE_SERVER }}</div></div></a>
+        {# {% else %}
+        <a style="color: white;" href="https://discordapp.com/oauth2/authorize?&client_id={{ clientId }}&scope=bot&permissions=2097176631&guild_id={{ guild.getId }}&response_type=code&redirect_uri={{ websiteUrl }}dashboard"><div class="server-button"><div class="discord-logo"><i class="fas fa-plus"></i></div><div class="click-here">{{ DASHBOARD_ADD_LORITTA }}</div></div></a>
+        {% endif %} #}
+        </div></div>
+        <div class="server-sample-bottom"></div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}

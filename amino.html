@@ -1,0 +1,349 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.aminoConfig %}
+<div class="category-name">
+Amino & Loritta
+</div>
+{{ generateCheckbox(2, "fixAminoImages", DASHBOARD_TransformAminoImages, "", config.fixAminoImages, true) }}
+<hr>
+{{ generateCheckbox(3, "syncAmino", DASHBOARD_SyncAminoCommunities, "", config.syncAmino, true) }}
+<hr>
+<div class="category-name">
+{{ DASHBOARD_AminoCommunities }}
+</div>
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-3-4">
+<div id="communityTitle" class="toggleSubText">
+Alguma coisa super topperson aqui
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-1-4">
+<button onclick="addCommunity()" style="float: right;" class="button-discord button-discord-info pure-button">{{ DASHBOARD_AddCommunity }}</button>
+</div>
+</div>
+<hr>
+<div id="amino-communities">
+{% for community in config.aminos %}
+<div id="{{ community.communityId }}" class="amino-community" data-repost-id="{{ community.repostToChannelId }}" data-community-id="{{ community.communityId }}" data-community-url="{{ community.inviteUrl }}">
+<div class="discord-generic-entry">
+<img class="amino-small-image" style="width: 6%; height: auto; border-radius: 999999px; float: left;">
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-18-24">
+<div style="margin-left: 10px; margin-right: 10px;">
+<div class="amino-title entry-title" style="font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;">...</div>
+<div class="amino-channel toggleSubText">...</div>
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-6-24 vertically-centered-content">
+<button class="button-discord button-discord-edit pure-button" style="margin-right: 8px; min-width: 0px;" onclick="deleteCommunity('{{ community.communityId }}')"><i class="fas fa-trash" aria-hidden="true"></i></button>
+<button class="button-discord button-discord-edit pure-button" onclick="editCommunity('{{ community.communityId }}')">{{ DASHBOARD_EditButton }}</button>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</hr>
+</div>
+<hr>
+<button onclick="transformCommunitiesToJson()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<div class="totallyHidden">		
+<div id="amino-community-template" class="amino-community">
+<div class="discord-generic-entry">
+<img class="amino-small-image" style="width: 6%; height: auto; border-radius: 999999px; float: left;">
+<div class="pure-g">
+<div class="pure-u-1 pure-u-md-18-24">
+<div style="margin-left: 10px; margin-right: 10px;">
+<div class="amino-title entry-title" style="font-family: Whitney,Helvetica Neue,Helvetica,Arial,sans-serif;">A Loritta é muito fofa! <3</div>
+<div class="amino-channel toggleSubText">eu te moido</div>
+</div>
+</div>
+<div class="pure-u-1 pure-u-md-6-24 vertically-centered-content">
+<button class="amino-delete button-discord button-discord-edit pure-button" style="margin-right: 8px; min-width: 0px;"><i class="fas fa-trash" aria-hidden="true"></i></button>
+<button class="amino-edit button-discord button-discord-edit pure-button">{{ DASHBOARD_EditButton }}</button>
+</div>
+</div>
+</div>
+</div>
+<div class="tingle-demo tingle-demo-big">
+<div class="test">
+<div class="category-name">{{ DASHBOARD_AddCommunity }}</div>
+	<div style="width: 25%">
+		<img style="width: 100%; height: auto; float: left; border-radius: 999999px;" class="community-icon" src="https://i.imgur.com/s4dTtBy.jpg"></img>
+	</div>
+	<div style="width: 73%; float: right;">
+		<div class="flavourText">{{ DASHBOARD_CommunityLink }}</div> <div class="community-error flavourText totallyHidden" style="color: #f04747;">{{ DASHBOARD_CommunityError }}</div>
+		<input style="width: 100%;" class="community-invite-url" data-internal-id="inviteUrl" placeholder="http://aminoapps.com/c/undertale-brasil/" type="text">
+		<div class="blurSection community-info">
+		<div class="flavourText">{{ DASHBOARD_CommunityTitle }}</div>
+		<div class="toggleSubText community-title">A Loritta é muito fofa! <3</div>
+		<div class="flavourText">{{ DASHBOARD_CommunityDescription }}</div>
+		<div class="toggleSubText community-description">eu te moido :3</div>
+		<div class="flavourText">{{ DASHBOARD_CommunityChannel }}</div>
+		<select class="community-channel-id">
+			{% for textChannel in guild.getTextChannels %}
+			<option value="{{ textChannel.getId }}">{{ textChannel.getName }}</option>
+			{% endfor %}
+		  </select>
+		</div>
+	</div>
+	<br style="clear: both" /> <!-- So dirty! -->
+</div>
+</div>
+<div class="tingle-demo delete-community-modal">
+<div class="test">
+<div class="category-name">{{ DASHBOARD_DeleteCommunity }}</div>
+	{{ DASHBOARD_DeleteAreYouSure }}
+</div>
+</div>
+</div>
+<script data-cfasync="false">
+var typingTimer;
+var editingId = 0;
+var currentId = 0;
+var currentModal;
+var modalElement;
+var canSave = false;
+
+function transformCommunitiesToJson() {
+	var configAttr = {"type":"{{ saveType }}"}
+	
+	$("body").find("[data-internal-name]").each(function( index ) {
+		var value = $(this).val();
+		if ($(this).attr("type") == "checkbox") {
+			value = $(this).is(':checked')
+		}
+		configAttr[$(this).data("internal-name")] = value
+	});
+
+	var communities = [];
+	$(".amino-community").each(function( index ) {
+		var community = {};
+		
+		if ($(this).attr("id") !== "amino-community-template") {
+			community["repostToChannelId"] = $(this).attr("data-repost-id");
+			community["inviteUrl"] = $(this).attr("data-community-url");
+			community["communityId"] = $(this).attr("data-community-id");
+			communities.push(community);
+		}
+	});
+	
+	configAttr["communities"] = communities;
+	
+	console.log(configAttr);
+	
+	var json = JSON.stringify(configAttr);
+	
+	sendJsonToServer(json);
+}
+
+function deleteCommunity(id) {
+	var modalBigContent = new tingle.modal({
+        closeMethods: [],
+        footer: true
+		});
+	currentModal = modalBigContent;
+		
+    modalBigContent.addFooterBtn('Deletar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		$("#" + id).remove()
+		currentModal.close();
+    });
+
+	modalBigContent.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		currentModal.close();
+	});
+	
+	var cloned = $(".delete-community-modal").clone()
+
+	cloned.children().attr("data-community-data-id", id);
+	
+    modalBigContent.setContent(cloned.html());
+	modalBigContent.open();
+}
+
+function addCommunity() {
+	canSave = false;
+	currentId = editingId;
+	
+    var modalBigContent = new tingle.modal({
+        closeMethods: [],
+        footer: true
+		});
+	currentModal = modalBigContent;
+		
+    modalBigContent.addFooterBtn('Salvar', "button-discord button-discord-info pure-button button-discord-modal", function(){	
+		if (!canSave) { return; }	
+		var title = $("#community-" + currentId + " .community-title").text()
+		var description = $("#community-" + currentId + " .community-description").text()
+		var iconUrl = $("#community-" + currentId + " .community-icon").attr("src")
+		
+		var url = $("#community-" + currentId + " .community-invite-url").val()
+
+		var cloned = $("#amino-community-template").clone()
+		cloned.attr("data-repost-id", $("#community-" + currentId + " .community-channel-id").val());
+		cloned.attr("data-community-url", url);
+		cloned.attr("data-community-id", modalElement.attr("data-community-id"));
+		cloned.find(".amino-small-image").attr("src", iconUrl)
+		cloned.find(".amino-title").text(title)
+		cloned.find(".amino-channel").text("#" + $("#community-" + currentId + " .community-channel-id").find('option:selected').text())
+		cloned.find(".amino-edit").attr("onclick", "editCommunity('" + modalElement.attr("data-community-id") + "');");
+		cloned.find(".amino-delete").attr("onclick", "deleteCommunity('" + modalElement.attr("data-community-id") + "');");
+		cloned.attr("id", modalElement.attr("data-community-id"))
+		$("#amino-communities").append(cloned);
+		canSave = false;
+		currentModal.close();
+    });
+
+	modalBigContent.addFooterBtn('Cancelar', "button-discord pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		canSave = false;
+		currentModal.close();
+	});
+	
+	var cloned = $(".tingle-demo-big").clone()
+	cloned.children().attr("data-community-data-id", currentId);
+	cloned.children().attr("id", "community-" + currentId);
+	
+    modalBigContent.setContent(cloned.html());
+	modalBigContent.open();
+
+	$("#community-" + currentId + " .community-invite-url").on('input', function() {
+		canSave = false;
+		// do something
+		if (/^(http(s)?):\/\/aminoapps.com\/c\/.+/.test($(this).val())) {
+			$("#community-" + currentId + " .community-info").addClass("blurSection");
+			clearTimeout(typingTimer);
+			typingTimer = setTimeout(doneTyping, 1500);
+		}
+	});
+	modalElement = $("#community-" + currentId);
+	editingId++;
+}
+
+function editCommunity(id) {
+	canSave = false;
+	currentId = editingId;
+	
+    var modalBigContent = new tingle.modal({
+        closeMethods: [],
+        footer: true
+		});
+	currentModal = modalBigContent;
+	
+    modalBigContent.addFooterBtn('Salvar', "button-discord button-discord-info pure-button button-discord-modal", function(){
+		if (!canSave) { return; }
+		var title = $("#community-" + currentId + " .community-title").text()
+		var description = $("#community-" + currentId + " .community-description").text()
+		var iconUrl = $("#community-" + currentId + " .community-icon").attr("src")
+		
+		var url = $("#community-" + currentId + " .community-invite-url").val()
+
+		var cloned = $("#" + id)
+		cloned.attr("data-repost-id", $("#community-" + currentId + " .community-channel-id").val());
+		cloned.attr("data-community-url", url);
+		cloned.attr("data-community-id", modalElement.attr("data-community-id"));
+		cloned.find(".amino-small-image").attr("src", iconUrl)
+		cloned.find(".amino-title").text(title)
+		cloned.find(".amino-channel").text("#" + $("#community-" + currentId + " .community-channel-id").find('option:selected').text())
+		cloned.find(".amino-edit").attr("onclick", "editCommunity('" + modalElement.attr("data-community-id") + "');");
+		cloned.attr("id", modalElement.attr("data-community-id"))
+		canSave = false;
+		currentModal.close();
+    });
+
+	modalBigContent.addFooterBtn('Cancelar', "button-discord button-discord-info pure-button button-discord-modal button-discord-modal-secondary-action", function(){
+		canSave = false;
+		currentModal.close();
+	});
+	
+	var cloned = $(".tingle-demo-big").clone()
+	cloned.find(".category-name").text("Editar Comunidade");
+	cloned.children().attr("data-community-data-id", currentId);
+	cloned.children().attr("id", "community-" + currentId);
+	
+    modalBigContent.setContent(cloned.html());
+	modalBigContent.open();
+
+	$("#community-" + currentId + " .community-invite-url").on('input', function() {
+		// do something
+		if (/^(http(s)?):\/\/aminoapps.com\/c\/.+/.test($(this).val())) {
+			canSave = false;
+			$("#community-" + currentId + " .community-info").addClass("blurSection");
+			clearTimeout(typingTimer);
+			typingTimer = setTimeout(doneTyping, 1500);
+		} else {
+			console.log("No!");
+		}
+	});
+	modalElement = $("#community-" + currentId);
+	var ogEntry = $("#" + id);
+	// data-repost-id="{ community.repostToChannelId }" data-community-id="{ community.communityId }" data-community-url="{ community.inviteUrl }"
+	getCommunityInfo(ogEntry.attr("data-community-url"))
+	modalElement.find(".community-invite-url").val(ogEntry.attr("data-community-url"))
+	modalElement.find(".community-channel-id").val(ogEntry.attr("data-repost-id")).change();
+	editingId++;
+}
+
+function downloadInfoAndApply(url, channelName, element) {
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "{{ websiteUrl }}api/v1/get_community_info?aminoInviteLink=" + encodeURI(url), true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	
+	xhr.send();
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			var json = JSON.parse(xhr.responseText)
+			
+			if (json["error"] != null) {
+				return;
+			}
+			
+			element.find(".amino-small-image").attr("src", json["iconUrl"])
+			element.find(".amino-title").text(json["title"])
+			element.find(".amino-channel").text(channelName)
+		}
+	}
+
+}
+//user is "finished typing," do something
+function doneTyping() {
+  getCommunityInfo($("#community-" + currentId + " .community-invite-url").val())
+}
+
+function getCommunityInfo(url) {
+	canSave = false;
+	$("#community-" + currentId + " .community-info").addClass("blurSection");
+	modalElement.find(".community-error").addClass("totallyHidden");
+	console.log("{{ websiteUrl }}api/v1/get_community_info?aminoInviteLink=" + encodeURI(url))
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "{{ websiteUrl }}api/v1/get_community_info?aminoInviteLink=" + encodeURI(url), true);
+	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	
+	xhr.send();
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			var json = JSON.parse(xhr.responseText)
+			
+			if (json["error"] != null) {
+				modalElement.find(".community-error").removeClass("totallyHidden");
+				canSave = false;
+				return;
+			}
+			
+			modalElement.find(".community-info").removeClass("blurSection");
+			modalElement.find(".community-info").addClass("noBlur");
+			
+			modalElement.find(".community-title").text(json["title"])
+			modalElement.find(".community-description").text(json["description"])
+			modalElement.find(".community-icon").attr("src", json["iconUrl"])
+			modalElement.attr("data-community-id", json["communityId"]);
+			canSave = true;
+		}
+	}
+}
+{% for community in config.aminos %}
+downloadInfoAndApply("{{ community.inviteUrl }}", "#{{ guild.getTextChannelById(community.repostToChannelId) }}", $("#{{ community.communityId }}"));
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,16 @@
+// Usado para deixar o footer láááááá em baixo
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1;
+}
+
+// O footer
+footer {
+    background-color: #29a6fe;
+    box-shadow: 0 0 15px rgba(0,0,0,.3);
+}

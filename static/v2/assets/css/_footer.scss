@@ -1,0 +1,82 @@
+// Usado para deixar o footer láááááá em baixo
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#content {
+    flex: 1;
+}
+
+// O footer
+footer {
+    background-color: #29a6fe;
+    color: white;
+    padding: 16px 72px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+    h1, h2, h3 {
+        color: white;
+        margin: 0;
+    }
+
+    a {
+        color: white;
+        opacity: 0.8;
+    }
+
+    .social-networks {
+        text-align: center;
+        font-size: 3em;
+
+        i {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+    }
+
+    .navigation-footer {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+
+        h1, h2, h3 {
+            font-size: 1.25em;
+        }
+
+        .section-entry {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .call-to-action-footer {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+        .lets-transform {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .add-cta {
+            margin-top: 1.5em;
+        }
+
+        @media (max-width: 600px) {
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        h3 {
+            font-size: 1.1em;
+        }
+    }
+}

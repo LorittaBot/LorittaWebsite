@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+Dashboard
+{% endblock %}
+{% block wrapper %}
+<div class="oddWrapper">
+<!-- Loritta Teste -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="6236021665"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="contentWrapper" style="text-align: center; width: 80%;">
+<div class="sectionHeader">
+{{ DASHBOARD_CHOOSE_A_SERVER }}
+</div>
+{% if userGuilds|length == 0 %}
+<h1>¯\_(ツ)_/¯</h1>
+<h2>{{ DASHBOARD_NoServerFound }}</h2>
+{{ DASHBOARD_TryLoggingIn|raw }}
+{% else %}
+<p>Antes de começar, leia as <a href="{{ websiteUrl }}guidelines">diretrizes de comunidades da Loritta</a>!</p>
+<div id="choose-your-server" class="pure-g vertically-centered-content" style="text-align: center;">
+    {% for guild in userGuilds %}
+	<div class="pure-u-1 pure-u-md-1-2">
+	<div class="server-sample server-normal">
+	<div class="server-sample-upper">
+	<img class="server-sample-icon" src="{% if guild.icon|length != 0 %}https://cdn.discordapp.com/icons/{{ guild.id }}/{{ guild.icon }}{% else %}{{ websiteUrl }}assets/img/unknown.png{% endif %}">
+	<div style="display: flex;
+		justify-content: space-between;
+		text-align: left;
+		align-items: center; height: 48px; padding-left: 22px;">
+		{% set userPermissionLevel = userPermissionLevels[guild] %}
+	<div class="server-info"><div class="server-name">{{ guild.name }}</div><div class="server-author">{% if userPermissionLevel.name == "OWNER" %}{{ DASHBOARD_OWNER }}{% elseif userPermissionLevel.name == "ADMINISTRATOR" %}{{ DASHBOARD_ADMINISTRATOR }}{% else %}{{ DASHBOARD_MANAGER }}{% endif %}</div></div>
+	{# {% if joinedServers[guild] == true %} #}
+	<a style="color: white;" href="{{ websiteUrl }}guild/{{ guild.id }}/configure/"><div class="server-button"><div class="discord-logo"><i class="fab fa-discord"></i></div><div class="click-here">{{ DASHBOARD_MANAGE_SERVER }}</div></div></a>
+	{# {% else %}
+	<a style="color: white;" href="https://discordapp.com/oauth2/authorize?&client_id={{ clientId }}&scope=bot&permissions=2097176631&guild_id={{ guild.getId }}&response_type=code&redirect_uri={{ websiteUrl }}dashboard"><div class="server-button"><div class="discord-logo"><i class="fas fa-plus"></i></div><div class="click-here">{{ DASHBOARD_ADD_LORITTA }}</div></div></a>
+	{% endif %} #}
+	</div></div>
+	<div class="server-sample-bottom"></div>
+	</div>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+</div>
+</div>
+<div class="evenWrapper">
+<div class="contentWrapper" id="privacy-stuff" style="text-align: center;">
+<!-- Loritta Dashboard Privacy -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="2743900184"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div class="sectionHeader">
+{{ DASHBOARD_Privacy }}
+</div>
+{% macro generateCheckbox(index, internalName, mainText, subText, isEnabled, needsToBeSaved) %}
+<div class="toggleable-wrapper">
+    <div class="information">
+		{{ mainText }}
+
+		{% if subText|length > 0 %}<div class="sub-text">{{ subText | raw }}</div>{% endif %}
+	</div>
+	<label class="switch" for="cmn-toggle-{{ index }}">
+		<input type="checkbox" data-internal-name="{{ internalName }}" value="true" {% if needsToBeSaved == true %}data-send-on-save="true"{% endif %} {% if isEnabled == true %}checked{% endif %} id="cmn-toggle-{{ index }}" type="checkbox" />
+		<div class="slider round"></div>
+	</label>
+</div>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endmacro %}
+<hr>
+{{ generateCheckbox(1, 
+"hideSharedServers", 
+DASHBOARD_HideSharedServers, 
+"", 
+settings.hideSharedServers, 
+true) }}
+<hr>
+{{ generateCheckbox(2, 
+"hidePreviousUsernames", 
+DASHBOARD_HidePreviousUsernames, 
+"", 
+settings.hidePreviousUsernames, 
+true) }}
+<hr>
+<a class="button-discord button-discord-success pure-button" onclick="saveDashboardStuff()">{{ DASHBOARD_SAVE }}</a></div>
+<script>
+function saveDashboardStuff() {
+		var hideSharedServers = $("#privacy-stuff #cmn-toggle-1").is(":checked")
+		var hidePreviousUsernames = $("#privacy-stuff #cmn-toggle-2").is(":checked")
+		
+		$.post("{{ loriUrl }}dashboard", {
+			"hideSharedServers" : hideSharedServers,
+			"hidePreviousUsernames" : hidePreviousUsernames
+		}, function(data) {
+        });
+}
+</script>
+</div>
+</div>
+{% endblock %}

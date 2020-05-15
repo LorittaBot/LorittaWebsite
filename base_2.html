@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<head>
+<title>Loritta</title>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"></link>
+<link rel="stylesheet" href="{{ websiteUrl }}assets/css/style.css"></link>
+<link rel="stylesheet" href="{{ websiteUrl }}assets/css/normalize.css"></link>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script
+			  src="https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous"></script>
+<script src="{{ websiteUrl }}assets/js/jquery.firefly-0.7.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
+</head>
+<body class="light">
+{% block body %}
+<div id="container">
+<div id="header" style="overflow: hidden;">
+<img class="is-invisible" style="bottom: 0; left: 3.5vw; height: 92.5vh; z-index: 1;" id="loritta" src="{{ websiteUrl }}assets/img/loritta.png"></img>
+<img style="width: 0px; height: 0px;" src="{{ websiteUrl }}assets/img/loritta_blinking.png"></img>
+  <div id="rightSideText" style="position: absolute; right: 3.5vw; transform: translateY(-50%); top: 50%; text-align: right;">
+  <div style="position: relative;" class="is-invisible" id="animate_myNameIs" style="text-align: center;"><span class="text">Olá, meu nome é</span></div>
+  <div style="position: relative;" class="is-invisible" id="animate_myName" style="text-align: center;"><span style="font-size: 7.5em; color: #00d7ff;" class="text">Loritta</span></div>
+  <div id="animate_subtext" style="position: relative;" class="is-invisible"><span style="font-size: 2em" class="text">Apenas um simples bot para o Discord</span></div>
+  <div class="swingimage" style="text-align: center;"><a class="is-invisible" id="animate_textbutton" href="https://loritta.website/auth"><button style="box-shadow: 0px 5px 0px #a407cc, 0 0px 30px #000" class="button_normal autoSubmit">Me adicione! 🙋</button></div></a></div>
+
+<div class="arrowBottom arrowAnimated arrowBounce">
+  <img width="40" height="40" alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yOTMuNzUxLDQ1NS44NjhjLTIwLjE4MSwyMC4xNzktNTMuMTY1LDE5LjkxMy03My42NzMtMC41OTVsMCwwYy0yMC41MDgtMjAuNTA4LTIwLjc3My01My40OTMtMC41OTQtNzMuNjcyDQoJbDE4OS45OTktMTkwYzIwLjE3OC0yMC4xNzgsNTMuMTY0LTE5LjkxMyw3My42NzIsMC41OTVsMCwwYzIwLjUwOCwyMC41MDksMjAuNzcyLDUzLjQ5MiwwLjU5NSw3My42NzFMMjkzLjc1MSw0NTUuODY4eiIvPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTIyMC4yNDksNDU1Ljg2OGMyMC4xOCwyMC4xNzksNTMuMTY0LDE5LjkxMyw3My42NzItMC41OTVsMCwwYzIwLjUwOS0yMC41MDgsMjAuNzc0LTUzLjQ5MywwLjU5Ni03My42NzINCglsLTE5MC0xOTBjLTIwLjE3OC0yMC4xNzgtNTMuMTY0LTE5LjkxMy03My42NzEsMC41OTVsMCwwYy0yMC41MDgsMjAuNTA5LTIwLjc3Miw1My40OTItMC41OTUsNzMuNjcxTDIyMC4yNDksNDU1Ljg2OHoiLz4NCjwvc3ZnPg0K" />
+</div>
+</div>
+<div id="belowHeader">
+<div class="topnav" id="myTopnav">
+<div class="topnavWrapper">
+<div class="topnavLeft">
+  <a style="font-family: 'Pacifico', cursive; text-transform: none;">Loritta</a>
+  <a href="{{ websiteUrl }}"><i class="fa fa-home" aria-hidden="true"></i> {{ WEBSITE_HOME }}</a>
+  <a id="themeChanger" onclick="changeTheme()">🌃</a>
+</div>
+<div class="topnavRight">
+  <div class="rightEntries">
+  {% if discordAuth != null %}
+  {% set userIdentification = discordAuth.getUserIdentification %}
+  <a style="position: relative;"><span style="width: 0; height: 0; position: relative;"><img src="https://cdn.discordapp.com/avatars/{{ userIdentification.id }}/{{ userIdentification.avatar }}.png" style="height: 40px; border-radius: 99999px; bottom: -8px; position: absolute;"><img src="https://cdn.discordapp.com/avatars/{{ userIdentification.id }}/{{ userIdentification.avatar }}.png" style="height: 0px; width: 40px; border-radius: 99999px; visibility: hidden;"></span> {{ userIdentification.username }}</a>
+  {% else %}
+  <a href="{{ websiteUrl }}dashboard"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+  {% endif %}
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+</div>
+</div>
+<div id="dummyNavbar">
+</div>
+<div id="wrapper">
+{% block beforeLeftColumn %}
+<div id="leftColumn">
+{% block leftColumn %}
+<div class="content">
+<div class="smTitleBar">
+Ih Serjão Sujou!
+</div>
+<div class="insideContent">
+Alguma coisa deu extremamente errada!
+</div>
+</div>
+</div>
+{% endblock %}
+{% endblock %}
+{% block beforeRightColumn %}
+<div id="rightColumn">
+{% block rightColumn %}
+{% endblock %}
+</div>
+{% endblock %}
+</div>
+<br style="clear:both" /> <!-- So dirty! -->
+</div>
+<script>
+function createCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name,"",-1);
+}
+
+function applyChanges(obj, classes, delay) {
+	setTimeout(function(){
+		obj.removeClass("is-invisible");
+		obj.addClass("animated " + classes);
+	}, delay);
+}
+
+function unblink() {
+	$("#loritta").attr("src", "{{ websiteUrl }}assets/img/loritta.png");
+	setTimeout(function(){
+		blink()
+	}, 10000);
+}
+
+function blink() {
+	$("#loritta").attr("src", "{{ websiteUrl }}assets/img/loritta_blinking.png");
+	setTimeout(function(){
+		unblink()
+	}, 140);
+}
+
+$(document).ready(function () {
+
+  $('#loritta').click(function(e) {
+    var offset = $(this).offset();
+	var x = (e.pageX - offset.left) / $(this).width()
+	var y = (e.pageY - offset.top) / $(this).height()
+	
+	if (x >= 0.6 && y >= 0.36 && 0.7 >= x && 0.41 >= y) {
+		$("#loritta").attr("src", "{{ websiteUrl }}assets/img/loritta_blush.png");
+	}
+  });
+	
+applyChanges($("#animate_myNameIs"), "fadeInRight", 1000)
+applyChanges($("#animate_myName"), "fadeInRight", 1650)
+applyChanges($("#loritta"), "fadeInLeft", 2350)
+applyChanges($("#animate_subtext"), "fadeInRight", 3200)
+applyChanges($("#animate_textbutton"), "fadeInRight", 3300)
+unblink();
+});
+
+    $(function(){
+        var y = 0;
+        setInterval(function(){
+            y -=1;
+            $('#header').css('background-position', '0' + 'px ' + y + 'px');
+        }, 60);
+    })
+	
+$.firefly({
+    color: '#fff',
+    minPixel: 1,
+    maxPixel: 3,
+    total : 65,
+	zIndex : -999,
+    on: '#header'
+});
+
+$(document).ready(function() {
+  //change the integers below to match the height of your upper dive, which I called
+  //banner.  Just add a 1 to the last number.  console.log($(window).scrollTop())
+  //to figure out what the scroll position is when exactly you want to fix the nav
+  //bar or div or whatever.  I stuck in the console.log for you.  Just remove when
+  //you know the position.
+  $(window).scroll(function () { 
+    if ($(window).scrollTop() > $("#header").height()) {
+      $('#myTopnav').addClass('navbar-fixed-top');
+	  $('#dummyNavbar').css("height", $('#myTopnav').height())
+    }
+
+    if ($(window).scrollTop() < $("#header").height() + 1) {
+      $('#myTopnav').removeClass('navbar-fixed-top');
+	  $('#dummyNavbar').css("height", 0)
+    }
+  });
+});
+
+if (readCookie("darkTheme") == 'true') {
+    document.body.classList.remove('light');
+	document.body.classList.add('dark');
+}
+
+function changeTheme() {
+if(document.body.classList.contains('dark')) {
+	document.body.classList.remove('dark');
+	document.body.classList.add('light');
+	createCookie("darkTheme", false)
+}else{
+    document.body.classList.remove('light');
+	document.body.classList.add('dark');
+	createCookie("darkTheme", true)
+}
+}
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function toggleDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+<style>
+@media screen and (max-width: 830px) {
+	#loritta {
+		visibility: hidden !important;
+	}
+	
+	#rightSideText {
+		text-align: center !important;
+		right: 0 !important;
+		width: 100%;
+	}
+}
+</style>
+{% endblock %}
+<link async href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> 
+<link async href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"> 
+<link async href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<link async href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<script async src="https://use.fontawesome.com/055e611427.js"></script>
+</body>

@@ -1,0 +1,52 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+{% set config = serverConfig.autoroleConfig %}
+<div class="category-name">
+Autorole
+</div>
+<div style="text-align: center;">
+  <img src="{{ websiteUrl }}assets/img/loritta_autorole.png" style="border-radius: 7px; height: 300px;">
+<h2>Autorole</h2>
+<p>Autorole serve para você dar cargos para novos membros do seu servidor automaticamente quando eles entrarem no servidor. Chega de dar cargos para novatos manualmente!</p>
+<div id="requiresPermission" class="entry-error flavourText" style="color: #f04747;"></div>
+<hr>
+<!-- Loritta Dashboard 1 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9989170954243288"
+     data-ad-slot="2080512288"
+     data-ad-format="auto"></ins>
+</div>
+<div id="autoroleConfigurationWrapper">
+<hr>
+{{ generateCheckbox(1, "enabled", DASHBOARD_ACTIVATE_MODULE, "", serverConfig.autoroleConfig.isEnabled, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+<div class="flavourText">{{ WEBSITE_AUTOROLE_GIVE_ROLE_UPON_JOIN }}</div>
+<select style="width: 320px;" name="chooseRole" id="chooseRole">
+</select>
+<style>
+option:disabled {
+    color: #d4d4d4;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+background-color: rgba(79,84,92,.1);
+color: inherit;
+}
+</style>
+<button type="button" id="add-role-button" class="button-success pure-button">{{ WEBSITE_ADD_IT }}</button>
+<div class="toggleSubText">{{ WEBSITE_AUTOROLE_CLICK_TO_REMOVE_ROLE }}</div>
+<table id="roleTable">
+</table>
+<hr>
+{{ generateCheckbox(2, "giveOnlyAfterMessageWasSent", modules_autorole_giveOnlyAfterMessageWasSent_title, modules_autorole_giveOnlyAfterMessageWasSent_subtitle, serverConfig.autoroleConfig.giveOnlyAfterMessageWasSent, true) }}
+<hr>
+<div class="flavourText">{{ modules_autorole_giveRoleAfter }}</div>
+<input type="text" id="give-roles-after" value="{{ serverConfig.autoroleConfig.giveRolesAfter }}" placeholder="0">
+</div>
+</div>
+<hr>
+<button id="save-button" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'configure_server.html' %}
+{% block rightSidebarContents %}
+<div class="category-name">
+Event Log
+</div>
+{{ generateCheckbox(1, "isEnabled", DASHBOARD_ACTIVATE_MODULE, "", serverConfig.eventLogConfig.isEnabled, true) }}
+<hr>
+<div id="hiddenIfDisabled">
+    <div class="flavourText">Canal para anunciar as ações realizadas</div>
+	<select data-send-on-save="true" data-internal-name="eventLogChannelId">
+		{% for textChannel in guild.getTextChannels %}
+		{% if textChannel.canTalk %}
+		<option value="{{ textChannel.getId }}" {% if textChannel.getId == serverConfig.eventLogConfig.eventLogChannelId %}selected="selected"{% endif %}>{{ textChannel.getName }}</option>
+		{% endif %}
+		{% endfor %}
+	  </select>
+<hr>
+{{ generateCheckbox(5, "memberBanned", ADMINP_EVENTLOG_MEMBER_BAN, "", serverConfig.eventLogConfig.memberBanned, true) }}
+<hr>
+{{ generateCheckbox(6, "memberUnbanned", ADMINP_EVENTLOG_MEMBER_UNBAN, "", serverConfig.eventLogConfig.memberUnbanned, true) }}
+<hr>
+{{ generateCheckbox(7, "messageEdit", ADMINP_EVENTLOG_MESSAGE_EDIT, "", serverConfig.eventLogConfig.messageEdit, true) }}
+<hr>
+{{ generateCheckbox(8, "messageDeleted", ADMINP_EVENTLOG_MESSAGE_DELETE, "", serverConfig.eventLogConfig.messageDeleted, true) }}
+<hr>
+{{ generateCheckbox(20, "nicknameChanges", ADMINP_EVENTLOG_SERVER_NICK_CHANGE, "", serverConfig.eventLogConfig.nicknameChanges, true) }}
+<hr>
+{{ generateCheckbox(22, "avatarChanges", ADMINP_EVENTLOG_AVATAR_CHANGE, "", serverConfig.eventLogConfig.avatarChanges, true) }}
+<hr>
+{{ generateCheckbox(24, "voiceChannelJoins", ADMINP_EVENTLOG_VOICE_JOIN, "", serverConfig.eventLogConfig.voiceChannelJoins, true) }}
+<hr>
+{{ generateCheckbox(25, "voiceChannelLeaves", ADMINP_EVENTLOG_VOICE_LEAVE, "", serverConfig.eventLogConfig.voiceChannelLeaves, true) }}
+</div>
+<hr>
+<button onclick="prepareSave()" style="float: right;" class="button-discord button-discord-success pure-button">{{ DASHBOARD_SAVE }}</button>
+<br style="clear: both" /> <!-- So dirty! -->
+<script>
+$("#cmn-toggle-1").click(function(e) {
+	applyBlur()
+});
+
+function applyBlur() {
+  var e = $("#hiddenIfDisabled");
+  if ($('#cmn-toggle-1').is(':checked')) {
+	e.removeClass();
+	e.addClass("noBlur");
+  } else {
+    e.removeClass();
+	e.addClass("blurSection");
+  }
+}
+
+applyBlur();
+</script>
+{% endblock %}
