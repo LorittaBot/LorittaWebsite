@@ -186,7 +186,7 @@ override fun DIV.generateContent(@args) {
                         + "Para apostar na rifa, use `+rifa`!"
                     }
                     p {
-                        + "Você pode casar com a pessoa que você tanto ama com `+casamento`!"
+                        + "Você pode casar com a pessoa que você tanto ama com `+casar`!"
                     }
                     p {
                         + "Envie sonhos para seus amigos e amigas com `+pay`!"
